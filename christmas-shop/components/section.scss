@@ -1,0 +1,90 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.section {
+  background-color: variables.$Primary;
+  background-image: url("../images/bg-snow.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px clamp(8px, calc(8.929vw - 60.578px), 68px);
+  display: flex;
+  justify-content: center;
+
+  &_hero {
+    background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
+    height: 524px;
+    box-sizing: border-box;
+  }
+
+  &_about {
+    color: variables.$Dark;
+  }
+
+  &__content {
+    margin: auto;
+    width: max-content;
+    align-items: center;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &_sm-gap {
+      gap: 12px;
+    }
+  }
+
+  &__caption {
+    font-family: "Allura";
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%; /* 24px */
+    letter-spacing: 5%;
+
+    &_primary {
+      align-self: flex-start;
+      color: variables.$Primary;
+    }
+  }
+
+  &__title {
+    max-width: 426px;
+    font-size: 24px;
+    line-height: 152%; /* 36.48px */
+    letter-spacing: 16%;
+    text-transform: uppercase;
+
+    &_main {
+      text-align: center;
+      font-size: 32px;
+      line-height: 150%;
+      letter-spacing: 18%;
+    }
+  }
+
+  &__button {
+    padding: 20px 32px;
+    background-color: variables.$Dark;
+    font-size: 12px;
+    line-height: 130%; /* 15.6px */
+    letter-spacing: 5%;
+    text-transform: uppercase;
+    border-radius: 20px;
+    color: variables.$Static-White;
+  }
+
+  &__wraper {
+    background-color: variables.$Static-White;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 148%;
+    max-width: 426px;
+  }
+}

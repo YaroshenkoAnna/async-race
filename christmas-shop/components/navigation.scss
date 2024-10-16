@@ -1,0 +1,33 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.navigation {
+  &__list {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  &__item {
+    padding: 12px 20px;
+    border-radius: 12px;
+    list-style: none;
+
+    :active {
+      background-color: variables.$Primary-10;
+      color: variables.$Primary;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navigation__item:hover {
+    background-color: variables.$Primary-10;
+    color: variables.$Primary;
+  }
+}

@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Christmas-shop</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    
-    
-</body>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link
+      rel="shortcut icon"
+      href="images/icons/snowflake.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <a href="#" class="header__logo"
+          ><img
+            src="images/icons/snowflake.svg"
+            alt="snowflake"
+            class="header__logo-image"
+          />
+          <span class="header__logo-title">The Gifts</span>
+        </a>
+        <navigation class="header__navigation navigation">
+          <ul class="navigation__list">
+            <li class="navigation__item">
+              <a href="#" class="navigation__link">gifts</a>
+            </li>
+            <li class="navigation__item">
+              <a href="#about" class="navigation__link">about</a>
+            </li>
+            <li class="navigation__item">
+              <a href="#" class="navigation__link">best</a>
+            </li>
+            <li class="navigation__item">
+              <a href="#" class="navigation__link">contacts</a>
+            </li>
+          </ul>
+        </navigation>
+      </header>
+      <div class="container">
+        <section class="section section_hero">
+          <div class="section__content section__content_sm-gap">
+            <span class="section__caption">Merry Christmas</span>
+            <h1 class="section__title section__title_main">
+              Gift yourself the magic of new possibilities
+            </h1>
+            <button class="section__button">Explore Magical Gifts</button>
+            <span class="section__caption">and Happy New Year</span>
+          </div>
+        </section>
+        <section class="section section_about" id="about">
+          <div class="section__wraper">
+            <div class="section__content">
+              <span class="section__caption section__caption_primary"
+                >About</span
+              >
+              <h2 class="section__title">Unleash your inner superhero!</h2>
+              <p class="section__description">
+                This New Year marks the beginning of your journey to inner
+                harmony and new strengths. We offer unique gifts that will help
+                you improve your life.
+              </p>
+            </div>
+          </div>
+          <img src="images/santa.png" alt="santa" class="section__image" />
+        </section>
+        <section class="section"></section>
+        <section class="section"></section>
+        <section class="section"></section>
+      </div>
+    </div>
+  </body>
 </html>
