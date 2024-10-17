@@ -2,14 +2,11 @@
 @use "../css/mixins.scss";
 
 .section {
-  background-color: variables.$Primary;
   background-image: url("../images/bg-snow.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   padding: 60px clamp(8px, calc(8.929vw - 60.578px), 68px);
-  display: flex;
-  justify-content: center;
 
   &_hero {
     background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
@@ -21,17 +18,26 @@
     color: variables.$Dark;
   }
 
+  &_cta {
+    background-image: url("../images/bg-forest.png"),
+      url("../images/bg-snow.png");
+  }
+
   &__content {
     margin: auto;
     width: max-content;
     align-items: center;
-    padding: 60px 0;
+
     display: flex;
     flex-direction: column;
     gap: 20px;
 
     &_sm-gap {
       gap: 12px;
+    }
+
+    &_padding60 {
+      padding: 60px 0;
     }
   }
 
@@ -75,6 +81,14 @@
   }
 
   &__wraper {
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: variables.$Static-White;
+    overflow: hidden;
+  }
+
+  &__content-wraper {
     background-color: variables.$Static-White;
     padding: 0 60px;
     display: flex;
@@ -86,5 +100,33 @@
     font-weight: 400;
     line-height: 148%;
     max-width: 426px;
+  }
+
+  &__image {
+    border-radius: 20px;
+  }
+
+  &__title-wraper {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  &__slider {
+    align-self: flex-start;
+  }
+
+  &__gallery {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 1276px;
+  }
+}
+
+@include mixins.device(mixins.$xl) {
+  .section {
+    max-width: 632px;
   }
 }

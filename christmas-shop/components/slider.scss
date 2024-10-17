@@ -1,2 +1,56 @@
 @use "../css/variables.scss";
 @use "../css/mixins.scss";
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__wraper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    align-self: flex-start;
+  }
+
+  &__text {
+    font-size: 80px;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  &__image {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+  }
+
+  &__arrows {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    align-self: flex-end;
+  }
+
+  &__arrow {
+    stroke: variables.$Static-White-40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    border: 1px solid variables.$Static-White-40;
+
+    &_active {
+        stroke: variables.$Static-White;
+      border-color: variables.$Static-White;
+    }
+
+    & svg {
+      stroke: inherit;
+    }
+  }
+}

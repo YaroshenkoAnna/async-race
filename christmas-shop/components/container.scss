@@ -3,4 +3,6 @@
 
 .container {
   border-radius: 20px;
+  overflow: hidden;
+  background-color: variables.$Primary;
 }

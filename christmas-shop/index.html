@@ -32,7 +32,7 @@
               <a href="#about" class="navigation__link">about</a>
             </li>
             <li class="navigation__item">
-              <a href="#" class="navigation__link">best</a>
+              <a href="#best" class="navigation__link">best</a>
             </li>
             <li class="navigation__item">
               <a href="#" class="navigation__link">contacts</a>
@@ -42,7 +42,9 @@
       </header>
       <div class="container">
         <section class="section section_hero">
-          <div class="section__content section__content_sm-gap">
+          <div
+            class="section__content section__content_sm-gap section__content_padding60"
+          >
             <span class="section__caption">Merry Christmas</span>
             <h1 class="section__title section__title_main">
               Gift yourself the magic of new possibilities
@@ -53,24 +55,97 @@
         </section>
         <section class="section section_about" id="about">
           <div class="section__wraper">
-            <div class="section__content">
-              <span class="section__caption section__caption_primary"
-                >About</span
-              >
-              <h2 class="section__title">Unleash your inner superhero!</h2>
-              <p class="section__description">
-                This New Year marks the beginning of your journey to inner
-                harmony and new strengths. We offer unique gifts that will help
-                you improve your life.
-              </p>
+            <div class="section__content-wraper">
+              <div class="section__content">
+                <span class="section__caption section__caption_primary"
+                  >About</span
+                >
+                <h2 class="section__title">Unleash your inner superhero!</h2>
+                <p class="section__description">
+                  This New Year marks the beginning of your journey to inner
+                  harmony and new strengths. We offer unique gifts that will
+                  help you improve your life.
+                </p>
+              </div>
+            </div>
+            <img src="images/santa.png" alt="santa" class="section__image" />
+          </div>
+        </section>
+        <section class="section">
+          <div class="section__content">
+            <div class="section__content section__content_sm-gap">
+              <span class="section__caption">Become Happier!</span>
+              <h2 class="section__title">in the new 2025</h2>
+            </div>
+            <div class="section__slider slider">
+              <div class="slider__wraper">
+                <span class="slider__text">Live</span>
+                <img
+                  src="images/snowman.png"
+                  alt="snowman"
+                  class="slider__image"
+                />
+                <span class="slider__text">create</span>
+                <img
+                  src="images/christmas-trees.png"
+                  alt="christmas trees"
+                  class="slider__image"
+                />
+                <span class="slider__text">Love</span>
+                <img
+                  src="images/christmas-tree-ball.png"
+                  alt="christmas tree ball"
+                  class="slider__image"
+                />
+                <span class="slider__text">Love</span>
+              </div>
+              <div class="slider__arrows">
+                <button class="slider__arrow">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M18.5 12H6M6 12L12 6M6 12L12 18"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button class="slider__arrow slider__arrow_active">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
-          <img src="images/santa.png" alt="santa" class="section__image" />
         </section>
-        <section class="section"></section>
-        <section class="section"></section>
+        <section class="section section_best" id="best">
+          <div class="section__content">
+            <div class="section__content section__content_sm-gap">
+              <span class="section__caption">Best Gifts</span>
+              <h2 class="section__title">especially for you</h2>
+            </div>
+            <div class="section__gallery"></div>
+          </div>
+        </section>
         <section class="section"></section>
       </div>
     </div>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
