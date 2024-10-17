@@ -25,9 +25,7 @@
 
   &__content {
     margin: auto;
-    width: max-content;
     align-items: center;
-
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -127,6 +125,8 @@
 
 @include mixins.device(mixins.$xl) {
   .section {
-    max-width: 632px;
+    &__gallery {
+      max-width: 632px;
+    }
   }
 }

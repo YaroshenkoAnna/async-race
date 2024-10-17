@@ -24,6 +24,50 @@
   background-color: var(--Primary);
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: #ecf3f8;
+  color: var(--Dark);
+}
+.card__image {
+  width: 310px;
+  height: 230px;
+}
+.card__container {
+  box-sizing: border-box;
+  width: 310px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: var(--Static-White);
+}
+.card__category {
+  font-size: 12px;
+  line-height: 130%; /* 15.6px */
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.card__category_work {
+  color: var(--Tag-Purple);
+}
+.card__category_harmony {
+  color: var(--Tag-Pink);
+}
+.card__category_health {
+  color: var(--Tag-Green);
+}
+.card__title {
+  font-size: 16px;
+  line-height: 152%; /* 24.32px */
+  letter-spacing: 1.28px;
+  text-transform: uppercase;
+}
+
 .header {
   padding: 12px clamp(8px, 11.012vw - 76.573px, 82px);
   background-color: var(--Static-White);
@@ -99,9 +143,11 @@
 .section_about {
   color: var(--Dark);
 }
+.section_cta {
+  background-image: url("../images/bg-forest.png"), url("../images/bg-snow.png");
+}
 .section__content {
   margin: auto;
-  width: max-content;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -174,7 +220,22 @@
   justify-content: center;
   gap: 12px;
 }
+.section__slider {
+  align-self: flex-start;
+}
+.section__gallery {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 1276px;
+}
 
+@media only screen and (max-width: 1439px) {
+  .section__gallery {
+    max-width: 632px;
+  }
+}
 .slider {
   display: flex;
   flex-direction: column;

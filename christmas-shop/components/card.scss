@@ -1,2 +1,51 @@
 @use "../css/variables.scss";
 @use "../css/mixins.scss";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: #ecf3f8;
+  color: variables.$Dark;
+
+  &__image {
+    width: 310px;
+    height: 230px;
+  }
+
+  &__container {
+    box-sizing: border-box;
+    width: 310px;
+    height: 112px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: variables.$Static-White;
+  }
+
+  &__category {
+    font-size: 12px;
+    line-height: 130%; /* 15.6px */
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+
+    &_work {
+      color: variables.$Tag-Purple;
+    }
+    &_harmony {
+      color: variables.$Tag-Pink;
+    }
+    &_health {
+      color: variables.$Tag-Green;
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    line-height: 152%; /* 24.32px */
+    letter-spacing: 1.28px;
+    text-transform: uppercase;
+  }
+}
