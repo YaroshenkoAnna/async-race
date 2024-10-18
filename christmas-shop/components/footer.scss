@@ -1,2 +1,77 @@
 @use "../css/variables.scss";
 @use "../css/mixins.scss";
+
+.footer {
+  background-color: variables.$Static-White;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 60px;
+  padding: 60px clamp(8px, calc(8.929vw - 60.578px), 68px);
+  color: variables.$Dark;
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__wraper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
+
+    &_card {
+      background-color: #ecf3f8;
+      border-radius: 20px;
+      min-width: 377px;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+  }
+
+  &__title {
+    font-size: 24px;
+    line-height: 152%; /* 36.48px */
+    letter-spacing: 3.84px;
+    text-transform: uppercase;
+  }
+
+  &__description {
+    font-size: 16px;
+    line-height: 152%; /* 24.32px */
+    letter-spacing: 1.28px;
+    text-transform: uppercase;
+  }
+
+  &__icon {
+    padding: 8px;
+
+    & svg {
+      width: 24px;
+      height: 24px;
+      stroke: variables.$Dark;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 148%;
+  }
+
+  &__caption {
+    font-family: Allura;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%; /* 24px */
+    letter-spacing: 1.2px;
+  }
+}
