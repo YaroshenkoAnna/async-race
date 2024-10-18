@@ -167,7 +167,7 @@
   font-size: 24px;
   font-weight: 400;
   line-height: 100%; /* 24px */
-  letter-spacing: 5%;
+  letter-spacing: 1.2px;
 }
 .section__caption_primary {
   align-self: flex-start;
@@ -332,4 +332,4 @@ html {
   scroll-behavior: smooth;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.cs.map */

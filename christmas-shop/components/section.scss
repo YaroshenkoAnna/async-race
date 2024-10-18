@@ -21,6 +21,10 @@
   &_cta {
     background-image: url("../images/bg-forest.png"),
       url("../images/bg-snow.png");
+
+    & .section__content {
+      text-align: center;
+    }
   }
 
   &__content {
@@ -44,7 +48,7 @@
     font-size: 24px;
     font-weight: 400;
     line-height: 100%; /* 24px */
-    letter-spacing: 5%;
+    letter-spacing: 1.2px;
 
     &_primary {
       align-self: flex-start;
@@ -56,14 +60,14 @@
     max-width: 426px;
     font-size: 24px;
     line-height: 152%; /* 36.48px */
-    letter-spacing: 16%;
+    letter-spacing: 3.84px;
     text-transform: uppercase;
 
     &_main {
       text-align: center;
       font-size: 32px;
       line-height: 150%;
-      letter-spacing: 18%;
+      letter-spacing: 5.76px;
     }
   }
 
@@ -72,7 +76,7 @@
     background-color: variables.$Dark;
     font-size: 12px;
     line-height: 130%; /* 15.6px */
-    letter-spacing: 5%;
+   letter-spacing: 0.6px;
     text-transform: uppercase;
     border-radius: 20px;
     color: variables.$Static-White;

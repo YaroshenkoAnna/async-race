@@ -2,10 +2,6 @@
 @use "../css/mixins.scss";
 
 .slider {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
   &__wraper {
     display: flex;
     flex-direction: row;
@@ -27,7 +23,10 @@
   }
 
   &__arrows {
-    display: flex;
+    position: relative;
+    left: clamp(5px, calc(100vw - (8.929vw - 60.578px)*2 - 132px), 1162px);
+    margin-top: 20px;
+    display: inline-flex;
     flex-direction: row;
     gap: 20px;
 
@@ -45,12 +44,21 @@
     border: 1px solid variables.$Static-White-40;
 
     &_active {
-        stroke: variables.$Static-White;
+      stroke: variables.$Static-White;
       border-color: variables.$Static-White;
     }
 
     & svg {
       stroke: inherit;
+    }
+  }
+}
+
+
+@include mixins.device(mixins.$md) {
+  .slider {
+    &__arrows {
+      left: clamp(5px, calc(100vw - 132px - 16px), 1162px);
     }
   }
 }
