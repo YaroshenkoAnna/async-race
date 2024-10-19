@@ -14,6 +14,12 @@
     list-style: none;
     transition: all 0.4s ease-in;
 
+    &_active {
+      pointer-events: none;
+      background-color: variables.$Primary-10;
+      color: variables.$Primary;
+    }
+
     :active {
       background-color: variables.$Primary-10;
       color: variables.$Primary;
@@ -37,17 +43,24 @@
 @include mixins.device(mixins.$md) {
   .navigation {
     z-index: 100;
-    flex-direction: column;
     width: 100vw;
     height: 100vh;
     position: fixed;
-    gap: 100px;
     overflow-y: auto;
-    align-items: center;
     background-color: variables.$Static-White;
     transition: right 0.5s ease-in;
-    top: 100px;
+    top: 56px;
     right: -100vw;
-    padding-top: 64px;
+
+    &__list {
+      height: calc(100% - 56px);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    &_active {
+      right: 0;
+    }
   }
 }

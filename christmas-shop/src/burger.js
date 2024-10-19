@@ -16,6 +16,18 @@ function showHideBurgerMenu(event) {
   burgerButton.classList.toggle("burger-menu_active");
   navigation.classList.toggle("navigation_active");
 
-  const page = document.querySelector(".page");
-  page.classList.toggle("page_enabled-scroll");
+  const page = document.querySelector("body");
+  page.classList.toggle("enabled-scroll");
 }
+
+//delete transition for resizing
+
+window.addEventListener("resize", function () {
+  if (window.innerWidth < 768) {
+    navigation.style.transition = "none";
+
+    setTimeout(() => {
+      navigation.style.transition = "right 0.5s ease-in";
+    }, 100);
+  }
+});
