@@ -3,6 +3,7 @@ import { createElement } from "./createElement.js";
 const gallery = document.querySelector(".section__gallery");
 
 export function createGallery(arrGifts) {
+  gallery.textContent = "";
   arrGifts.forEach((gift, index) => {
     const card = createElement({
       tag: "div",

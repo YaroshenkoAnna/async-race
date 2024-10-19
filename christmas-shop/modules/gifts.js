@@ -461,9 +461,9 @@ export const health = [];
 export const harmony = [];
 
 gifts.forEach((gift) => {
-  if (gifts.category == "For Work") {
+  if (gift.category == "For Work") {
     work.push(gift);
-  } else if (gifts.harmony == "For Harmony") {
+  } else if (gift.category == "For Harmony") {
     harmony.push(gift);
   } else {
     health.push(gift);

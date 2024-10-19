@@ -27,6 +27,12 @@
     }
   }
 
+  &_gifts {
+    background-image: url("../images/bg-garland.png");
+    background-position: top;
+    background-size: contain;
+  }
+
   &__content {
     margin: auto;
     align-items: center;
@@ -131,6 +137,29 @@
     flex-wrap: wrap;
     max-width: 1276px;
   }
+
+  &__switches {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__switch {
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 130%; /* 15.6px */
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+
+    &_active {
+      pointer-events: none;
+      background-color: variables.$Static-White-20;
+    }
+
+    &:active {
+      background-color: variables.$Static-White-20;
+    }
+  }
 }
 
 @include mixins.device(mixins.$xl) {
@@ -141,10 +170,23 @@
   }
 }
 
+@include mixins.device(mixins.$sm1) {
+  .section {
+    &__switch {
+      padding: 12px 8px;
+    }
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .section__button:hover {
     cursor: pointer;
     background-color: variables.$Static-White;
     color: variables.$Dark;
+  }
+
+  .section__switch:hover {
+    cursor: pointer;
+    background-color: variables.$Static-White-20;
   }
 }

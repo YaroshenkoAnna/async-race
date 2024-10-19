@@ -33,3 +33,21 @@
     color: variables.$Primary;
   }
 }
+
+@include mixins.device(mixins.$md) {
+  .navigation {
+    z-index: 100;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    gap: 100px;
+    overflow-y: auto;
+    align-items: center;
+    background-color: variables.$Static-White;
+    transition: right 0.5s ease-in;
+    top: 100px;
+    right: -100vw;
+    padding-top: 64px;
+  }
+}
