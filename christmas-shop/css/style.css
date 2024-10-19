@@ -68,6 +68,12 @@
   text-transform: uppercase;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card__title {
+    cursor: pointer;
+    color: var(--Primary);
+  }
+}
 .footer {
   background-color: var(--Static-White);
   display: flex;
@@ -89,12 +95,23 @@
   text-align: center;
   align-items: center;
 }
-.footer__wraper_card {
+.footer__link {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  align-items: center;
   background-color: #ecf3f8;
   border-radius: 20px;
   min-width: 377px;
   box-sizing: border-box;
   padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.4s ease-in;
+}
+.footer__link:active {
+  color: var(--Primary);
 }
 .footer__image {
   width: 80px;
@@ -116,6 +133,7 @@
   padding: 8px;
 }
 .footer__icon svg {
+  transition: stroke 0.4s ease-in;
   width: 24px;
   height: 24px;
   stroke: var(--Dark);
@@ -131,8 +149,29 @@
   font-weight: 400;
   line-height: 100%; /* 24px */
   letter-spacing: 1.2px;
+  color: inherit;
+}
+.footer__link-caption {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.4s ease-in;
+}
+.footer__link-caption:active {
+  color: var(--Primary);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover {
+    cursor: pointer;
+    color: var(--Primary);
+  }
+  .footer__icon:hover svg {
+    stroke: var(--Primary);
+  }
+  .footer__link-caption:hover {
+    color: var(--Primary);
+  }
+}
 .header {
   padding: 12px clamp(8px, 11.012vw - 76.573px, 82px);
   background-color: var(--Static-White);
@@ -168,6 +207,7 @@
   padding: 12px 20px;
   border-radius: 12px;
   list-style: none;
+  transition: all 0.4s ease-in;
 }
 .navigation__item :active {
   background-color: var(--Primary-10);
@@ -180,6 +220,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .navigation__item:hover {
+    cursor: pointer;
     background-color: var(--Primary-10);
     color: var(--Primary);
   }
@@ -260,6 +301,11 @@
   text-transform: uppercase;
   border-radius: 20px;
   color: var(--Static-White);
+  transition: all 0.4s ease-in;
+}
+.section__button:active {
+  background-color: var(--Static-White);
+  color: var(--Dark);
 }
 .section__wraper {
   border-radius: 20px;
@@ -304,6 +350,13 @@
     max-width: 632px;
   }
 }
+@media (hover: hover) and (pointer: fine) {
+  .section__button:hover {
+    cursor: pointer;
+    background-color: var(--Static-White);
+    color: var(--Dark);
+  }
+}
 .slider__wraper {
   display: flex;
   flex-direction: row;
@@ -331,18 +384,24 @@
   align-self: flex-end;
 }
 .slider__arrow {
-  stroke: var(--Static-White-40);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 56px;
   height: 56px;
   border-radius: 20px;
-  border: 1px solid var(--Static-White-40);
-}
-.slider__arrow_active {
   stroke: var(--Static-White);
-  border-color: var(--Static-White);
+  border: 1px solid var(--Static-White);
+  transition: all 0.4s ease-in;
+}
+.slider__arrow:active {
+  background-color: var(--Static-White);
+  stroke: var(--Primary);
+}
+.slider__arrow_inactive {
+  pointer-events: none;
+  stroke: var(--Static-White-40);
+  border-color: var(--Static-White-40);
 }
 .slider__arrow svg {
   stroke: inherit;
@@ -351,6 +410,13 @@
 @media only screen and (max-width: 768px) {
   .slider__arrows {
     left: clamp(5px, 100vw - 132px - 16px, 1162px);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .slider__arrow:hover {
+    cursor: pointer;
+    background-color: var(--Static-White);
+    stroke: var(--Primary);
   }
 }
 .timer {

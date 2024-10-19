@@ -12,6 +12,7 @@
     padding: 12px 20px;
     border-radius: 12px;
     list-style: none;
+    transition: all 0.4s ease-in;
 
     :active {
       background-color: variables.$Primary-10;
@@ -27,6 +28,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .navigation__item:hover {
+    cursor: pointer;
     background-color: variables.$Primary-10;
     color: variables.$Primary;
   }

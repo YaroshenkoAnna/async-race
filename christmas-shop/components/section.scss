@@ -76,10 +76,16 @@
     background-color: variables.$Dark;
     font-size: 12px;
     line-height: 130%; /* 15.6px */
-   letter-spacing: 0.6px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
     border-radius: 20px;
     color: variables.$Static-White;
+    transition: all 0.4s ease-in;
+
+    &:active {
+      background-color: variables.$Static-White;
+      color: variables.$Dark;
+    }
   }
 
   &__wraper {
@@ -132,5 +138,13 @@
     &__gallery {
       max-width: 632px;
     }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .section__button:hover {
+    cursor: pointer;
+    background-color: variables.$Static-White;
+    color: variables.$Dark;
   }
 }

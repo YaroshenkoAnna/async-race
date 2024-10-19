@@ -26,7 +26,7 @@
         <navigation class="header__navigation navigation">
           <ul class="navigation__list">
             <li class="navigation__item">
-              <a href="#" class="navigation__link">gifts</a>
+              <a href="gifts.html" class="navigation__link">gifts</a>
             </li>
             <li class="navigation__item">
               <a href="#about" class="navigation__link">about</a>
@@ -35,7 +35,7 @@
               <a href="#best" class="navigation__link">best</a>
             </li>
             <li class="navigation__item">
-              <a href="#" class="navigation__link">contacts</a>
+              <a href="#contacts" class="navigation__link">contacts</a>
             </li>
           </ul>
         </navigation>
@@ -49,7 +49,12 @@
             <h1 class="section__title section__title_main">
               Gift yourself the magic of new possibilities
             </h1>
-            <button class="section__button">Explore Magical Gifts</button>
+            <button
+              class="section__button"
+              onclick="window.location.href='gifts.html'"
+            >
+              Explore Magical Gifts
+            </button>
             <span class="section__caption">and Happy New Year</span>
           </div>
         </section>
@@ -100,7 +105,7 @@
                 <span class="slider__text">Love</span>
               </div>
               <div class="slider__arrows">
-                <button class="slider__arrow">
+                <button class="slider__arrow slider__arrow_inactive">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -115,7 +120,7 @@
                     />
                   </svg>
                 </button>
-                <button class="slider__arrow slider__arrow_active">
+                <button class="slider__arrow">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -149,7 +154,12 @@
               <h2 class="section__title">
                 Ready to start your journey to a better version of yourself?
               </h2>
-              <button class="section__button">Explore Magical Gifts</button>
+              <button
+                class="section__button"
+                onclick="window.location.href='gifts.html'"
+              >
+                Explore Magical Gifts
+              </button>
               <div class="section__timer timer">
                 <span class="section__caption timer__title"
                   >The New Year is Coming Soon...</span
@@ -177,34 +187,42 @@
           </div>
         </section>
       </div>
-      <footer class="footer">
+      <footer class="footer" id="contacts">
         <div class="footer__content">
-          <div class="footer__wraper footer__wraper_card">
-            <img
-              src="images/icons/santa-claus.svg"
-              alt="santa claus"
-              class="footer__image"
-            />
-            <h2 class="footer__title">+375 (29) 111-22-33</h2>
-            <span class="footer__description">Call Us</span>
+          <div class="footer__wraper">
+            <a href="tel:+375291112233" class="footer__link"
+              ><img
+                src="images/icons/santa-claus.svg"
+                alt="santa claus"
+                class="footer__image"
+              />
+              <h2 class="footer__title">+375 (29) 111-22-33</h2>
+              <span class="footer__description">Call Us</span></a
+            >
           </div>
-          <div class="footer__wraper footer__wraper_card">
-            <img
-              src="images/icons/christmas-tree.svg"
-              alt="christmas tree"
-              class="footer__image"
-            />
-            <h2 class="footer__title">Magic forest</h2>
-            <span class="footer__description">meet us</span>
+          <div class="footer__wraper">
+            <a
+              href="https://www.google.de/maps/place/Sibirien,+Russland/@68.0809028,116.1150847,9.37z/data=!4m6!3m5!1s0x5c87ebbaf5e77a3b:0x2c4412982b67464c!8m2!3d61.0137097!4d99.1966559!16zL20vMDdiZmQ?entry=ttu&g_ep=EgoyMDI0MTAxNi4wIKXMDSoASAFQAw%3D%3D"
+              class="footer__link"
+              ><img
+                src="images/icons/christmas-tree.svg"
+                alt="christmas tree"
+                class="footer__image"
+              />
+              <h2 class="footer__title">Magic forest</h2>
+              <span class="footer__description">meet us</span></a
+            >
           </div>
-          <div class="footer__wraper footer__wraper_card">
-            <img
-              src="images/icons/snake.svg"
-              alt="snake"
-              class="footer__image"
-            />
-            <h2 class="footer__title">gifts@magic.com</h2>
-            <span class="footer__description">write us</span>
+          <div class="footer__wraper">
+            <a href="mailto:gifts@magic.com" class="footer__link">
+              <img
+                src="images/icons/snake.svg"
+                alt="snake"
+                class="footer__image"
+              />
+              <h2 class="footer__title">gifts@magic.com</h2>
+              <span class="footer__description">write us</span></a
+            >
           </div>
         </div>
         <div class="footer__wraper">
@@ -288,7 +306,14 @@
             </div>
           </div>
           <p class="footer__text">© Copyright 2025, All Rights Reserved</p>
-          <span class="footer__caption">Made in Rolling Scopes School</span>
+          <a
+            href="https://rs.school/"
+            target="_blank"
+            class="footer__link-caption"
+            ><span class="footer__caption"
+              >Made in Rolling Scopes School</span
+            ></a
+          >
         </div>
       </footer>
     </div>

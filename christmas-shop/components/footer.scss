@@ -22,13 +22,25 @@
     gap: 12px;
     text-align: center;
     align-items: center;
+  }
 
-    &_card {
-      background-color: #ecf3f8;
-      border-radius: 20px;
-      min-width: 377px;
-      box-sizing: border-box;
-      padding: 20px;
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
+    background-color: #ecf3f8;
+    border-radius: 20px;
+    min-width: 377px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.4s ease-in;
+
+    &:active {
+      color: variables.$Primary;
     }
   }
 
@@ -55,6 +67,7 @@
     padding: 8px;
 
     & svg {
+      transition: stroke 0.4s ease-in;
       width: 24px;
       height: 24px;
       stroke: variables.$Dark;
@@ -73,5 +86,31 @@
     font-weight: 400;
     line-height: 100%; /* 24px */
     letter-spacing: 1.2px;
+    color: inherit;
+  }
+
+  &__link-caption {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.4s ease-in;
+
+    &:active {
+      color: variables.$Primary;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover {
+    cursor: pointer;
+    color: variables.$Primary;
+  }
+
+  .footer__icon:hover svg {
+    stroke: variables.$Primary;
+  }
+
+  .footer__link-caption:hover {
+    color: variables.$Primary;
   }
 }

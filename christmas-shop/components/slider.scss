@@ -24,7 +24,7 @@
 
   &__arrows {
     position: relative;
-    left: clamp(5px, calc(100vw - (8.929vw - 60.578px)*2 - 132px), 1162px);
+    left: clamp(5px, calc(100vw - (8.929vw - 60.578px) * 2 - 132px), 1162px);
     margin-top: 20px;
     display: inline-flex;
     flex-direction: row;
@@ -34,18 +34,25 @@
   }
 
   &__arrow {
-    stroke: variables.$Static-White-40;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 56px;
     height: 56px;
     border-radius: 20px;
-    border: 1px solid variables.$Static-White-40;
+    stroke: variables.$Static-White;
+    border: 1px solid variables.$Static-White;
+    transition: all 0.4s ease-in;
 
-    &_active {
-      stroke: variables.$Static-White;
-      border-color: variables.$Static-White;
+    &:active {
+      background-color: variables.$Static-White;
+      stroke: variables.$Primary;
+    }
+
+    &_inactive {
+      pointer-events: none;
+      stroke: variables.$Static-White-40;
+      border-color: variables.$Static-White-40;
     }
 
     & svg {
@@ -54,11 +61,18 @@
   }
 }
 
-
 @include mixins.device(mixins.$md) {
   .slider {
     &__arrows {
       left: clamp(5px, calc(100vw - 132px - 16px), 1162px);
     }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slider__arrow:hover {
+    cursor: pointer;
+    background-color: variables.$Static-White;
+    stroke: variables.$Primary;
   }
 }
