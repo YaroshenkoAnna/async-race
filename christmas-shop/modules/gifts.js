@@ -460,7 +460,8 @@ export const work = [];
 export const health = [];
 export const harmony = [];
 
-gifts.forEach((gift) => {
+gifts.forEach((gift, index) => {
+  gift.number = index;
   if (gift.category == "For Work") {
     work.push(gift);
   } else if (gift.category == "For Harmony") {

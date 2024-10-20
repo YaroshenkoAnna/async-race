@@ -1,6 +1,7 @@
 import { createGallery } from "../modules/createGallery.js";
 import { switchGifts } from "../modules/switchGifts.js";
 import { gifts } from "../modules/gifts.js";
+import { modal } from "../modules/modal.js";
 
 createGallery([
   gifts[1],
@@ -19,3 +20,5 @@ createGallery([
 
 const switches = document.querySelector(".section__switches");
 switches.addEventListener("click", switchGifts);
+
+modal();

@@ -34,7 +34,6 @@
   cursor: pointer;
 }
 .card_modal {
-  position: relative;
   cursor: default;
   max-width: 400px;
 }
@@ -46,6 +45,7 @@
   height: 230px;
 }
 .card__image_modal {
+  position: relative;
   object-fit: cover;
   width: 100%;
 }
@@ -107,33 +107,20 @@
 }
 .card__cross {
   position: absolute;
-  top: 12px;
-  right: 12px;
   width: 40px;
   height: 40px;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .card__line {
-  position: relative;
   background-color: var(--Dark);
-  width: 2px;
-  height: 25px;
-  border-radius: 10px;
+  width: 1px;
+  height: 20px;
 }
 .card__line:first-child {
   transform: rotate(45deg);
 }
 .card__line:last-child {
-  left: -2px;
   transform: rotate(-45deg);
-}
-.card__star {
-  fill: var(--Primary-10);
-}
-.card__star_active {
-  fill: var(--Primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -330,7 +317,6 @@
   }
 }
 .page {
-  position: relative;
   max-width: 1440px;
   font-family: "Montserrat";
   font-style: normal;
@@ -643,4 +629,4 @@ html {
   scroll-behavior: smooth;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.cs.map */

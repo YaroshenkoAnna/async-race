@@ -4,7 +4,7 @@ const gallery = document.querySelector(".section__gallery");
 
 export function createGallery(arrGifts) {
   gallery.textContent = "";
-  arrGifts.forEach((gift, index) => {
+  arrGifts.forEach((gift) => {
     const card = createElement({
       tag: "div",
       classes: ["card"],
@@ -12,7 +12,7 @@ export function createGallery(arrGifts) {
     });
 
     const category = gift.category.split(" ")[1].toLowerCase();
-    card.setAttribute("data-number", `${category}_${index}`);
+    card.setAttribute("data-number", gift.number);
 
     const image = createElement({
       tag: "img",
@@ -23,10 +23,16 @@ export function createGallery(arrGifts) {
     image.src = `./images/${category}.png`;
     image.alt = category;
 
+    const wraper = createElement({
+      tag: "div",
+      classes: ["card__wraper"],
+      parent: card,
+    });
+
     const container = createElement({
       tag: "div",
       classes: ["card__container"],
-      parent: card,
+      parent: wraper,
     });
 
     createElement({

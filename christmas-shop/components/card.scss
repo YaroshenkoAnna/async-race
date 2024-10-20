@@ -2,6 +2,7 @@
 @use "../css/mixins.scss";
 
 .card {
+  max-width: 310px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -9,21 +10,46 @@
   color: variables.$Dark;
   cursor: pointer;
 
+  &_modal {
+    position: relative;
+    cursor: default;
+    max-width: 400px;
+
+    & .card__container {
+      height: auto;
+    }
+  }
+
   &__image {
     width: 310px;
     height: 230px;
+
+    &_modal {
+      object-fit: cover;
+      width: 100%;
+    }
   }
 
   &__container {
+    width: 100%;
     box-sizing: border-box;
-    width: 310px;
     height: 112px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-radius: 20px;
-    padding: 20px;
-    background-color: variables.$Static-White;
+
+    &_horizontal {
+      width: auto;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+
+    &_horizontal12 {
+      align-items: center;
+      width: 100%;
+      flex-direction: row;
+      gap: 12px;
+    }
   }
 
   &__category {
@@ -49,11 +75,69 @@
     letter-spacing: 1.28px;
     text-transform: uppercase;
   }
+
+  &__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 148%;
+
+    &_gr {
+      flex-grow: 1;
+    }
+  }
+
+  &__wraper {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: variables.$Static-White;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__cross {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__line {
+    position: relative;
+    background-color: variables.$Dark;
+    width: 2px;
+    height: 25px;
+    border-radius: 10px;
+
+    &:first-child {
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      left: -2px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__star {
+    fill: variables.$Primary-10;
+
+    &_active {
+      fill: variables.$Primary;
+    }
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
   .card:hover .card__title {
-    cursor: pointer;
     color: variables.$Primary;
+  }
+
+  .card_modal:hover .card__title {
+    color: variables.$Dark;
   }
 }
