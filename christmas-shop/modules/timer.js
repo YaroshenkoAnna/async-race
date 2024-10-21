@@ -36,7 +36,7 @@ export function timer() {
         "minutes";
     }
     if (seconds === 1) {
-      document.getElementById("seconds").nextElexmentSibling.textContent =
+      document.getElementById("seconds").nextElementSibling.textContent =
         "second";
     } else {
       document.getElementById("seconds").nextElementSibling.textContent =

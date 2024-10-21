@@ -7,3 +7,11 @@ createGallery([gifts[1], gifts[15], gifts[3], gifts[27]]);
 
 modal();
 timer();
+
+// generating random gifts
+function getRandomElements(arr) {
+  const shuffled = arr.slice().sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 4);
+}
+
+createGallery(getRandomElements(gifts));
