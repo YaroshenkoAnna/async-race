@@ -106,6 +106,7 @@
   gap: 20px;
 }
 .card__cross {
+  cursor: pointer;
   position: absolute;
   top: 12px;
   right: 12px;
@@ -142,6 +143,11 @@
   }
   .card_modal:hover .card__title {
     color: var(--Dark);
+  }
+}
+@media only screen and (max-width: 416px) {
+  .card_modal {
+    width: calc(100vw - 16px);
   }
 }
 .footer {
@@ -275,6 +281,40 @@
   height: 24px;
 }
 
+dialog {
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  outline: none;
+  transition: transform 1s ease, opacity 0.8s ease, display 0.8s ease-in-out allow-discrete;
+}
+dialog[open] {
+  opacity: 1;
+  display: flex;
+}
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+  }
+}
+dialog:not([open]) {
+  opacity: 0;
+}
+
+@media only screen and (max-width: 379px) {
+  dialog {
+    width: 100%;
+    height: 100%;
+  }
+}
 .navigation__list {
   display: flex;
   flex-direction: row;

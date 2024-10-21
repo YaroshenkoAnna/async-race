@@ -96,6 +96,7 @@
   }
 
   &__cross {
+    cursor: pointer;
     position: absolute;
     top: 12px;
     right: 12px;
@@ -141,3 +142,13 @@
     color: variables.$Dark;
   }
 }
+
+
+
+@include mixins.device(mixins.$sm2) {
+  .card_modal{
+    width: calc(100vw - 16px);
+  }
+}
+
+

@@ -34,6 +34,7 @@
   cursor: pointer;
 }
 .card_modal {
+  position: relative;
   cursor: default;
   max-width: 400px;
 }
@@ -45,7 +46,6 @@
   height: 230px;
 }
 .card__image_modal {
-  position: relative;
   object-fit: cover;
   width: 100%;
 }
@@ -107,20 +107,33 @@
 }
 .card__cross {
   position: absolute;
+  top: 12px;
+  right: 12px;
   width: 40px;
   height: 40px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card__line {
+  position: relative;
   background-color: var(--Dark);
-  width: 1px;
-  height: 20px;
+  width: 2px;
+  height: 25px;
+  border-radius: 10px;
 }
 .card__line:first-child {
   transform: rotate(45deg);
 }
 .card__line:last-child {
+  left: -2px;
   transform: rotate(-45deg);
+}
+.card__star {
+  fill: var(--Primary-10);
+}
+.card__star_active {
+  fill: var(--Primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -262,6 +275,27 @@
   height: 24px;
 }
 
+dialog {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog[open] {
+  display: flex;
+}
+
+/* 
+dialog:-internal-dialog-in-top-layer::backdrop {
+  position: fixed;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.4);
+} */
 .navigation__list {
   display: flex;
   flex-direction: row;
@@ -317,6 +351,7 @@
   }
 }
 .page {
+  position: relative;
   max-width: 1440px;
   font-family: "Montserrat";
   font-style: normal;
