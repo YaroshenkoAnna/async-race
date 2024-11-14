@@ -1,0 +1,128 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.footer {
+  background-color: variables.$Static-White;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 60px;
+  padding: 60px clamp(8px, calc(11.012vw - 76.5728px), 82px);
+  color: variables.$Dark;
+
+  &__content {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__wraper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
+  }
+
+  &__link {
+    max-width: 417.31px;
+    width: 28.98vw;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
+    background-color: #ecf3f8;
+    border-radius: 20px;
+    min-width: 333px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.4s ease-in;
+
+    &:active {
+      color: variables.$Primary;
+    }
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+  }
+
+  &__title {
+    font-size: 24px;
+    line-height: 152%; /* 36.48px */
+    letter-spacing: 3.84px;
+    text-transform: uppercase;
+  }
+
+  &__description {
+    font-size: 16px;
+    line-height: 152%; /* 24.32px */
+    letter-spacing: 1.28px;
+    text-transform: uppercase;
+  }
+
+  &__icon {
+    cursor: pointer;
+    padding: 8px;
+
+    & svg {
+      transition: stroke 0.4s ease-in;
+      width: 24px;
+      height: 24px;
+      stroke: variables.$Dark;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 148%;
+  }
+
+  &__caption {
+    font-family: Allura;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%; /* 24px */
+    letter-spacing: 1.2px;
+    color: inherit;
+  }
+
+  &__link-caption {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.4s ease-in;
+
+    &:active {
+      color: variables.$Primary;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover {
+    cursor: pointer;
+    color: variables.$Primary;
+  }
+
+  .footer__icon:hover svg {
+    stroke: variables.$Primary;
+  }
+
+  .footer__link-caption:hover {
+    color: variables.$Primary;
+  }
+}
+
+@include mixins.device(mixins.$lg1) {
+  .footer__wraper,
+  .footer__link {
+    width: 100%;
+  }
+}

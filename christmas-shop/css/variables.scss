@@ -1,0 +1,21 @@
+$Primary: var(--Primary);
+$Primary-10: var(--Primary-10);
+$Dark: var(--Dark);
+$Static-White: var(--Static-White);
+$Static-White-40: var(--Static-White-40);
+$Static-White-20: var(--Static-White-20);
+$Tag-Purple: var(--Tag-Purple);
+$Tag-Pink: var(--Tag-Pink);
+$Tag-Green: var(--Tag-Green);
+
+:root {
+  --Primary: #ff4646;
+  --Primary-10: rgba(255, 70, 70, 0.1);
+  --Dark: #181c29;
+  --Static-White: #fff;
+  --Static-White-40: rgba(255, 255, 255, 0.4);
+  --Static-White-20: rgba(255, 255, 255, 0.2);
+  --Tag-Purple: #4361ff;
+  --Tag-Pink: #ff43f7;
+  --Tag-Green: #06a44f;
+}

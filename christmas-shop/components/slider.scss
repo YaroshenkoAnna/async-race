@@ -1,0 +1,78 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.slider {
+  &__wraper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    align-self: flex-start;
+  }
+
+  &__text {
+    font-size: 80px;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  &__image {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+  }
+
+  &__arrows {
+    position: relative;
+    left: clamp(5px, calc(100vw - (11.012vw - 76.5728px) * 2 - 132px), 1162px);
+    margin-top: 20px;
+    display: inline-flex;
+    flex-direction: row;
+    gap: 20px;
+
+    align-self: flex-end;
+  }
+
+  &__arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    stroke: variables.$Static-White;
+    border: 1px solid variables.$Static-White;
+    transition: all 0.4s ease-in;
+
+    &:active {
+      background-color: variables.$Static-White;
+      stroke: variables.$Primary;
+    }
+
+    &_inactive {
+      pointer-events: none;
+      stroke: variables.$Static-White-40;
+      border-color: variables.$Static-White-40;
+    }
+
+    & svg {
+      stroke: inherit;
+    }
+  }
+}
+
+@include mixins.device(mixins.$md) {
+  .slider {
+    &__arrows {
+      left: clamp(5px, calc(100vw - 132px - 16px), 1162px);
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slider__arrow:hover {
+    cursor: pointer;
+    background-color: variables.$Static-White;
+    stroke: variables.$Primary;
+  }
+}

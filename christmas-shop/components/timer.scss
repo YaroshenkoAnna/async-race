@@ -1,0 +1,46 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__time {
+    padding: 8px 12px;
+    display: flex;
+    background-color: variables.$Static-White-40;
+    border-radius: 20px;
+  }
+  &__section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+
+    &:not(:first-child)::after {
+      position: absolute;
+      top: 15px;
+      content: "";
+      width: 1px;
+      height: 20px;
+      background-color: variables.$Static-White;
+    }
+  }
+
+  &__number {
+    text-align: center;
+    font-size: 24px;
+    line-height: 152%; /* 36.48px */
+    letter-spacing: 3.84px;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 12px;
+    line-height: 130%; /* 15.6px */
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+}

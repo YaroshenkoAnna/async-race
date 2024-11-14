@@ -1,0 +1,30 @@
+@use "../css/variables.scss";
+@use "../css/mixins.scss";
+
+.header {
+  padding: 12px clamp(8px, calc(11.012vw - 76.573px), 82px);
+  background-color: variables.$Static-White;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  line-height: 130%;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: variables.$Dark;
+
+  &__logo {
+    padding: 8px 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__logo-image {
+    width: 24px;
+    height: 24px;
+  }
+}
