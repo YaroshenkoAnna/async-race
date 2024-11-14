@@ -14,6 +14,36 @@
   </head>
   <body>
     <div class="page">
+      <header class="header">
+        <a href="index.html" class="header__logo"
+          ><img
+            src="images/icons/snowflake.svg"
+            alt="snowflake"
+            class="header__logo-image"
+          />
+          <span class="header__logo-title">The Gifts</span>
+        </a>
+        <div class="header__burger-menu burger-menu">
+          <span class="burger-menu__item"></span>
+          <span class="burger-menu__item"></span>
+        </div>
+        <nav class="header__navigation navigation">
+          <ul class="navigation__list">
+            <li class="navigation__item navigation__item_active">
+              <a href="gifts.html" class="navigation__link">gifts</a>
+            </li>
+            <li class="navigation__item">
+              <a href="index.html#about" class="navigation__link">about</a>
+            </li>
+            <li class="navigation__item">
+              <a href="index.html#best" class="navigation__link">best</a>
+            </li>
+            <li class="navigation__item">
+              <a href="#contacts" class="navigation__link">contacts</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
       <dialog>
         <div class="card card_modal">
           <div class="card__cross">
@@ -424,36 +454,6 @@
           </div>
         </div>
       </dialog>
-      <header class="header">
-        <a href="index.html" class="header__logo"
-          ><img
-            src="images/icons/snowflake.svg"
-            alt="snowflake"
-            class="header__logo-image"
-          />
-          <span class="header__logo-title">The Gifts</span>
-        </a>
-        <div class="header__burger-menu burger-menu">
-          <span class="burger-menu__item"></span>
-          <span class="burger-menu__item"></span>
-        </div>
-        <nav class="header__navigation navigation">
-          <ul class="navigation__list">
-            <li class="navigation__item navigation__item_active">
-              <a href="gifts.html" class="navigation__link">gifts</a>
-            </li>
-            <li class="navigation__item">
-              <a href="index.html#about" class="navigation__link">about</a>
-            </li>
-            <li class="navigation__item">
-              <a href="index.html#best" class="navigation__link">best</a>
-            </li>
-            <li class="navigation__item">
-              <a href="#contacts" class="navigation__link">contacts</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
       <div class="container">
         <section class="section section_gifts">
           <div class="section__content">
@@ -487,6 +487,7 @@
           <a
             href="https://www.google.de/maps/place/Sibirien,+Russland/@68.0809028,116.1150847,9.37z/data=!4m6!3m5!1s0x5c87ebbaf5e77a3b:0x2c4412982b67464c!8m2!3d61.0137097!4d99.1966559!16zL20vMDdiZmQ?entry=ttu&g_ep=EgoyMDI0MTAxNi4wIKXMDSoASAFQAw%3D%3D"
             class="footer__link"
+            target="_blank"
             ><img
               src="images/icons/christmas-tree.svg"
               alt="christmas tree"
@@ -598,7 +599,7 @@
         </div>
       </footer>
     </div>
-    <script src="src/burger.js"></script>
+    <!--   <script src="src/burger.js"></script> -->
     <script type="module" src="src/gift.js"></script>
   </body>
 </html>

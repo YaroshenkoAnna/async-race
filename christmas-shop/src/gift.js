@@ -20,5 +20,5 @@ createGallery([
 
 /* const switches = document.querySelector(".section__switches");
 switches.addEventListener("click", switchGifts);
-*/
 modal();
+*/
