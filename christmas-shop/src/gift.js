@@ -18,7 +18,7 @@ createGallery([
   gifts[27],
 ]);
 
-const switches = document.querySelector(".section__switches");
+/* const switches = document.querySelector(".section__switches");
 switches.addEventListener("click", switchGifts);
 
-modal();
+modal(); */
