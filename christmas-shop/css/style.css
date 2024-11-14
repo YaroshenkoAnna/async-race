@@ -52,7 +52,7 @@
 .card__container {
   width: 100%;
   box-sizing: border-box;
-  height: 112px;
+  height: 72px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -156,10 +156,12 @@
   align-items: center;
   flex-direction: column;
   gap: 60px;
-  padding: 60px clamp(8px, 8.929vw - 60.578px, 68px);
+  padding: 60px clamp(8px, 11.012vw - 76.5728px, 82px);
   color: var(--Dark);
 }
 .footer__content {
+  width: 100%;
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -172,6 +174,8 @@
   align-items: center;
 }
 .footer__link {
+  max-width: 417.31px;
+  width: 28.98vw;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -179,7 +183,7 @@
   align-items: center;
   background-color: #ecf3f8;
   border-radius: 20px;
-  min-width: 377px;
+  min-width: 333px;
   box-sizing: border-box;
   padding: 20px;
   text-decoration: none;
@@ -249,7 +253,7 @@
     color: var(--Primary);
   }
 }
-@media only screen and (max-width: 1258px) {
+@media only screen and (max-width: 1116px) {
   .footer__wraper,
   .footer__link {
     width: 100%;
@@ -264,7 +268,7 @@
   align-items: center;
   font-size: 12px;
   line-height: 130%;
-  letter-spacing: 5%;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--Dark);
 }
@@ -388,7 +392,7 @@ dialog:not([open]) {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 60px clamp(8px, 8.929vw - 60.578px, 68px);
+  padding: 60px clamp(8px, 11.012vw - 76.5728px, 82px);
 }
 .section_hero {
   background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
@@ -434,7 +438,7 @@ dialog:not([open]) {
   color: var(--Primary);
 }
 .section__title {
-  max-width: 426px;
+  max-width: 432px;
   font-size: 24px;
   line-height: 152%; /* 36.48px */
   letter-spacing: 3.84px;
@@ -455,7 +459,7 @@ dialog:not([open]) {
   text-transform: uppercase;
   border-radius: 20px;
   color: var(--Static-White);
-  transition: all 0.4s ease-in;
+  transition: all 0.5s ease-in;
 }
 .section__button:active {
   background-color: var(--Static-White);
@@ -501,6 +505,7 @@ dialog:not([open]) {
 .section__switches {
   display: flex;
   flex-direction: row;
+  gap: 8px;
 }
 .section__switch {
   padding: 12px 20px;
@@ -558,7 +563,7 @@ dialog:not([open]) {
 }
 .slider__arrows {
   position: relative;
-  left: clamp(5px, 100vw - (8.929vw - 60.578px) * 2 - 132px, 1162px);
+  left: clamp(5px, 100vw - (11.012vw - 76.5728px) * 2 - 132px, 1162px);
   margin-top: 20px;
   display: inline-flex;
   flex-direction: row;

@@ -6,7 +6,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 60px clamp(8px, calc(8.929vw - 60.578px), 68px);
+  padding: 60px clamp(8px, calc(11.012vw - 76.5728px), 82px);
 
   &_hero {
     background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
@@ -86,7 +86,7 @@
     text-transform: uppercase;
     border-radius: 20px;
     color: variables.$Static-White;
-    transition: all 0.4s ease-in;
+    transition: all 0.5s ease-in;
 
     &:active {
       background-color: variables.$Static-White;
@@ -141,6 +141,7 @@
   &__switches {
     display: flex;
     flex-direction: row;
+    gap: 8px;
   }
 
   &__switch {

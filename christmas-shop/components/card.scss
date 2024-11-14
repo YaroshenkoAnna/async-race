@@ -33,7 +33,7 @@
   &__container {
     width: 100%;
     box-sizing: border-box;
-    height: 112px;
+    height: 72px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -143,12 +143,8 @@
   }
 }
 
-
-
 @include mixins.device(mixins.$sm2) {
-  .card_modal{
+  .card_modal {
     width: calc(100vw - 16px);
   }
 }
-
-
