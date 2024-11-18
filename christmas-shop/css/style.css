@@ -566,7 +566,7 @@ dialog:not([open]) {
 }
 .slider__arrows {
   position: relative;
-  left: clamp(5px, 100vw - (11.012vw - 76.5728px) * 2 - 132px, 1162px);
+  left: clamp(5px, 100vw - (11.012vw - 76.5728px) * 2 - 132px, 1144px);
   margin-top: 20px;
   display: inline-flex;
   flex-direction: row;
