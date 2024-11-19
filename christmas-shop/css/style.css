@@ -258,6 +258,7 @@
   .footer__wraper,
   .footer__link {
     width: 100%;
+    max-width: none;
   }
 }
 .header {
@@ -328,7 +329,7 @@ dialog:not([open]) {
 .navigation__item {
   list-style: none;
   border-radius: 12px;
-  transition: all 0.4s ease-in;
+  transition: background-color 0.4s ease-in, color 0.4s ease-in;
 }
 .navigation__item_active {
   pointer-events: none;
@@ -398,7 +399,6 @@ dialog:not([open]) {
 }
 .section_hero {
   background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
-  height: 524px;
   box-sizing: border-box;
 }
 .section_about {
@@ -440,6 +440,7 @@ dialog:not([open]) {
   color: var(--Primary);
 }
 .section__title {
+  font-weight: 600;
   max-width: 432px;
   font-size: 24px;
   line-height: 152%; /* 36.48px */
@@ -461,7 +462,7 @@ dialog:not([open]) {
   text-transform: uppercase;
   border-radius: 20px;
   color: var(--Static-White);
-  transition: all 0.5s ease-in;
+  transition: background-color 0.5s ease-in, color 0.5s ease-in;
 }
 .section__button:active {
   background-color: var(--Static-White);
@@ -486,7 +487,11 @@ dialog:not([open]) {
   line-height: 148%;
   max-width: 426px;
 }
-.section__image {
+.section__image-wrapper {
+  background-image: url(../images/santa.png);
+  background-position: center;
+  width: 638px;
+  height: 528px;
   border-radius: 20px;
 }
 .section__title-wraper {
@@ -547,6 +552,17 @@ dialog:not([open]) {
     background-color: var(--Static-White-20);
   }
 }
+@media only screen and (max-width: 650px) {
+  .section__wraper {
+    flex-direction: column;
+  }
+  .section__content-wraper {
+    padding: 0 clamp(20px, 5.26vw, 60px);
+  }
+  .section__image-wrapper {
+    width: auto;
+  }
+}
 .slider__wraper {
   display: flex;
   flex-direction: row;
@@ -582,7 +598,7 @@ dialog:not([open]) {
   border-radius: 20px;
   stroke: var(--Static-White);
   border: 1px solid var(--Static-White);
-  transition: all 0.4s ease-in;
+  transition: background-color 0.4s ease-in, stroke 0.4s ease-in;
 }
 .slider__arrow:active {
   background-color: var(--Static-White);
@@ -660,7 +676,6 @@ dialog:not([open]) {
   box-sizing: border-box;
   border-radius: 100px;
   position: relative;
-  top: -4px;
 }
 .burger-menu_active .burger-menu__item:first-child {
   transform: rotate(45deg);
@@ -670,8 +685,9 @@ dialog:not([open]) {
 }
 .burger-menu__item {
   position: absolute;
-  width: 20px;
-  height: 1px;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
   background-color: var(--Dark);
   transition: transform 0.3s ease-in;
 }
