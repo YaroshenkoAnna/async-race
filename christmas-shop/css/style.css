@@ -69,6 +69,7 @@
   gap: 12px;
 }
 .card__category {
+  font-weight: 600;
   font-size: 12px;
   line-height: 130%; /* 15.6px */
   letter-spacing: 0.6px;
@@ -84,6 +85,7 @@
   color: var(--Tag-Green);
 }
 .card__title {
+  font-weight: 600;
   font-size: 16px;
   line-height: 152%; /* 24.32px */
   letter-spacing: 1.28px;
@@ -203,6 +205,7 @@
   line-height: 152%; /* 36.48px */
   letter-spacing: 3.84px;
   text-transform: uppercase;
+  font-weight: 600;
 }
 .footer__description {
   font-size: 16px;
@@ -454,6 +457,7 @@ dialog:not([open]) {
   letter-spacing: 5.76px;
 }
 .section__button {
+  font-weight: 600;
   padding: 20px 32px;
   background-color: var(--Dark);
   font-size: 12px;
