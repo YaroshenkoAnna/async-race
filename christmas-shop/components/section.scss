@@ -172,7 +172,7 @@
 
 @include mixins.device(mixins.$xl) {
   .section {
-    &__gallery {
+    &__gallery_max-w {
       max-width: 632px;
     }
   }
