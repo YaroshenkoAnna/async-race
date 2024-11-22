@@ -7,7 +7,7 @@
   align-items: center;
   flex-direction: column;
   gap: 60px;
-  padding: 60px clamp(8px, calc(11.012vw - 76.5728px), 82px);
+  padding: 60px 60px;
   color: variables.$Dark;
 
   &__content {
@@ -28,7 +28,7 @@
 
   &__link {
     max-width: 417.31px;
-    width: 28.98vw;
+    width: calc((100% - 24px) / 3);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -58,6 +58,7 @@
     line-height: 152%; /* 36.48px */
     letter-spacing: 3.84px;
     text-transform: uppercase;
+    font-weight: 600;
   }
 
   &__description {
@@ -124,5 +125,10 @@
   .footer__wraper,
   .footer__link {
     width: 100%;
+    max-width: none;
+  }
+
+  .footer {
+    padding: 60px clamp(8px, calc(11.012vw - 76.5728px), 82px);
   }
 }
