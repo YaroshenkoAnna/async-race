@@ -368,9 +368,9 @@ dialog:not([open]) {
     position: fixed;
     overflow-y: auto;
     background-color: var(--Static-White);
-    transition: right 0.5s ease-in;
+    transition: left 0.5s ease-in;
     top: 62px;
-    right: -100vw;
+    left: 100vw;
   }
   .navigation__list {
     height: calc(100% - 56px);
@@ -379,7 +379,7 @@ dialog:not([open]) {
     flex-direction: column;
   }
   .navigation_active {
-    right: 0;
+    left: 0;
   }
 }
 .page {
