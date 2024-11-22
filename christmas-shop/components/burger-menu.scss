@@ -12,7 +12,6 @@
   box-sizing: border-box;
   border-radius: 100px;
   position: relative;
-  top: -4px;
 
   &_active .burger-menu__item:first-child {
     transform: rotate(45deg);
@@ -24,8 +23,9 @@
 
   &__item {
     position: absolute;
-    width: 20px;
-    height: 1px;
+    width: 22px;
+    height: 2px;
+    border-radius: 20px;
     background-color: variables.$Dark;
     transition: transform 0.3s ease-in;
 

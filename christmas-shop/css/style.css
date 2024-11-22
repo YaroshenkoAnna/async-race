@@ -69,6 +69,7 @@
   gap: 12px;
 }
 .card__category {
+  font-weight: 600;
   font-size: 12px;
   line-height: 130%; /* 15.6px */
   letter-spacing: 0.6px;
@@ -84,6 +85,7 @@
   color: var(--Tag-Green);
 }
 .card__title {
+  font-weight: 600;
   font-size: 16px;
   line-height: 152%; /* 24.32px */
   letter-spacing: 1.28px;
@@ -157,7 +159,7 @@
   align-items: center;
   flex-direction: column;
   gap: 60px;
-  padding: 60px clamp(8px, 11.012vw - 76.5728px, 82px);
+  padding: 60px 60px;
   color: var(--Dark);
 }
 .footer__content {
@@ -176,7 +178,7 @@
 }
 .footer__link {
   max-width: 417.31px;
-  width: 28.98vw;
+  width: calc((100% - 24px) / 3);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -203,6 +205,7 @@
   line-height: 152%; /* 36.48px */
   letter-spacing: 3.84px;
   text-transform: uppercase;
+  font-weight: 600;
 }
 .footer__description {
   font-size: 16px;
@@ -254,10 +257,14 @@
     color: var(--Primary);
   }
 }
-@media only screen and (max-width: 1116px) {
+@media only screen and (max-width: 1143px) {
   .footer__wraper,
   .footer__link {
     width: 100%;
+    max-width: none;
+  }
+  .footer {
+    padding: 60px clamp(8px, 11.012vw - 76.5728px, 82px);
   }
 }
 .header {
@@ -328,7 +335,7 @@ dialog:not([open]) {
 .navigation__item {
   list-style: none;
   border-radius: 12px;
-  transition: all 0.4s ease-in;
+  transition: background-color 0.4s ease-in, color 0.4s ease-in;
 }
 .navigation__item_active {
   pointer-events: none;
@@ -361,9 +368,9 @@ dialog:not([open]) {
     position: fixed;
     overflow-y: auto;
     background-color: var(--Static-White);
-    transition: right 0.5s ease-in;
+    transition: left 0.5s ease-in;
     top: 62px;
-    right: -100vw;
+    left: 100vw;
   }
   .navigation__list {
     height: calc(100% - 56px);
@@ -372,7 +379,7 @@ dialog:not([open]) {
     flex-direction: column;
   }
   .navigation_active {
-    right: 0;
+    left: 0;
   }
 }
 .page {
@@ -398,7 +405,6 @@ dialog:not([open]) {
 }
 .section_hero {
   background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
-  height: 524px;
   box-sizing: border-box;
 }
 .section_about {
@@ -440,6 +446,7 @@ dialog:not([open]) {
   color: var(--Primary);
 }
 .section__title {
+  font-weight: 600;
   max-width: 432px;
   font-size: 24px;
   line-height: 152%; /* 36.48px */
@@ -453,6 +460,7 @@ dialog:not([open]) {
   letter-spacing: 5.76px;
 }
 .section__button {
+  font-weight: 600;
   padding: 20px 32px;
   background-color: var(--Dark);
   font-size: 12px;
@@ -461,7 +469,7 @@ dialog:not([open]) {
   text-transform: uppercase;
   border-radius: 20px;
   color: var(--Static-White);
-  transition: all 0.5s ease-in;
+  transition: background-color 0.5s ease-in, color 0.5s ease-in;
 }
 .section__button:active {
   background-color: var(--Static-White);
@@ -486,7 +494,11 @@ dialog:not([open]) {
   line-height: 148%;
   max-width: 426px;
 }
-.section__image {
+.section__image-wrapper {
+  background-image: url(../images/santa.png);
+  background-position: center;
+  width: 638px;
+  height: 528px;
   border-radius: 20px;
 }
 .section__title-wraper {
@@ -527,13 +539,13 @@ dialog:not([open]) {
 }
 
 @media only screen and (max-width: 1439px) {
-  .section__gallery {
+  .section__gallery_max-w {
     max-width: 632px;
   }
 }
 @media only screen and (max-width: 468px) {
   .section__switch {
-    padding: 12px 8px;
+    padding: 12px 4px;
   }
 }
 @media (hover: hover) and (pointer: fine) {
@@ -545,6 +557,17 @@ dialog:not([open]) {
   .section__switch:hover {
     cursor: pointer;
     background-color: var(--Static-White-20);
+  }
+}
+@media only screen and (max-width: 650px) {
+  .section__wraper {
+    flex-direction: column;
+  }
+  .section__content-wraper {
+    padding: 0 clamp(20px, 5.26vw, 60px);
+  }
+  .section__image-wrapper {
+    width: auto;
   }
 }
 .slider__wraper {
@@ -582,7 +605,7 @@ dialog:not([open]) {
   border-radius: 20px;
   stroke: var(--Static-White);
   border: 1px solid var(--Static-White);
-  transition: all 0.4s ease-in;
+  transition: background-color 0.4s ease-in, stroke 0.4s ease-in;
 }
 .slider__arrow:active {
   background-color: var(--Static-White);
@@ -660,7 +683,6 @@ dialog:not([open]) {
   box-sizing: border-box;
   border-radius: 100px;
   position: relative;
-  top: -4px;
 }
 .burger-menu_active .burger-menu__item:first-child {
   transform: rotate(45deg);
@@ -670,8 +692,9 @@ dialog:not([open]) {
 }
 .burger-menu__item {
   position: absolute;
-  width: 20px;
-  height: 1px;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
   background-color: var(--Dark);
   transition: transform 0.3s ease-in;
 }

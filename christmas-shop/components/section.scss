@@ -10,7 +10,7 @@
 
   &_hero {
     background-image: url("../images/bg-ball.png"), url("../images/bg-snow.png");
-    height: 524px;
+
     box-sizing: border-box;
   }
 
@@ -63,6 +63,7 @@
   }
 
   &__title {
+    font-weight: 600;
     max-width: 432px;
     font-size: 24px;
     line-height: 152%; /* 36.48px */
@@ -78,6 +79,7 @@
   }
 
   &__button {
+    font-weight: 600;
     padding: 20px 32px;
     background-color: variables.$Dark;
     font-size: 12px;
@@ -86,7 +88,7 @@
     text-transform: uppercase;
     border-radius: 20px;
     color: variables.$Static-White;
-    transition: all 0.5s ease-in;
+    transition: background-color 0.5s ease-in, color 0.5s ease-in;
 
     &:active {
       background-color: variables.$Static-White;
@@ -116,7 +118,11 @@
     max-width: 426px;
   }
 
-  &__image {
+  &__image-wrapper {
+    background-image: url(../images/santa.png);
+    background-position: center;
+    width: 638px;
+    height: 528px;
     border-radius: 20px;
   }
 
@@ -166,7 +172,7 @@
 
 @include mixins.device(mixins.$xl) {
   .section {
-    &__gallery {
+    &__gallery_max-w {
       max-width: 632px;
     }
   }
@@ -175,7 +181,7 @@
 @include mixins.device(mixins.$sm1) {
   .section {
     &__switch {
-      padding: 12px 8px;
+      padding: 12px 4px;
     }
   }
 }
@@ -190,5 +196,21 @@
   .section__switch:hover {
     cursor: pointer;
     background-color: variables.$Static-White-20;
+  }
+}
+
+@include mixins.device(mixins.$md1) {
+  .section {
+    &__wraper {
+      flex-direction: column;
+    }
+
+    &__content-wraper {
+      padding: 0 clamp(20px, 5.26vw, 60px);
+    }
+
+    &__image-wrapper {
+      width: auto;
+    }
   }
 }
