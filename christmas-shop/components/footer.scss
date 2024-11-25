@@ -43,9 +43,7 @@
     color: inherit;
     transition: color 0.5s ease-in;
 
-    &:active {
-      color: variables.$Primary;
-    }
+
   }
 
   &__image {
@@ -69,7 +67,6 @@
   }
 
   &__icon {
-    cursor: pointer;
     padding: 8px;
 
     & svg {
@@ -100,9 +97,7 @@
     color: inherit;
     transition: color 0.4s ease-in;
 
-    &:active {
-      color: variables.$Primary;
-    }
+
   }
 }
 
@@ -110,6 +105,10 @@
   .footer__link:hover {
     cursor: pointer;
     color: variables.$Primary;
+  }
+
+  .footer__icon:hover {
+    cursor: pointer;
   }
 
   .footer__icon:hover svg {

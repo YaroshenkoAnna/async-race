@@ -3,7 +3,7 @@
 
 .burger-menu {
   display: none;
-  cursor: pointer;
+
   width: 40px;
   height: 40px;
   flex-direction: column;
@@ -42,5 +42,11 @@
 @include mixins.device(mixins.$md) {
   .burger-menu {
     display: flex;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .burger-menu:hover {
+    cursor: pointer;
   }
 }

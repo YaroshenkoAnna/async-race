@@ -31,7 +31,6 @@
   border-radius: 20px;
   background-color: #ecf3f8;
   color: var(--Dark);
-  cursor: pointer;
 }
 .card_modal {
   position: relative;
@@ -144,6 +143,9 @@
   .card:hover .card__title {
     color: var(--Primary);
   }
+  .card:hover {
+    cursor: pointer;
+  }
   .card_modal:hover .card__title {
     color: var(--Dark);
   }
@@ -193,9 +195,6 @@
   color: inherit;
   transition: color 0.5s ease-in;
 }
-.footer__link:active {
-  color: var(--Primary);
-}
 .footer__image {
   width: 80px;
   height: 80px;
@@ -214,7 +213,6 @@
   text-transform: uppercase;
 }
 .footer__icon {
-  cursor: pointer;
   padding: 8px;
 }
 .footer__icon svg {
@@ -241,14 +239,14 @@
   color: inherit;
   transition: color 0.4s ease-in;
 }
-.footer__link-caption:active {
-  color: var(--Primary);
-}
 
 @media (hover: hover) and (pointer: fine) {
   .footer__link:hover {
     cursor: pointer;
     color: var(--Primary);
+  }
+  .footer__icon:hover {
+    cursor: pointer;
   }
   .footer__icon:hover svg {
     stroke: var(--Primary);
@@ -342,10 +340,6 @@ dialog:not([open]) {
   background-color: var(--Primary-10);
   color: var(--Primary);
 }
-.navigation__item :active {
-  background-color: var(--Primary-10);
-  color: var(--Primary);
-}
 .navigation__link {
   display: inline-block;
   padding: 12px 20px;
@@ -368,7 +362,7 @@ dialog:not([open]) {
     position: fixed;
     overflow-y: auto;
     background-color: var(--Static-White);
-    transition: left 0.5s ease-in;
+    /* transition: left 0.5s ease-in; */
     top: 62px;
     left: 100vw;
   }
@@ -544,8 +538,11 @@ dialog:not([open]) {
   }
 }
 @media only screen and (max-width: 468px) {
+  .section__switches {
+    gap: 2px;
+  }
   .section__switch {
-    padding: 12px 4px;
+    padding: 12px 7px;
   }
 }
 @media (hover: hover) and (pointer: fine) {
@@ -606,10 +603,6 @@ dialog:not([open]) {
   stroke: var(--Static-White);
   border: 1px solid var(--Static-White);
   transition: background-color 0.4s ease-in, stroke 0.4s ease-in;
-}
-.slider__arrow:active {
-  background-color: var(--Static-White);
-  stroke: var(--Primary);
 }
 .slider__arrow_inactive {
   pointer-events: none;
@@ -674,7 +667,6 @@ dialog:not([open]) {
 
 .burger-menu {
   display: none;
-  cursor: pointer;
   width: 40px;
   height: 40px;
   flex-direction: column;
@@ -708,6 +700,11 @@ dialog:not([open]) {
 @media only screen and (max-width: 768px) {
   .burger-menu {
     display: flex;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .burger-menu:hover {
+    cursor: pointer;
   }
 }
 html {

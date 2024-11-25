@@ -19,10 +19,7 @@
       color: variables.$Primary;
     }
 
-    :active {
-      background-color: variables.$Primary-10;
-      color: variables.$Primary;
-    }
+
   }
 
   &__link {
@@ -49,7 +46,7 @@
     position: fixed;
     overflow-y: auto;
     background-color: variables.$Static-White;
-    transition: left 0.5s ease-in;
+    /* transition: left 0.5s ease-in; */
     top: 62px;
     left: 100vw;
 

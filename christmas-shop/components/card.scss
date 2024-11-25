@@ -8,7 +8,6 @@
   border-radius: 20px;
   background-color: #ecf3f8;
   color: variables.$Dark;
-  cursor: pointer;
 
   &_modal {
     position: relative;
@@ -139,6 +138,10 @@
 @media (hover: hover) and (pointer: fine) {
   .card:hover .card__title {
     color: variables.$Primary;
+  }
+
+  .card:hover {
+    cursor: pointer;
   }
 
   .card_modal:hover .card__title {
