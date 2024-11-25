@@ -578,7 +578,7 @@ dialog:not([open]) {
   align-items: center;
   gap: 20px;
   align-self: flex-start;
-  transition: transform 0.4s ease-in-out;
+  transition: translate 0.4s ease-in-out;
 }
 .slider__text {
   font-size: 80px;

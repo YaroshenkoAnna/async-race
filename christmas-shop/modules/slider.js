@@ -12,14 +12,24 @@ let numberOfClicks;
 export function slider() {
   arrowRight.addEventListener("click", moveSlider);
   arrowLeft.addEventListener("click", moveSlider);
+  window.addEventListener("resize", defineDataForSlider);
 }
 
-function moveSlider(event) {
+function defineDataForSlider(event) {
+  if (event) {
+    clickNumber = 0;
+    checkActiveButtons();
+    sliderRow.style.translate = 0;
+  }
+
   width = window.innerWidth;
   numberOfClicks = width < 769 ? 6 : 3;
   let padding = parseFloat(computedStyle.paddingLeft);
-  let moveWidth = (totalSliderWidth + padding * 2 - width) / numberOfClicks;
-  console.log(sliderRow.paddingLeft);
+  return (totalSliderWidth + padding * 2 - width) / numberOfClicks;
+}
+
+function moveSlider(event) {
+  let moveWidth = defineDataForSlider();
   if (event.target.closest("#arrow-right")) {
     clickNumber++;
     sliderRow.style.translate = -moveWidth * clickNumber + "px";
@@ -35,8 +45,9 @@ function checkActiveButtons() {
     arrowLeft.classList.add("slider__arrow_inactive");
   } else if (clickNumber === numberOfClicks) {
     arrowRight.classList.add("slider__arrow_inactive");
+    return;
   } else {
     arrowLeft.classList.remove("slider__arrow_inactive");
-    arrowRight.classList.remove("slider__arrow_inactive");
   }
+  arrowRight.classList.remove("slider__arrow_inactive");
 }
