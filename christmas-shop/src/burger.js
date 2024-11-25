@@ -5,17 +5,14 @@ burgerButton.addEventListener("click", showHideBurgerMenu);
 
 function showHideBurgerMenu(event) {
   if (
-    !event.target.closest == burgerButton ||
-    !event.target.closest == ".navigation__item" ||
-    !event.target.closest == ".header__menu"
+    event.target.closest(".burger-menu") ||
+    (event.target.closest(".navigation__item") &&
+      burgerButton.classList.contains("burger-menu_active"))
   ) {
-    console.log("jj");
-    return;
+    burgerButton.classList.toggle("burger-menu_active");
+    navigation.classList.toggle("navigation_active");
+
+    const page = document.querySelector("body");
+    page.classList.toggle("enabled-scroll");
   }
-
-  burgerButton.classList.toggle("burger-menu_active");
-  navigation.classList.toggle("navigation_active");
-
-  const page = document.querySelector("body");
-  page.classList.toggle("enabled-scroll");
 }

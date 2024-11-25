@@ -362,9 +362,14 @@ dialog:not([open]) {
     position: fixed;
     overflow-y: auto;
     background-color: var(--Static-White);
-    /* transition: left 0.5s ease-in; */
+    transition: transform 0.5s ease-in;
     top: 62px;
     left: 100vw;
+    transform: translateX(0);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36.48px;
+    letter-spacing: 0.16em;
   }
   .navigation__list {
     height: calc(100% - 56px);
@@ -373,7 +378,7 @@ dialog:not([open]) {
     flex-direction: column;
   }
   .navigation_active {
-    left: 0;
+    transform: translateX(-100vw);
   }
 }
 .page {
