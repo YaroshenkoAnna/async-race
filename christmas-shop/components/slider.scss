@@ -44,10 +44,6 @@
     border: 1px solid variables.$Static-White;
     transition: background-color 0.4s ease-in, stroke 0.4s ease-in;
 
-    &:active {
-      background-color: variables.$Static-White;
-      stroke: variables.$Primary;
-    }
 
     &_inactive {
       pointer-events: none;

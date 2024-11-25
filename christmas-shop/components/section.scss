@@ -180,8 +180,12 @@
 
 @include mixins.device(mixins.$sm1) {
   .section {
+    &__switches {
+      gap: 2px;
+    }
+
     &__switch {
-      padding: 12px 4px;
+      padding: 12px 7px;
     }
   }
 }
