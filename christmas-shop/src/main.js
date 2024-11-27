@@ -8,7 +8,7 @@ import { getRandomElements } from "../modules/getRandomElements.js";
 createGallery([gifts[1], gifts[15], gifts[3], gifts[27]]);
 
 slider();
-/* modal();*/
+modal();
 timer();
 
 createGallery(getRandomElements(gifts, 4));

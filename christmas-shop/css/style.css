@@ -146,6 +146,9 @@
   .card:hover {
     cursor: pointer;
   }
+  .card_modal:hover {
+    cursor: default;
+  }
   .card_modal:hover .card__title {
     color: var(--Dark);
   }
