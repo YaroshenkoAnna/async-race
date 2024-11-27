@@ -7,8 +7,8 @@ import { slider } from "../modules/slider.js";
 createGallery([gifts[1], gifts[15], gifts[3], gifts[27]]);
 
 slider();
-/* modal();
-timer(); */
+/* modal();*/
+timer();
 
 // generating random gifts
 /* function getRandomElements(arr) {
