@@ -266,6 +266,8 @@
   }
 }
 .header {
+  position: relative;
+  z-index: 101;
   padding: 12px clamp(8px, 11.012vw - 76.573px, 82px);
   background-color: var(--Static-White);
   display: flex;
@@ -336,9 +338,11 @@ dialog:not([open]) {
   transition: background-color 0.4s ease-in, color 0.4s ease-in;
 }
 .navigation__item_active {
-  pointer-events: none;
   background-color: var(--Primary-10);
   color: var(--Primary);
+}
+.navigation__item_active .navigation__link {
+  pointer-events: none;
 }
 .navigation__link {
   display: inline-block;
@@ -353,26 +357,32 @@ dialog:not([open]) {
     background-color: var(--Primary-10);
     color: var(--Primary);
   }
+  .navigation__item_active:hover {
+    cursor: default;
+  }
 }
 @media only screen and (max-width: 768px) {
   .navigation {
     z-index: 100;
     width: 100vw;
-    height: 100vh;
     position: fixed;
     overflow-y: auto;
+    height: calc(100vh - 62px);
     background-color: var(--Static-White);
     transition: transform 0.5s ease-in;
     top: 62px;
     left: 100vw;
     transform: translateX(0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 24px;
     font-weight: 600;
     line-height: 36.48px;
     letter-spacing: 0.16em;
   }
   .navigation__list {
-    height: calc(100% - 56px);
+    height: max-content;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -542,7 +552,7 @@ dialog:not([open]) {
     max-width: 632px;
   }
 }
-@media only screen and (max-width: 468px) {
+@media only screen and (max-width: 492px) {
   .section__switches {
     gap: 2px;
   }

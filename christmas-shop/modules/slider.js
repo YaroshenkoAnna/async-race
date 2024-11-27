@@ -22,7 +22,7 @@ function defineDataForSlider(event) {
     sliderRow.style.translate = 0;
   }
 
-  width = window.innerWidth;
+  width = window.innerWidth > 1440 ? 1440 : window.innerWidth;
   numberOfClicks = width < 769 ? 6 : 3;
   let padding = parseFloat(computedStyle.paddingLeft);
   return (totalSliderWidth + padding * 2 - width) / numberOfClicks;
