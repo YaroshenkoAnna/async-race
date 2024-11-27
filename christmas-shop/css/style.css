@@ -549,6 +549,20 @@ dialog:not([open]) {
 .section__switch:active {
   background-color: var(--Static-White-20);
 }
+.section__up-button {
+  display: none;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid var(--Primary);
+  background: var(--Static-White);
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  cursor: pointer;
+}
 
 @media only screen and (max-width: 1439px) {
   .section__gallery_max-w {
@@ -583,6 +597,11 @@ dialog:not([open]) {
   }
   .section__image-wrapper {
     width: auto;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .section__up-button_active {
+    display: flex;
   }
 }
 .slider__wraper {
