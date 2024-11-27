@@ -36,14 +36,14 @@ export function createGallery(arrGifts) {
     });
 
     createElement({
-      tag: "h4",
+      tag: "h3",
       text: gift.category,
       classes: ["card__category", `card__category_${category}`],
       parent: container,
     });
 
     createElement({
-      tag: "h3",
+      tag: "h4",
       text: gift.name,
       classes: ["card__title"],
       parent: container,
