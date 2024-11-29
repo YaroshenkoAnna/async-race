@@ -8,6 +8,7 @@
     align-items: center;
     gap: 20px;
     align-self: flex-start;
+    transition: translate 0.4s ease-in-out;
   }
 
   &__text {
@@ -43,7 +44,6 @@
     stroke: variables.$Static-White;
     border: 1px solid variables.$Static-White;
     transition: background-color 0.4s ease-in, stroke 0.4s ease-in;
-
 
     &_inactive {
       pointer-events: none;

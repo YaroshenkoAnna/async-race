@@ -2,6 +2,8 @@
 @use "../css/mixins.scss";
 
 .header {
+  position: relative;
+  z-index: 101;
   padding: 12px clamp(8px, calc(11.012vw - 76.573px), 82px);
   background-color: variables.$Static-White;
   display: flex;

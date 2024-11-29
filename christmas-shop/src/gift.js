@@ -2,8 +2,10 @@ import { createGallery } from "../modules/createGallery.js";
 import { switchGifts } from "../modules/switchGifts.js";
 import { gifts } from "../modules/gifts.js";
 import { modal } from "../modules/modal.js";
+import { up } from "../modules/up.js";
+import { getRandomElements } from "../modules/getRandomElements.js";
 
-createGallery([
+/* createGallery([
   gifts[1],
   gifts[13],
   gifts[0],
@@ -16,9 +18,10 @@ createGallery([
   gifts[3],
   gifts[24],
   gifts[27],
-]);
+]); */
+createGallery(getRandomElements(gifts));
 
-/* const switches = document.querySelector(".section__switches");
+const switches = document.querySelector(".section__switches");
 switches.addEventListener("click", switchGifts);
 modal();
-*/
+up();
