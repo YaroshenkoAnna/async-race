@@ -12,4 +12,3 @@ createGallery(getRandomElements(gifts, 4));
 slider();
 modal();
 timer();
-up();
