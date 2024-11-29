@@ -168,6 +168,21 @@
       background-color: variables.$Static-White-20;
     }
   }
+
+  &__up-button {
+    display: none;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid variables.$Primary;
+    background: variables.$Static-White;
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    cursor: pointer;
+  }
 }
 
 @include mixins.device(mixins.$xl) {
@@ -216,5 +231,11 @@
     &__image-wrapper {
       width: auto;
     }
+  }
+}
+
+@include mixins.device(mixins.$md) {
+  .section__up-button_active {
+    display: flex;
   }
 }
