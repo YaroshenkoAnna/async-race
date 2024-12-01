@@ -1,11 +1,12 @@
 //calculation of time until the new year by time zone UTC + 0
 
 export function timer() {
-  const newYear2025 = Date.UTC(2024, 11, 31, 23, 59, 59);
-
   const countdownTimer = setInterval(function () {
+    const currentYear = new Date().getFullYear();
+
+    const newYear = Date.UTC(currentYear, 11, 31, 23, 59, 59);
     const now = new Date().getTime();
-    const restTime = newYear2025 - now;
+    const restTime = newYear - now;
 
     const days = Math.floor(restTime / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
