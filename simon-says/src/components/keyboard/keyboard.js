@@ -11,13 +11,9 @@ keyboards.numerical.forEach((key) => {
     {},
     `${key.toUpperCase()}`
   );
-  Button.addEventListener("keydown", function (event) {
-    if (
-      event.code === `Digit${key}` ||
-      event.code === `Key${key.toUpperCase()}`
-    ) {
-      toggleActiveButton(event.target);
-    }
+
+  Button.addEventListener("click", function (event) {
+    toggleActiveButton(event.target);
   });
   Keyboard.appendChildren(Button);
 });
@@ -26,5 +22,5 @@ function toggleActiveButton(button) {
   button.classList.add(styles.active);
   setTimeout(() => {
     button.classList.remove(styles.active);
-  }, 1000);
+  }, 800);
 }

@@ -1,6 +1,8 @@
 import styles from "./main.module.css";
 import { BaseElement } from "../common/baseElement.js";
 import { Keyboard } from "../keyboard/keyboard.js";
+import { Info } from "../utilits/utilits.js";
+import { GameButtons } from "../utilits/utilits.js";
 
 export const Main = new BaseElement("main", [styles.main]);
-Main.appendChildren(Keyboard);
+Main.appendChildren(Info, Keyboard, GameButtons);
