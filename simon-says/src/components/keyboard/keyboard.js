@@ -3,20 +3,25 @@ import { BaseElement } from "../common/baseElement.js";
 import { keyboards } from "../../data/keyboards.js";
 
 export const Keyboard = new BaseElement("div", [styles.keyboard, styles.easy]);
+export let typeOfKeyboard = "numerical";
 
-keyboards.numerical.forEach((key) => {
-  const Button = new BaseElement(
-    "button",
-    [styles.button],
-    {},
-    `${key.toUpperCase()}`
-  );
+createKeys(typeOfKeyboard);
 
-  Button.addEventListener("click", function (event) {
-    toggleActiveButton(event.target);
+function createKeys(keys) {
+  keyboards[keys].forEach((key) => {
+    const Button = new BaseElement(
+      "button",
+      [styles.button],
+      {},
+      `${key.toUpperCase()}`
+    );
+
+    Button.addEventListener("click", function (event) {
+      toggleActiveButton(event.target);
+    });
+    Keyboard.appendChildren(Button);
   });
-  Keyboard.appendChildren(Button);
-});
+}
 
 function toggleActiveButton(button) {
   button.classList.add(styles.active);
