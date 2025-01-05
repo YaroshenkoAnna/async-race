@@ -1,13 +1,26 @@
 export class BaseElement {
-  constructor(tag, classes = [], attributes = {}, innerContent = "") {
-    this._elem = document.createElement(tag);
+  constructor(
+    tag,
+    classes = [],
+    attributes = {},
+    innerContent = "",
+    isSVG = false
+  ) {
+    const namespace = "http://www.w3.org/2000/svg";
+    this._elem = isSVG
+      ? document.createElementNS(namespace, tag)
+      : document.createElement(tag);
     this.addClasses(classes);
     this.setAttributes(attributes);
-    this._elem.innerHTML = innerContent;
+    if (innerContent) this.setInnerHTML(innerContent);
   }
 
   addClasses(classes) {
     this._elem.classList.add(...classes);
+  }
+
+  toggleClass(toggledClass) {
+    this._elem.classList.toggle(toggledClass);
   }
 
   setInnerHTML(innerContent) {
