@@ -5,7 +5,12 @@ export function generateSequence(length) {
   let maxNumber = keyboards[typeOfKeyboard].length;
   let sequence = [];
   for (let i = 0; i < length; i++) {
-    sequence.push(getRandomInt(0, maxNumber));
+    const randomNumber = getRandomInt(0, maxNumber);
+    if (i > 0 && sequence[i - 1] === randomNumber) {
+      i--;
+    } else {
+      sequence.push(randomNumber);
+    }
   }
   return sequence;
 }
@@ -15,5 +20,3 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);
 }
-
-export function playSequence(sequence) {}

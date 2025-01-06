@@ -55,3 +55,15 @@
   color: #fff;
   text-shadow: 0 0 5px #219cf3, 0 0 8px #219cf3;
 }
+
+.wrong {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px inset,
+    rgba(0, 0, 0, 0.5) 0px 5px 5px inset,
+    rgba(0, 0, 0, 0.35) 0px 15px 25px inset;
+  color: rgb(255, 255, 255);
+  text-shadow: rgb(236, 4, 41) 0px 0px 5px, rgb(178, 0, 0) 0px 0px 8px;
+  outline: rgb(251, 92, 184) solid 1px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(254, 94, 143);
+}

@@ -1,7 +1,7 @@
 import styles from "./utilits.module.css";
 import { BaseElement } from "../common/baseElement.js";
 import { generateSequence } from "../logic/logic.js";
-import { playSequence } from "../logic/logic.js";
+import { playSequence } from "../keyboard/keyboard.js";
 
 let numberOfRound = 0;
 
@@ -58,13 +58,19 @@ const NewGameButton = new BaseElement(
 GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton);
 
 // Interaction with Buttons
+export let sequence;
 
 PlayButton.addEventListener("click", () => {
   showHideButtons(PlayButton, RepeatButton, NewGameButton);
   numberOfRound++;
   RoundButton.setInnerHTML(`Round: ${numberOfRound}`);
   DifficultyButton.addClasses([styles.inactive]);
-  playSequence(generateSequence(numberOfRound * 2));
+  sequence = generateSequence(numberOfRound * 2);
+  blockMouseAndKeyboard(window);
+  setTimeout(() => {
+    unblockMouseAndKeyboard(window);
+  }, sequence.length * 800 + 1500);
+  playSequence(sequence);
 });
 
 NewGameButton.addEventListener("click", () => {
@@ -79,4 +85,33 @@ function showHideButtons() {
   buttons.forEach((button) => {
     button.toggleClass(styles.hidden);
   });
+}
+
+RepeatButton.addEventListener("click", () => {
+  blockMouseAndKeyboard(window);
+  setTimeout(() => {
+    unblockMouseAndKeyboard(window);
+  }, sequence.length * 800 + 1500);
+  playSequence(sequence);
+});
+
+function blockMouseAndKeyboard(elem) {
+  elem.addEventListener("mousedown", preventDefault, true);
+  elem.addEventListener("mouseup", preventDefault, true);
+  elem.addEventListener("click", preventDefault, true);
+  elem.addEventListener("keydown", preventDefault, true);
+  elem.addEventListener("keyup", preventDefault, true);
+}
+
+function unblockMouseAndKeyboard(elem) {
+  elem.removeEventListener("mousedown", preventDefault, true);
+  elem.removeEventListener("mouseup", preventDefault, true);
+  elem.removeEventListener("click", preventDefault, true);
+  elem.removeEventListener("keydown", preventDefault, true);
+  elem.removeEventListener("keyup", preventDefault, true);
+}
+
+function preventDefault(event) {
+  event.preventDefault();
+  event.stopPropagation();
 }
