@@ -18,6 +18,7 @@
   background: linear-gradient(#c0c0c0, #5b7d7a, #334a4c);
   border-radius: 6px;
   cursor: pointer;
+  transition: width 0.3s ease-in, height 0.3s ease-in;
 }
 
 .info {
