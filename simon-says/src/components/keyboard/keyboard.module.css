@@ -21,6 +21,10 @@
   grid-template-columns: repeat(14, 1fr);
 }
 
+.hard {
+  grid-template-columns: repeat(12, 1fr);
+}
+
 .button {
   -webkit-text-stroke: 1px #797979;
   display: flex;
@@ -47,6 +51,10 @@
   grid-column: 2 / span 2;
 }
 
+.medium .button:nth-child(13n + 1) {
+  grid-column: 2 / span 2;
+}
+
 .active {
   outline: 1px solid #d0e8ea;
   border: 2px solid #96c3e2;
@@ -66,8 +74,4 @@
   border-width: 2px;
   border-style: solid;
   border-color: rgb(254, 94, 143);
-}
-
-.inactive {
-  pointer-events: none;
 }

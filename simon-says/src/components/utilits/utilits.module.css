@@ -7,7 +7,7 @@
   width: max-content;
   height: 50px;
   font-size: 22px;
-  padding: 0 20px;
+  padding: 0 15px;
   display: flex;
   flex-direction: row-reverse;
   position: relative;
@@ -22,7 +22,7 @@
 }
 
 .input {
-  width: 130px;
+  width: 190px;
   font-size: 22px;
   display: flex;
   justify-content: center;

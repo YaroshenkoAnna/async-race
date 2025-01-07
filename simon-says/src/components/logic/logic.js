@@ -12,6 +12,7 @@ export function generateSequence(length) {
       sequence.push(randomNumber);
     }
   }
+  console.log(sequence);
   return sequence;
 }
 

@@ -1,14 +1,21 @@
 import styles from "./keyboard.module.css";
+import commonStyles from "../utilits/utilits.module.css";
 import { BaseElement } from "../common/baseElement.js";
 import { keyboards } from "../../data/keyboards.js";
-import { sequence, Input, GameButtons } from "../utilits/utilits.js";
+import {
+  sequence,
+  Input,
+  GameButtons,
+  RepeatButton,
+  NextButton,
+} from "../utilits/utilits.js";
 
 export const Keyboard = new BaseElement("div", [
   styles.keyboard,
   styles.easy,
-  styles.inactive,
+  commonStyles.inactive,
 ]);
-export let typeOfKeyboard = "numerical";
+export let typeOfKeyboard = "easy";
 let keyboardMap = [];
 let clickCounter = 0;
 
@@ -27,6 +34,19 @@ function createKeys(keys) {
     Keyboard.appendChildren(Button);
     keyboardMap.push(Button);
   });
+}
+
+// Changing of Keyboard
+
+export function changeKeyboard(el) {
+  typeOfKeyboard = el.typeKeyboard;
+  Keyboard._elem.replaceChildren();
+  keyboardMap = [];
+  createKeys(el.typeKeyboard);
+  Keyboard.removeClass(styles.easy);
+  Keyboard.removeClass(styles.medium);
+  Keyboard.removeClass(styles.hard);
+  Keyboard.addClasses([styles[el.typeKeyboard]]);
 }
 
 function toggleActiveButton(button, toggledClass) {
@@ -87,30 +107,33 @@ function checkSequence(event) {
       clearData();
       toggleActiveButton(clickedButton, "wrong");
       blockInput();
+      return;
     }
   }
   if (clickCounter == sequence.length) {
     blockInput();
     clearData();
+    RepeatButton.addClasses([commonStyles.hidden]);
+    NextButton.removeClass(commonStyles.hidden);
   }
 }
 
 function blockInput() {
   window.removeEventListener("keydown", checkSequence);
-  Keyboard.addClasses([styles.inactive]);
+  Keyboard.addClasses([commonStyles.inactive]);
 }
 
 function unblockInput() {
   window.addEventListener("keydown", checkSequence);
-  Keyboard.removeClass(styles.inactive);
+  Keyboard.removeClass(commonStyles.inactive);
 }
 
 function blockButtons() {
-  GameButtons.addClasses([styles.inactive]);
+  GameButtons.addClasses([commonStyles.inactive]);
 }
 
 function unblockButtons() {
-  GameButtons.removeClass([styles.inactive]);
+  GameButtons.removeClass([commonStyles.inactive]);
 }
 
 function clearData() {
