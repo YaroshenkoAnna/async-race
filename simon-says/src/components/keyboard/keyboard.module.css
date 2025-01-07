@@ -67,3 +67,7 @@
   border-style: solid;
   border-color: rgb(254, 94, 143);
 }
+
+.inactive {
+  pointer-events: none;
+}

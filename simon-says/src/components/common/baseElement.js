@@ -1,18 +1,14 @@
 export class BaseElement {
-  constructor(
-    tag,
-    classes = [],
-    attributes = {},
-    innerContent = "",
-    isSVG = false
-  ) {
+  constructor(tag, classes = [], attributes = {}, text = "", isSVG = false) {
     const namespace = "http://www.w3.org/2000/svg";
     this._elem = isSVG
       ? document.createElementNS(namespace, tag)
       : document.createElement(tag);
     this.addClasses(classes);
     this.setAttributes(attributes);
-    if (innerContent) this.setInnerHTML(innerContent);
+    if (text) {
+      this._elem.textContent = text;
+    }
   }
 
   addClasses(classes) {
@@ -27,12 +23,12 @@ export class BaseElement {
     this._elem.classList.toggle(toggledClass);
   }
 
-  setInnerHTML(innerContent) {
-    this._elem.innerHTML = innerContent;
+  setText(text) {
+    this._elem.textContent = text;
   }
 
-  getInnerHTML() {
-    return this._elem.innerHTML;
+  getText() {
+    return this._elem.textContent;
   }
 
   setAttributes(atr) {
@@ -47,6 +43,10 @@ export class BaseElement {
 
   addEventListener(event, callback) {
     this._elem.addEventListener(event, callback);
+  }
+
+  removeEventListener(event, callback) {
+    this._elem.removeEventListener(event, callback);
   }
 
   appendChildren(...children) {

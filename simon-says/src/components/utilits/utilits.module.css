@@ -6,7 +6,7 @@
 .button {
   width: max-content;
   height: 50px;
-  font-size: 26px;
+  font-size: 22px;
   padding: 0 20px;
   display: flex;
   flex-direction: row-reverse;
@@ -19,6 +19,20 @@
   border-radius: 6px;
   cursor: pointer;
   transition: width 0.3s ease-in, height 0.3s ease-in;
+}
+
+.input {
+  width: 130px;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-weight: 700;
+  background: rgb(140 148 154 / 40%);
+  border-radius: 6px;
+  border: 1px solid #000000;
+  box-shadow: 0px 0px 8px 3px #5b7d7a inset;
 }
 
 .info {
@@ -56,5 +70,10 @@
 }
 
 .inactive {
+  pointer-events: none;
+}
+
+.blocked {
+  color: #00000052;
   pointer-events: none;
 }

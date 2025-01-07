@@ -13,6 +13,14 @@ const RoundButton = new BaseElement(
   {},
   `Round: ${numberOfRound}`
 );
+
+export const Input = new BaseElement(
+  "div",
+  [, styles.input, styles.hidden],
+  {},
+  ""
+);
+
 const DifficultyButton = new BaseElement("div", [styles.button, styles.info]);
 for (let i = 0; i < 3; i++) {
   const Icon = new BaseElement(
@@ -38,7 +46,7 @@ for (let i = 0; i < 3; i++) {
   DifficultyButton.appendChildren(Icon);
 }
 
-Info.appendChildren(RoundButton, DifficultyButton);
+Info.appendChildren(RoundButton, Input, DifficultyButton);
 
 export const GameButtons = new BaseElement("div", [styles.container]);
 const PlayButton = new BaseElement("div", [styles.button], {}, "Play");
@@ -61,23 +69,22 @@ GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton);
 export let sequence;
 
 PlayButton.addEventListener("click", () => {
-  showHideButtons(PlayButton, RepeatButton, NewGameButton);
+  showHideButtons(PlayButton, RepeatButton, NewGameButton, Input);
   numberOfRound++;
-  RoundButton.setInnerHTML(`Round: ${numberOfRound}`);
+  RoundButton.setText(`Round: ${numberOfRound}`);
   DifficultyButton.addClasses([styles.inactive]);
   sequence = generateSequence(numberOfRound * 2);
-  blockMouseAndKeyboard(window);
-  setTimeout(() => {
-    unblockMouseAndKeyboard(window);
-  }, sequence.length * 800 + 1500);
+
+  setTimeout(() => {}, sequence.length * 800 + 1500);
   playSequence(sequence);
 });
 
 NewGameButton.addEventListener("click", () => {
-  showHideButtons(PlayButton, RepeatButton, NewGameButton);
+  showHideButtons(PlayButton, RepeatButton, NewGameButton, Input);
   DifficultyButton.removeClass([styles.inactive]);
   numberOfRound = 0;
-  RoundButton.setInnerHTML(`Round: ${numberOfRound}`);
+  RoundButton.setText(`Round: ${numberOfRound}`);
+  clearInput();
 });
 
 function showHideButtons() {
@@ -87,31 +94,16 @@ function showHideButtons() {
   });
 }
 
-RepeatButton.addEventListener("click", () => {
-  blockMouseAndKeyboard(window);
-  setTimeout(() => {
-    unblockMouseAndKeyboard(window);
-  }, sequence.length * 800 + 1500);
+RepeatButton.addEventListener("click", repeatSequence);
+
+function clearInput() {
+  Input.setText("");
+}
+
+function repeatSequence() {
+  clearInput();
+  setTimeout(() => {}, sequence.length * 800 + 1500);
   playSequence(sequence);
-});
-
-function blockMouseAndKeyboard(elem) {
-  elem.addEventListener("mousedown", preventDefault, true);
-  elem.addEventListener("mouseup", preventDefault, true);
-  elem.addEventListener("click", preventDefault, true);
-  elem.addEventListener("keydown", preventDefault, true);
-  elem.addEventListener("keyup", preventDefault, true);
-}
-
-function unblockMouseAndKeyboard(elem) {
-  elem.removeEventListener("mousedown", preventDefault, true);
-  elem.removeEventListener("mouseup", preventDefault, true);
-  elem.removeEventListener("click", preventDefault, true);
-  elem.removeEventListener("keydown", preventDefault, true);
-  elem.removeEventListener("keyup", preventDefault, true);
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-  event.stopPropagation();
+  RepeatButton.removeEventListener("click", repeatSequence);
+  RepeatButton.addClasses([styles.blocked]);
 }
