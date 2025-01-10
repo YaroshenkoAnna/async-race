@@ -5,3 +5,9 @@
   align-items: center;
   gap: 20px;
 }
+
+@media (max-width: 600px) {
+  .main {
+    gap: clamp(5px, 3.33vw, 20px);
+  }
+}

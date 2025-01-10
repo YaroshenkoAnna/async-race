@@ -1,14 +1,12 @@
 .keyboard {
+  margin: 0 5px;
   border: 1px solid black;
   border-radius: 20px;
   display: grid;
-  /* width: 406px; */
-  /* height: 290px; */
   padding: clamp(15px, 5vw, 30px);
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.35), 0 5px 5px rgba(0, 0, 0, 0.5),
     0 15px 25px rgba(0, 0, 0, 0.35);
-
   gap: clamp(5px, 2vw, 25px);
   max-width: 100%;
 }
@@ -74,4 +72,17 @@
   border-width: 2px;
   border-style: solid;
   border-color: rgb(254, 94, 143);
+}
+
+@media (max-width: 600px) {
+  .medium .button,
+  .hard .button {
+    font-size: clamp(20px, 8.3vw, 50px);
+  }
+}
+
+@media (max-width: 350px) {
+  .easy .button {
+    font-size: clamp(20px, 14.28vw, 50px);
+  }
 }

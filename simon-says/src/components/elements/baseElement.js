@@ -15,8 +15,8 @@ export class BaseElement {
     this._elem.classList.add(...classes);
   }
 
-  removeClass(removedClass) {
-    this._elem.classList.remove(removedClass);
+  removeClasses(removedClass) {
+    this._elem.classList.remove(...removedClass);
   }
 
   toggleClass(toggledClass) {

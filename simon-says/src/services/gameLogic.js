@@ -1,8 +1,7 @@
-import { typeOfKeyboard } from "../keyboard/keyboard.js";
-import { keyboards } from "../../data/keyboards.js";
+import { keyboards } from "../data/keyboards.js";
 
-export function generateSequence(length) {
-  let maxNumber = keyboards[typeOfKeyboard].length;
+export function generateSequence(length, difficulty) {
+  let maxNumber = keyboards[difficulty].length;
   let sequence = [];
   for (let i = 0; i < length; i++) {
     const randomNumber = getRandomInt(0, maxNumber);
@@ -12,7 +11,6 @@ export function generateSequence(length) {
       sequence.push(randomNumber);
     }
   }
-  console.log(sequence);
   return sequence;
 }
 

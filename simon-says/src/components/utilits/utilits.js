@@ -1,27 +1,65 @@
 import styles from "./utilits.module.css";
-import { BaseElement } from "../common/baseElement.js";
-import { generateSequence } from "../logic/logic.js";
-import { playSequence, changeKeyboard } from "../keyboard/keyboard.js";
-
-let numberOfRound = 0;
+import commonStyles from "../../assets/styles/common.module.css";
+import { BaseElement } from "../elements/baseElement.js";
+import { generateSequence } from "../../services/gameLogic.js";
+import {
+  playSequence,
+  changeKeyboard,
+  typeOfKeyboard,
+} from "../keyboard/keyboard.js";
+import { Button as ButtonElement } from "../elements/buttonElement.js";
 
 //Layout
 export const Info = new BaseElement("div", [styles.container]);
 const RoundButton = new BaseElement(
   "div",
-  [styles.button, styles.info],
+  [styles.button, styles.info, commonStyles.hidden, commonStyles.inactive],
   {},
-  `Round: ${numberOfRound}`
+  `Round: 0`
 );
 
 export const Input = new BaseElement(
   "div",
-  [styles.input, styles.hidden],
+  [styles.input, commonStyles.hidden, commonStyles.inactive],
   {},
   ""
 );
 
-const DifficultyButton = new BaseElement("div", [styles.button, styles.info]);
+const Easy = new ButtonElement(
+  [styles.info, styles.difficulty, commonStyles.active],
+  {},
+  "Easy",
+  () => {
+    changeKeyboard("easy");
+    Easy.addClasses([commonStyles.active]);
+  }
+);
+const Medium = new ButtonElement(
+  [styles.info, styles.difficulty],
+  {},
+  "Medium",
+  () => {
+    changeKeyboard("medium");
+    Medium.addClasses([commonStyles.active]);
+  }
+);
+
+const Hard = new ButtonElement(
+  [styles.info, styles.difficulty],
+  {},
+  "Hard",
+  () => {
+    changeKeyboard("hard");
+    Hard.addClasses([commonStyles.active]);
+  }
+);
+
+export const DifficultyButton = new BaseElement("div", [
+  styles.button,
+  styles.info,
+  commonStyles.hidden,
+  commonStyles.inactive,
+]);
 for (let i = 0; i < 3; i++) {
   const Icon = new BaseElement(
     "svg",
@@ -31,12 +69,7 @@ for (let i = 0; i < 3; i++) {
     true
   );
   if (i === 0) {
-    Icon.typeKeyboard = "hard";
-  } else if (i === 1) {
-    Icon.typeKeyboard = "medium";
-  } else {
-    Icon.addClasses([styles.active]);
-    Icon.typeKeyboard = "easy";
+    Icon.addClasses([commonStyles.active]);
   }
 
   const Use = new BaseElement(
@@ -48,30 +81,31 @@ for (let i = 0; i < 3; i++) {
   );
   Icon.appendChildren(Use);
   DifficultyButton.appendChildren(Icon);
-
-  Icon.addEventListener("click", () => changeKeyboard(Icon));
 }
 
-Info.appendChildren(RoundButton, Input, DifficultyButton);
+Info.appendChildren(RoundButton, Input, DifficultyButton, Easy, Medium, Hard);
 
-export const GameButtons = new BaseElement("div", [styles.container]);
-const PlayButton = new BaseElement("div", [styles.button], {}, "Play");
+export const GameButtons = new BaseElement("div", [
+  styles.container,
+  styles.gameButtons,
+]);
+const PlayButton = new BaseElement("div", [styles.button], {}, "Start");
 
 export const RepeatButton = new BaseElement(
   "div",
-  [styles.button, styles.hidden],
+  [styles.button, commonStyles.hidden],
   {},
-  "Repeat"
+  "Repeat the sequence"
 );
 const NewGameButton = new BaseElement(
   "div",
-  [styles.button, styles.hidden],
+  [styles.button, commonStyles.hidden],
   {},
   "New game"
 );
 export const NextButton = new BaseElement(
   "div",
-  [styles.button, styles.hidden],
+  [styles.button, commonStyles.hidden],
   {},
   "Next"
 );
@@ -81,26 +115,43 @@ GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton, NextButton);
 export let sequence;
 
 PlayButton.addEventListener("click", () => {
-  showHideButtons(PlayButton, RepeatButton, NewGameButton, Input);
+  showHideButtons(
+    PlayButton,
+    RepeatButton,
+    NewGameButton,
+    Input,
+    RoundButton,
+    DifficultyButton,
+    Easy,
+    Medium,
+    Hard
+  );
   playNextRound();
 });
 
 NewGameButton.addEventListener("click", () => {
-  showHideButtons(PlayButton, NewGameButton, Input);
-  RepeatButton.addClasses([styles.hidden]);
-  DifficultyButton.removeClass([styles.inactive]);
-  RepeatButton.removeClass(styles.blocked);
-  NextButton.addClasses([styles.hidden]);
+  showHideButtons(
+    PlayButton,
+    NewGameButton,
+    Input,
+    RoundButton,
+    DifficultyButton,
+    Easy,
+    Medium,
+    Hard
+  );
+  RepeatButton.addClasses([commonStyles.hidden]);
+  Input.removeClasses([styles.wrong]);
+  RepeatButton.removeClasses([styles.blocked]);
+  NextButton.addClasses([commonStyles.hidden]);
 
-  numberOfRound = 0;
-  RoundButton.setText(`Round: ${numberOfRound}`);
+  RoundButton.setText(`Round: 0`);
   clearInput();
 });
 
 NextButton.addEventListener("click", () => {
-  RepeatButton.removeClass(styles.hidden);
-  RepeatButton.removeClass(styles.blocked);
-  NextButton.addClasses([styles.hidden]);
+  RepeatButton.removeClasses([commonStyles.hidden, styles.blocked]);
+  NextButton.addClasses([commonStyles.hidden]);
   clearInput();
   playNextRound();
 });
@@ -108,7 +159,7 @@ NextButton.addEventListener("click", () => {
 function showHideButtons() {
   const buttons = [...arguments];
   buttons.forEach((button) => {
-    button.toggleClass(styles.hidden);
+    button.toggleClass(commonStyles.hidden);
   });
 }
 
@@ -119,6 +170,7 @@ function clearInput() {
 }
 
 function repeatSequence() {
+  Input.removeClasses([styles.wrong]);
   clearInput();
   setTimeout(() => {}, sequence.length * 800 + 1500);
   playSequence(sequence);
@@ -126,10 +178,11 @@ function repeatSequence() {
 }
 
 function playNextRound() {
+  let numberOfRound = RoundButton.getText().match(/\d/)[0];
   numberOfRound++;
   RoundButton.setText(`Round: ${numberOfRound}`);
-  DifficultyButton.addClasses([styles.inactive]);
-  sequence = generateSequence(numberOfRound * 2);
+  DifficultyButton.addClasses([commonStyles.inactive]);
+  sequence = generateSequence(numberOfRound * 2, typeOfKeyboard);
 
   setTimeout(() => {}, sequence.length * 800 + 1500);
   playSequence(sequence);

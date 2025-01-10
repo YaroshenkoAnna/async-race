@@ -1,20 +1,19 @@
 import styles from "./keyboard.module.css";
-import commonStyles from "../utilits/utilits.module.css";
-import { BaseElement } from "../common/baseElement.js";
+import commonStyles from "../../assets/styles/common.module.css";
 import { keyboards } from "../../data/keyboards.js";
+import { Keyboard as KeyboardElement } from "../elements/keyboardElement.js";
 import {
   sequence,
   Input,
   GameButtons,
   RepeatButton,
   NextButton,
+  Info,
+  DifficultyButton,
 } from "../utilits/utilits.js";
+import { KeyboardButton } from "../elements/buttonElement.js";
 
-export const Keyboard = new BaseElement("div", [
-  styles.keyboard,
-  styles.easy,
-  commonStyles.inactive,
-]);
+export const Keyboard = new KeyboardElement([styles.easy]);
 export let typeOfKeyboard = "easy";
 let keyboardMap = [];
 let clickCounter = 0;
@@ -23,14 +22,12 @@ createKeys(typeOfKeyboard);
 
 function createKeys(keys) {
   keyboards[keys].forEach((key) => {
-    const Button = new BaseElement(
-      "button",
-      [styles.button],
-      { id: `${key.toUpperCase()}` },
-      `${key.toUpperCase()}`
+    const Button = new KeyboardButton(
+      [],
+      { id: `${key}` },
+      `${key}`,
+      checkSequence
     );
-
-    Button.addEventListener("click", checkSequence);
     Keyboard.appendChildren(Button);
     keyboardMap.push(Button);
   });
@@ -38,22 +35,39 @@ function createKeys(keys) {
 
 // Changing of Keyboard
 
-export function changeKeyboard(el) {
-  typeOfKeyboard = el.typeKeyboard;
+export function changeKeyboard(difficulty) {
+  typeOfKeyboard = difficulty;
   Keyboard._elem.replaceChildren();
   keyboardMap = [];
-  createKeys(el.typeKeyboard);
-  Keyboard.removeClass(styles.easy);
-  Keyboard.removeClass(styles.medium);
-  Keyboard.removeClass(styles.hard);
-  Keyboard.addClasses([styles[el.typeKeyboard]]);
+  createKeys(typeOfKeyboard);
+  Keyboard.removeClasses([styles.easy, styles.medium, styles.hard]);
+  Keyboard.addClasses([styles[typeOfKeyboard]]);
+  [...Info._elem.children].forEach((child) =>
+    child.classList.remove(commonStyles.active)
+  );
+  [...DifficultyButton._elem.children].forEach((child, index) => {
+    if (index) {
+      child.classList.remove(commonStyles.active);
+    }
+
+    if (typeOfKeyboard == "medium" || typeOfKeyboard == "hard") {
+      if (index == 1) {
+        child.classList.add(commonStyles.active);
+      }
+    }
+
+    if (typeOfKeyboard == "hard")
+      if (index == 2) {
+        child.classList.add(commonStyles.active);
+      }
+  });
 }
 
 function toggleActiveButton(button, toggledClass) {
   button.classList.add(styles[toggledClass]);
   setTimeout(() => {
     button.classList.remove(styles[toggledClass]);
-  }, 600);
+  }, 300);
 }
 
 //Playback sequence
@@ -66,7 +80,7 @@ export function playSequence(sequence) {
       setTimeout(() => {
         keyboardMap[num].addClasses([styles.active]);
         setTimeout(() => {
-          keyboardMap[num].removeClass(styles.active);
+          keyboardMap[num].removeClasses([styles.active]);
         }, 600);
       }, index * 800);
     });
@@ -82,9 +96,13 @@ export function playSequence(sequence) {
 export let enteredSymbols = "";
 
 function checkSequence(event) {
+  const regex = /(?<=Key|Digit)\w+/;
+  /*  if (event.type == "keydown" && !event.code.match(regex)) {
+    console.log(event.code.match(regex));
+    return;
+  } */
   let currentButton = keyboardMap[sequence[clickCounter]];
 
-  const regex = /(?<=Key|Digit)\w+/;
   if (
     event.type == "click" ||
     keyboards[typeOfKeyboard].includes(event.code.match(regex)[0])
@@ -106,6 +124,7 @@ function checkSequence(event) {
           : document.getElementById(event.code.match(regex)[0]);
       clearData();
       toggleActiveButton(clickedButton, "wrong");
+      Input.addClasses([commonStyles.wrong]);
       blockInput();
       return;
     }
@@ -114,7 +133,7 @@ function checkSequence(event) {
     blockInput();
     clearData();
     RepeatButton.addClasses([commonStyles.hidden]);
-    NextButton.removeClass(commonStyles.hidden);
+    NextButton.removeClasses([commonStyles.hidden]);
   }
 }
 
@@ -125,7 +144,7 @@ function blockInput() {
 
 function unblockInput() {
   window.addEventListener("keydown", checkSequence);
-  Keyboard.removeClass(commonStyles.inactive);
+  Keyboard.removeClasses([commonStyles.inactive]);
 }
 
 function blockButtons() {
@@ -133,7 +152,7 @@ function blockButtons() {
 }
 
 function unblockButtons() {
-  GameButtons.removeClass([commonStyles.inactive]);
+  GameButtons.removeClasses([commonStyles.inactive]);
 }
 
 function clearData() {

@@ -1,5 +1,5 @@
 import styles from "./header.module.css";
-import { BaseElement } from "../common/baseElement.js";
+import { BaseElement } from "../elements/baseElement.js";
 
 export const Header = new BaseElement("header");
 

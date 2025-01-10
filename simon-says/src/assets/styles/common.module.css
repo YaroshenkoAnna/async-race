@@ -1,0 +1,13 @@
+body .hidden {
+  display: none;
+}
+
+body .inactive {
+  pointer-events: none;
+}
+
+body .active {
+  fill: #000000;
+  opacity: 1;
+  color: #c0c6c6;
+}
