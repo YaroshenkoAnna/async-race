@@ -54,4 +54,8 @@ export class BaseElement {
       this._elem.appendChild(child._elem);
     });
   }
+
+  children() {
+    return this._elem.children;
+  }
 }

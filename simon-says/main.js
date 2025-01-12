@@ -1,3 +1,3 @@
-import { Wrapper } from "./src/components/wrapper/wrapper.js";
+import { Wrapper } from "./src/assets/scripts/layoutContainers.js";
 
 document.body.appendChild(Wrapper._elem);

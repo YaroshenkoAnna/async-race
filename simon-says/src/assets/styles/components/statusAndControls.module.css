@@ -6,6 +6,10 @@
   justify-content: center;
 }
 
+.gameButtons {
+  order: 3;
+}
+
 .button {
   width: max-content;
   height: 50px;

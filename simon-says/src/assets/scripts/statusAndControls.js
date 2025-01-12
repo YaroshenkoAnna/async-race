@@ -1,5 +1,6 @@
 import styles from "../styles/components/statusAndControls.module.css";
 import { BaseElement } from "./baseElement.js";
+import { generateKeyboard } from "./keyboard.js";
 
 // classes
 
@@ -63,7 +64,7 @@ const EasyDifficulty = new Button(
   "Easy",
   () => {
     generateKeyboard("easy");
-    Easy.addClasses([styles.active]);
+    EasyDifficulty.addClasses([styles.active]);
     changeDifficultyIndicator("easy");
   }
 );
@@ -73,7 +74,7 @@ const MediumDifficulty = new Button(
   "Medium",
   () => {
     generateKeyboard("medium");
-    Medium.addClasses([styles.active]);
+    MediumDifficulty.addClasses([styles.active]);
     changeDifficultyIndicator("medium");
   }
 );
@@ -84,7 +85,7 @@ const HardDifficulty = new Button(
   "Hard",
   () => {
     generateKeyboard("hard");
-    Hard.addClasses([styles.active]);
+    HardDifficulty.addClasses([styles.active]);
     changeDifficultyIndicator("hard");
   }
 );
