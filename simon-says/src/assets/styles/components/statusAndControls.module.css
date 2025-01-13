@@ -1,0 +1,113 @@
+.container {
+  padding: 0 10px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gameButtons {
+  order: 3;
+}
+
+.button {
+  width: max-content;
+  height: 50px;
+  font-size: 22px;
+  padding: 0 15px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-weight: 700;
+  background: linear-gradient(#c0c0c0, #5b7d7a, #334a4c);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s ease-in, height 0.3s ease-in, color 0.3s ease-in;
+}
+
+.input {
+  width: 190px;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-weight: 700;
+  background: rgb(140 148 154 / 40%);
+  border-radius: 6px;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 8px 3px #5b7d7a inset;
+}
+
+.info {
+  cursor: default;
+}
+
+.icon {
+  fill: #fff;
+  opacity: 0.5;
+  width: 30px;
+  transition: fill 0.5s ease-in;
+  cursor: pointer;
+}
+.gameButtons .button:active,
+.difficulty:active {
+  color: #c0c6c6;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gameButtons .button:hover,
+  .difficulty:hover {
+    color: #c0c6c6;
+    cursor: pointer;
+  }
+}
+
+.blocked {
+  color: #00000052;
+  pointer-events: none;
+}
+
+.wrong {
+  box-shadow: 0px 0px 8px 3px #d90b0b inset;
+}
+
+@media (max-width: 600px) {
+  .button,
+  .input {
+    font-size: clamp(18px, 3.6vw, 22px);
+    height: clamp(45px, 8.3vw, 50px);
+  }
+  .button {
+    padding: 0 clamp(10px, 2.5vw, 15px);
+  }
+
+  .icon {
+    width: clamp(20px, 5vw, 30px);
+  }
+}
+
+@media (max-width: 415px) {
+  .input {
+    order: 3;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.active {
+  fill: #000000;
+  opacity: 1;
+  color: #c0c6c6;
+}
+
+.inactive {
+  pointer-events: none;
+}

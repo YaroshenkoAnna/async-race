@@ -1,0 +1,39 @@
+.wrapper {
+  min-height: 100vh;
+  background-image: url("./bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  position: relative;
+}
+
+.title {
+  margin: 15px 0;
+  font-size: 55px;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: clamp(35px, 9.17vw, 55px);
+    margin: clamp(5px, 2.5vw, 15px);
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .main {
+    gap: clamp(5px, 3.33vw, 20px);
+  }
+}
