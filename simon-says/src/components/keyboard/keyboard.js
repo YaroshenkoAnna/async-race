@@ -1,5 +1,6 @@
 import styles from "./keyboard.module.css";
 import commonStyles from "../../assets/styles/common.module.css";
+import { BaseElement } from "../elements/baseElement.js";
 import { keyboards } from "../../data/keyboards.js";
 import { Keyboard as KeyboardElement } from "../elements/keyboardElement.js";
 import {
@@ -23,7 +24,7 @@ createKeys(typeOfKeyboard);
 function createKeys(keys) {
   keyboards[keys].forEach((key) => {
     const Button = new KeyboardButton(
-      [],
+      [commonStyles.inactive],
       { id: `${key}` },
       `${key}`,
       checkSequence
@@ -109,7 +110,7 @@ function checkSequence(event) {
   ) {
     clickCounter++;
     const symbol =
-      event.type == "keydown"
+      event.type == "keyup"
         ? event.code.match(regex)[0]
         : event.target.textContent;
     enteredSymbols += symbol;
@@ -135,6 +136,13 @@ function checkSequence(event) {
     RepeatButton.addClasses([commonStyles.hidden]);
     NextButton.removeClasses([commonStyles.hidden]);
   }
+}
+
+function toggleActiveButton(button, toggledClass) {
+  button.classList.add(styles[toggledClass]);
+  setTimeout(() => {
+    button.classList.remove(styles[toggledClass]);
+  }, 300);
 }
 
 function blockInput() {

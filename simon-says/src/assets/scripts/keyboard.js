@@ -8,7 +8,7 @@ import { game } from "./game.js";
 class KeyboardButton extends BaseElement {
   constructor(classes, attributes = {}, text = "", callback) {
     super("button", [...classes, styles.button], attributes, text);
-    this.addEventListener("click", callback);
+    this.addEventListener("mousedown", callback);
   }
 }
 
@@ -27,7 +27,9 @@ class KeyboardElement extends BaseElement {
         [],
         { id: `${key}` },
         `${key}`,
-        checkSequence
+        (event) => {
+          game.checkSequence(event);
+        }
       );
       this.appendChildren(Button);
       keyboardMap.keys.push(Button);
@@ -48,6 +50,10 @@ export function generateKeyboard(difficulty) {
     Main._elem.removeChild(Main._elem.lastChild);
   }
   Main.appendChildren(Keyboard);
+
+  game.keyboard = Keyboard;
 }
 
-function checkSequence() {}
+window.addEventListener("keydown", (event) => {
+  game.checkSequence(event);
+});

@@ -95,9 +95,21 @@ export const GameButtons = new BaseElement("div", [
 
 const PlayButton = new Button([], {}, "Start", startGame);
 
-const RepeatButton = new Button([styles.hidden], {}, "Repeat the sequence");
+const RepeatButton = new Button(
+  [styles.hidden],
+  {},
+  "Repeat the sequence",
+  () => {
+    game.repeatSequence();
+    RepeatButton.addClasses([styles.blocked]);
+  }
+);
 const NewGameButton = new Button([styles.hidden], {}, "New game", startNewGame);
-const NextButton = new Button([styles.hidden], {}, "Next");
+const NextButton = new Button([styles.hidden], {}, "Next", () => {
+  game.startNextRound();
+  RepeatButton.removeClasses([styles.blocked]);
+  RoundIndicator.setText(`Round: ${game.round}`);
+});
 GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton, NextButton);
 
 // interaction with controls
@@ -121,6 +133,7 @@ const gameScreenElem = [
   InputDisplay,
   NewGameButton,
   RepeatButton,
+  NextButton,
 ];
 
 function changeDifficultyIndicator(difficulty) {
@@ -138,12 +151,19 @@ function changeDifficultyIndicator(difficulty) {
 
 function showStartScreen() {
   startScreenElem.forEach((obj) => obj.removeClasses([styles.hidden]));
+  game.keyboard.addClasses([styles.inactive]);
   gameScreenElem.forEach((obj) => obj.addClasses([styles.hidden]));
 }
 
 function showGameScreen() {
   startScreenElem.forEach((obj) => obj.addClasses([styles.hidden]));
-  gameScreenElem.forEach((obj) => obj.removeClasses([styles.hidden]));
+  RepeatButton.removeClasses([styles.blocked]);
+  gameScreenElem.forEach((obj) => {
+    if (obj === NextButton) {
+      return;
+    }
+    obj.removeClasses([styles.hidden]);
+  });
 }
 
 function changeDifficulty(node, difficulty) {
@@ -164,8 +184,11 @@ function startGame() {
 }
 
 function startNewGame() {
-  if (game.isSequencePlay) {
-    return;
-  }
   showStartScreen();
+}
+
+export function toggleRepeatNext() {
+  [RepeatButton, NextButton].forEach((button) =>
+    button.toggleClass(styles.hidden)
+  );
 }
