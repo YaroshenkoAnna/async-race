@@ -185,9 +185,9 @@ const hard = easy.concat(medium);
 
 const virtualKeyboardData = { easy, medium, hard };
 
-const container = "_container_xtcqn_1";
-const hidden = "_hidden_xtcqn_13";
-const modal = "_modal_xtcqn_17";
+const container = "_container_bce8f_1";
+const hidden = "_hidden_bce8f_14";
+const modal = "_modal_bce8f_18";
 const styles = {
 	container: container,
 	hidden: hidden,
@@ -245,7 +245,7 @@ class Game {
     this.difficulty = "easy";
     this.keyboardMap;
     this.sequence = [];
-    this.isInputBlocked = false;
+    this.isInputBlocked = true;
     this.keyboard;
     this.clickCounter = 0;
     this.enteredSymbols = "";
@@ -383,7 +383,6 @@ class Game {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
           clickedButton.addEventListener("mouseup", releaseHandler);
-          clickedButton.removeClasses([styles$2.active]);
         }
 
         if (symbol !== currentButton.getText()) {
@@ -392,14 +391,15 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
+        clickedButton.classList.remove(styles$2.active);
       }
 
       if (this.clickCounter === this.sequence.length) {
         this.isInputBlocked = true;
         playSound(sounds.winSound);
         if (this.round == 5) {
-          showModal();
           RepeatButton.addClasses([styles$2.blocked]);
+          showModal();
           return;
         }
         toggleRepeatNext();
@@ -677,4 +677,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-BzgckAGT.js.map
+//# sourceMappingURL=index-C79s4uLO.js.map
