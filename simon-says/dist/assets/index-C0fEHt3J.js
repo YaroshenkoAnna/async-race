@@ -98,9 +98,9 @@ class BaseElement {
   }
 }
 
-const wrapper = "_wrapper_1xijx_1";
-const title = "_title_1xijx_15";
-const main = "_main_1xijx_27";
+const wrapper = "_wrapper_1d2cn_1";
+const title = "_title_1d2cn_15";
+const main = "_main_1d2cn_27";
 const styles$3 = {
 	wrapper: wrapper,
 	title: title,
@@ -676,4 +676,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-D_Vvb-W2.js.map
+//# sourceMappingURL=index-C0fEHt3J.js.map
