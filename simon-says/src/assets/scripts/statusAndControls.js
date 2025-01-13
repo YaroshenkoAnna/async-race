@@ -1,6 +1,7 @@
 import styles from "../styles/components/statusAndControls.module.css";
 import { BaseElement } from "./baseElement.js";
 import { generateKeyboard } from "./keyboard.js";
+import { game } from "./game.js";
 
 // classes
 
@@ -62,32 +63,20 @@ const EasyDifficulty = new Button(
   [styles.info, styles.difficulty, styles.active],
   {},
   "Easy",
-  () => {
-    generateKeyboard("easy");
-    EasyDifficulty.addClasses([styles.active]);
-    changeDifficultyIndicator("easy");
-  }
+  (event) => changeDifficulty(event.target, "easy")
 );
 const MediumDifficulty = new Button(
   [styles.info, styles.difficulty],
   {},
   "Medium",
-  () => {
-    generateKeyboard("medium");
-    MediumDifficulty.addClasses([styles.active]);
-    changeDifficultyIndicator("medium");
-  }
+  (event) => changeDifficulty(event.target, "medium")
 );
 
 const HardDifficulty = new Button(
   [styles.info, styles.difficulty],
   {},
   "Hard",
-  () => {
-    generateKeyboard("hard");
-    HardDifficulty.addClasses([styles.active]);
-    changeDifficultyIndicator("hard");
-  }
+  (event) => changeDifficulty(event.target, "hard")
 );
 
 InfoPanel.appendChildren(
@@ -104,15 +93,79 @@ export const GameButtons = new BaseElement("div", [
   styles.gameButtons,
 ]);
 
-const PlayButton = new Button([], {}, "Start");
+const PlayButton = new Button([], {}, "Start", startGame);
 
 const RepeatButton = new Button([styles.hidden], {}, "Repeat the sequence");
-const NewGameButton = new Button([styles.hidden], {}, "New game");
+const NewGameButton = new Button([styles.hidden], {}, "New game", startNewGame);
 const NextButton = new Button([styles.hidden], {}, "Next");
 GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton, NextButton);
 
 // interaction with controls
 
-function changeDifficultyIndicator(difficulty) {}
+const DifficultyButtons = [
+  EasyDifficulty._elem,
+  MediumDifficulty._elem,
+  HardDifficulty._elem,
+];
 
-function showStartScreen() {}
+const startScreenElem = [
+  EasyDifficulty,
+  MediumDifficulty,
+  HardDifficulty,
+  PlayButton,
+];
+
+const gameScreenElem = [
+  DifficultyIndicator,
+  RoundIndicator,
+  InputDisplay,
+  NewGameButton,
+  RepeatButton,
+];
+
+function changeDifficultyIndicator(difficulty) {
+  const children = Array.from(DifficultyIndicator.children());
+  children.forEach((child) => child.classList.add(styles.active));
+  if (difficulty == "medium") {
+    children[children.length - 1].classList.remove(styles.active);
+  }
+  if (difficulty == "easy") {
+    children
+      .slice(-2)
+      .forEach((child) => child.classList.remove(styles.active));
+  }
+}
+
+function showStartScreen() {
+  startScreenElem.forEach((obj) => obj.removeClasses([styles.hidden]));
+  gameScreenElem.forEach((obj) => obj.addClasses([styles.hidden]));
+}
+
+function showGameScreen() {
+  startScreenElem.forEach((obj) => obj.addClasses([styles.hidden]));
+  gameScreenElem.forEach((obj) => obj.removeClasses([styles.hidden]));
+}
+
+function changeDifficulty(node, difficulty) {
+  game.setDifficulty(difficulty);
+  changeDifficultyIndicator(difficulty);
+  node.classList.add(styles.active);
+  DifficultyButtons.forEach((button) => {
+    if (button !== node) {
+      button.classList.remove(styles.active);
+    }
+  });
+  generateKeyboard(difficulty);
+}
+
+function startGame() {
+  showGameScreen();
+  game.initGame();
+}
+
+function startNewGame() {
+  if (game.isSequencePlay) {
+    return;
+  }
+  showStartScreen();
+}
