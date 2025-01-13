@@ -51,7 +51,7 @@ for (let i = 0; i < 3; i++) {
   const Use = new BaseElement(
     "use",
     [],
-    { href: "src/assets/img/sprite.svg#icon" },
+    { href: "./sprite.svg#icon" },
     "",
     true
   );

@@ -1,6 +1,6 @@
 export const sounds = {
-  lostSound: new Audio("./src/assets/audio/ou.mp3"),
-  winSound: new Audio("./src/assets/audio/uhu.mp3"),
+  lostSound: new Audio("./ou.mp3"),
+  winSound: new Audio("./uhu.mp3"),
 };
 
 const setVolume = (volume) => {
@@ -9,7 +9,7 @@ const setVolume = (volume) => {
   });
 };
 
-setVolume(0.2);
+setVolume(0.1);
 
 export const playSound = (sound) => {
   sound.play();

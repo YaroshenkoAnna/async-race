@@ -4,12 +4,13 @@ export default {
   base: "./",
   build: {
     minify: false,
-    outDir: "dist",
+    sourcemap: true,
+    target: "esnext",
+    compact: false,
   },
   css: {
-    modules: {
-      scopeBehaiour: "local",
-    },
+    minify: false,
+    devSourcemap: true,
   },
   plugins: [Inspect()],
 };
