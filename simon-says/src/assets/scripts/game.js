@@ -1,6 +1,7 @@
 import styles from "../styles/components/keyboard.module.css";
 import controlsStyles from "../styles/components/statusAndControls.module.css";
 import { InputDisplay, toggleRepeatNext } from "./statusAndControls.js";
+import { showModal } from "./modal.js";
 
 class Game {
   constructor() {
@@ -68,7 +69,7 @@ class Game {
       this.keyboard.removeClasses([controlsStyles.inactive]);
       this.isInputBlocked = false;
     }, totalDuration);
-    console.log(sequence);
+    console.log(sequence.map((n) => this.keyboardMap.values[n]));
   }
 
   repeatSequence() {
@@ -86,86 +87,85 @@ class Game {
   }
 
   checkSequence(event) {
-    if (this.isInputBlocked || this.isKeyPressed) {
-      return;
-    }
-
+    console.log(this.isKeyPressed);
     const isKeyboardEvent = event.type === "keydown" || event.type === "keyup";
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
 
-    if (isKeyboardEvent && event.type === "keydown") {
-      const key = event.code;
-      if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return;
+    function isSymbolsValid() {
+      if (isKeyboardEvent && event.type === "keydown") {
+        const key = event.code;
+        if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return false;
+      }
     }
 
-    const regex = /(?<=Key|Digit)\w+/;
-    let currentButton = this.keyboardMap.keys[this.sequence[this.clickCounter]];
+    if (this.isInputBlocked || this.isKeyPressed || isSymbolsValid()) {
+      return;
+    } else {
+      const regex = /(?<=Key|Digit)\w+/;
+      let currentButton =
+        this.keyboardMap.keys[this.sequence[this.clickCounter]];
 
-    if (
-      (isMouseEvent && event.type === "mousedown") ||
-      (isKeyboardEvent &&
-        this.keyboardMap.values.includes(event.code.match(regex)[0]))
-    ) {
-      this.isKeyPressed = true;
-      this.clickCounter++;
-      const symbol = isKeyboardEvent
-        ? event.code.match(regex)[0]
-        : event.target.textContent;
-      this.enteredSymbols += symbol;
-      InputDisplay.setText(this.enteredSymbols);
+      if (
+        (isMouseEvent && event.type === "mousedown") ||
+        (isKeyboardEvent &&
+          this.keyboardMap.values.includes(event.code.match(regex)[0]))
+      ) {
+        this.isKeyPressed = true;
+        this.clickCounter++;
+        const symbol = isKeyboardEvent
+          ? event.code.match(regex)[0]
+          : event.target.textContent;
+        this.enteredSymbols += symbol;
+        InputDisplay.setText(this.enteredSymbols);
 
-      const clickedButton = isMouseEvent
-        ? event.target
-        : document.getElementById(event.code.match(regex)[0]);
-      clickedButton.classList.add(styles.active);
+        const clickedButton = isMouseEvent
+          ? event.target
+          : document.getElementById(event.code.match(regex)[0]);
+        clickedButton.classList.add(styles.active);
 
-      // Добавить обработчик для отжатия
-      const releaseHandler = (releaseEvent) => {
-        const releaseType = releaseEvent.type;
-        const isCorrectEvent =
-          (isKeyboardEvent &&
-            releaseType === "keyup" &&
-            releaseEvent.code === event.code) ||
-          (isMouseEvent &&
-            releaseType === "mouseup" &&
-            releaseEvent.target === clickedButton);
+        const releaseHandler = (releaseEvent) => {
+          const releaseType = releaseEvent.type;
+          const isCorrectEvent =
+            (isKeyboardEvent &&
+              releaseType === "keyup" &&
+              releaseEvent.code === event.code) ||
+            (isMouseEvent &&
+              releaseType === "mouseup" &&
+              releaseEvent.target === clickedButton);
 
-        if (isCorrectEvent) {
-          clickedButton.classList.remove(styles.active);
-          releaseEvent.target.removeEventListener(releaseType, releaseHandler);
-          this.isKeyPressed = false;
+          if (isCorrectEvent) {
+            clickedButton.classList.remove(styles.active);
+            releaseEvent.target.removeEventListener(
+              releaseType,
+              releaseHandler
+            );
+            this.isKeyPressed = false;
+          }
+        };
+
+        if (isKeyboardEvent) {
+          window.addEventListener("keyup", releaseHandler);
+        } else if (isMouseEvent) {
+          clickedButton.addEventListener("mouseup", releaseHandler);
         }
-      };
 
-      if (isKeyboardEvent) {
-        window.addEventListener("keyup", releaseHandler);
-      } else if (isMouseEvent) {
-        clickedButton.addEventListener("mouseup", releaseHandler);
+        if (symbol !== currentButton.getText()) {
+          InputDisplay.addClasses([controlsStyles.wrong]);
+          this.isInputBlocked = true;
+          return;
+        }
       }
 
-      if (symbol !== currentButton.getText()) {
-        InputDisplay.addClasses([controlsStyles.wrong]);
+      if (this.clickCounter === this.sequence.length) {
         this.isInputBlocked = true;
-        return;
+        if (this.round == 5) {
+          showModal();
+          return;
+        }
+        toggleRepeatNext();
       }
-    }
-
-    if (this.clickCounter === this.sequence.length) {
-      this.isInputBlocked = true;
-      toggleRepeatNext();
     }
   }
-
-  /*  toggleActiveButton(el, toggledClass) {
-    this.activeButton = { el: el, toggledClass: toggledClass };
-    el.classList.add(styles[toggledClass]);
-    setTimeout(() => {
-      this.isClassActive = false;
-      if (!this.isKeyPressed) {
-        el.classList.remove(styles[toggledClass]);
-      }
-    }, 300);
-  } */
 
   startNextRound() {
     this.round++;
