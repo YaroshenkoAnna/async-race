@@ -13,7 +13,7 @@ class Game {
     this.difficulty = "easy";
     this.keyboardMap;
     this.sequence = [];
-    this.isInputBlocked = false;
+    this.isInputBlocked = true;
     this.keyboard;
     this.clickCounter = 0;
     this.enteredSymbols = "";
@@ -151,7 +151,6 @@ class Game {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
           clickedButton.addEventListener("mouseup", releaseHandler);
-          clickedButton.removeClasses([controlsStyles.active]);
         }
 
         if (symbol !== currentButton.getText()) {
@@ -160,14 +159,15 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
+        clickedButton.classList.remove(controlsStyles.active);
       }
 
       if (this.clickCounter === this.sequence.length) {
         this.isInputBlocked = true;
         playSound(sounds.winSound);
         if (this.round == 5) {
-          showModal();
           RepeatButton.addClasses([controlsStyles.blocked]);
+          showModal();
           return;
         }
         toggleRepeatNext();
