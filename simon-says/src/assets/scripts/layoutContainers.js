@@ -1,6 +1,7 @@
 import { BaseElement } from "./baseElement.js";
 import styles from "../styles/components/basic.module.css";
 import { InfoPanel, GameButtons } from "./statusAndControls.js";
+import { ModalContainer } from "./modal.js";
 
 const Header = new BaseElement("header");
 
@@ -11,4 +12,4 @@ export const Main = new BaseElement("main", [styles.main]);
 Main.appendChildren(InfoPanel, GameButtons);
 
 export const Wrapper = new BaseElement("div", [styles.wrapper]);
-Wrapper.appendChildren(Header, Main);
+Wrapper.appendChildren(ModalContainer, Header, Main);

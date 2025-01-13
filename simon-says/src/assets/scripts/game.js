@@ -1,7 +1,12 @@
 import styles from "../styles/components/keyboard.module.css";
 import controlsStyles from "../styles/components/statusAndControls.module.css";
-import { InputDisplay, toggleRepeatNext } from "./statusAndControls.js";
+import {
+  InputDisplay,
+  toggleRepeatNext,
+  RepeatButton,
+} from "./statusAndControls.js";
 import { showModal } from "./modal.js";
+import { playSound, sounds } from "./audio.js";
 
 class Game {
   constructor() {
@@ -87,18 +92,17 @@ class Game {
   }
 
   checkSequence(event) {
-    console.log(this.isKeyPressed);
     const isKeyboardEvent = event.type === "keydown" || event.type === "keyup";
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
 
-    function isSymbolsValid() {
+    function isSymbolsInvalid() {
       if (isKeyboardEvent && event.type === "keydown") {
         const key = event.code;
-        if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return false;
+        if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return true;
       }
     }
 
-    if (this.isInputBlocked || this.isKeyPressed || isSymbolsValid()) {
+    if (this.isInputBlocked || this.isKeyPressed || isSymbolsInvalid()) {
       return;
     } else {
       const regex = /(?<=Key|Digit)\w+/;
@@ -151,6 +155,7 @@ class Game {
 
         if (symbol !== currentButton.getText()) {
           InputDisplay.addClasses([controlsStyles.wrong]);
+          playSound(sounds.lostSound);
           this.isInputBlocked = true;
           return;
         }
@@ -158,8 +163,10 @@ class Game {
 
       if (this.clickCounter === this.sequence.length) {
         this.isInputBlocked = true;
+        playSound(sounds.winSound);
         if (this.round == 5) {
           showModal();
+          RepeatButton.addClasses([controlsStyles.blocked]);
           return;
         }
         toggleRepeatNext();

@@ -5,7 +5,7 @@ import { game } from "./game.js";
 
 // classes
 
-class Button extends BaseElement {
+export class Button extends BaseElement {
   constructor(classes, attributes = {}, text = "", callback) {
     super("button", [...classes, styles.button], attributes, text);
     this.addEventListener("click", callback);
@@ -95,7 +95,7 @@ export const GameButtons = new BaseElement("div", [
 
 const PlayButton = new Button([], {}, "Start", startGame);
 
-const RepeatButton = new Button(
+export const RepeatButton = new Button(
   [styles.hidden],
   {},
   "Repeat the sequence",

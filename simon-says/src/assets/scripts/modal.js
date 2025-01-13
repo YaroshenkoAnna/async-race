@@ -1,8 +1,12 @@
+import controlsStyles from "../styles/components/statusAndControls.module.css";
 import styles from "../styles/components/modal.module.css";
+import { Button } from "./statusAndControls.js";
 import { BaseElement } from "./baseElement.js";
-import { Wrapper } from "./layoutContainers.js";
 
-const ModalContainer = new BaseElement("div", [styles.container]);
+export const ModalContainer = new BaseElement("div", [
+  styles.container,
+  styles.hidden,
+]);
 
 const Modal = new BaseElement(
   "div",
@@ -10,9 +14,20 @@ const Modal = new BaseElement(
   {},
   "Congratulations! You have completed all levels!"
 );
-
 ModalContainer.appendChildren(Modal);
+const ModalButton = new BaseElement(
+  "button",
+  [controlsStyles.button],
+  {},
+  "Close"
+);
+ModalButton.addEventListener("click", closeModal);
+Modal.appendChildren(ModalButton);
 
 export function showModal() {
-  Wrapper.appendChildren(ModalContainer);
+  ModalContainer.removeClasses([styles.hidden]);
+}
+
+function closeModal() {
+  ModalContainer.addClasses([styles.hidden]);
 }
