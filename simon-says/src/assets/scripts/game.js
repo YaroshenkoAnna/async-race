@@ -151,6 +151,7 @@ class Game {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
           clickedButton.addEventListener("mouseup", releaseHandler);
+          clickedButton.removeClasses([controlsStyles.active]);
         }
 
         if (symbol !== currentButton.getText()) {

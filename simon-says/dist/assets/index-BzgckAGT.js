@@ -185,9 +185,9 @@ const hard = easy.concat(medium);
 
 const virtualKeyboardData = { easy, medium, hard };
 
-const container = "_container_lnwm5_1";
-const hidden = "_hidden_lnwm5_15";
-const modal = "_modal_lnwm5_19";
+const container = "_container_xtcqn_1";
+const hidden = "_hidden_xtcqn_13";
+const modal = "_modal_xtcqn_17";
 const styles = {
 	container: container,
 	hidden: hidden,
@@ -383,6 +383,7 @@ class Game {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
           clickedButton.addEventListener("mouseup", releaseHandler);
+          clickedButton.removeClasses([styles$2.active]);
         }
 
         if (symbol !== currentButton.getText()) {
@@ -676,4 +677,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-C0fEHt3J.js.map
+//# sourceMappingURL=index-BzgckAGT.js.map

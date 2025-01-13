@@ -589,7 +589,7 @@ template {
     font-size: clamp(20px, 14.28vw, 50px);
   }
 }
-._container_lnwm5_1 {
+._container_xtcqn_1 {
   background-color: rgba(0, 0, 0, 0.6);
   height: 100%;
   width: 100%;
@@ -599,15 +599,13 @@ template {
   position: fixed;
   left: 0;
   top: 0;
-
-  z-index: 100;
 }
 
-._hidden_lnwm5_15 {
-  z-index: -100;
+._hidden_xtcqn_13 {
+  display: none;
 }
 
-._modal_lnwm5_19 {
+._modal_xtcqn_17 {
   padding: 15px;
   box-sizing: border-box;
   background-color: #a9b2ab;
@@ -629,7 +627,7 @@ template {
 }
 
 @media (max-width: 500px) {
-  ._modal_lnwm5_19 {
+  ._modal_xtcqn_17 {
     font-size: 25px;
   }
 }
