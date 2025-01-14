@@ -336,8 +336,6 @@ class Game {
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
 
     function isSymbolsInvalid() {
-      debugger;
-
       if (
         (isKeyboardEvent && event.type === "keydown") ||
         (isKeyboardEvent && event.type === "keyup")
@@ -378,7 +376,7 @@ class Game {
           clickedButton.classList.remove(styles$1.active);
         }
 
-        const releaseHandler = (releaseEvent) => {
+        const releaseHandler = (releaseEvent, event) => {
           const releaseType = releaseEvent.type;
           const isCorrectEvent =
             (isKeyboardEvent &&
@@ -388,19 +386,29 @@ class Game {
 
           if (isCorrectEvent) {
             clickedButton.classList.remove(styles$1.active);
-            document.removeEventListener("mouseup", releaseHandler);
+            document.removeEventListener(
+              "mouseup",
+              releaseHandler.bind(event, currentEvent)
+            );
             releaseEvent.target.removeEventListener(
               releaseType,
-              releaseHandler
+              releaseHandler.bind(event, currentEvent)
             );
             this.isKeyPressed = false;
           }
         };
 
         if (isKeyboardEvent) {
-          window.addEventListener("keyup", releaseHandler);
+          const currentEvent = event;
+          window.addEventListener(
+            "keyup",
+            releaseHandler.bind(event, currentEvent)
+          );
         } else if (isMouseEvent) {
-          document.addEventListener("mouseup", releaseHandler);
+          document.addEventListener(
+            "mouseup",
+            releaseHandler.bind(event, currentEvent)
+          );
         }
 
         if (symbol !== currentButton.getText()) {
@@ -701,4 +709,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-CjI-RYw6.js.map
+//# sourceMappingURL=index-BlA_wQWZ.js.map
