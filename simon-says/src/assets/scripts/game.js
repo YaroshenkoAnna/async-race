@@ -126,6 +126,13 @@ class Game {
           ? event.target
           : document.getElementById(event.code.match(regex)[0]);
         clickedButton.classList.add(styles.active);
+        if (
+          symbol == currentButton.getText() &&
+          this.clickCounter === this.sequence.length &&
+          this.round === 5
+        ) {
+          clickedButton.classList.remove(styles.active);
+        }
 
         const releaseHandler = (releaseEvent) => {
           const releaseType = releaseEvent.type;
@@ -143,22 +150,7 @@ class Game {
               releaseType,
               releaseHandler
             );
-
             this.isKeyPressed = false;
-
-            if (this.clickCounter === this.sequence.length) {
-              this.isInputBlocked = true;
-              playSound(sounds.winSound);
-              if (this.round == 5) {
-                RepeatButton.addClasses([controlsStyles.blocked]);
-                showModal();
-                this.keyboardMap.keys.forEach((key) =>
-                  key.removeClasses([styles.active])
-                );
-                return;
-              }
-              toggleRepeatNext();
-            }
           }
         };
 
@@ -174,6 +166,17 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
+      }
+
+      if (this.clickCounter === this.sequence.length) {
+        this.isInputBlocked = true;
+        playSound(sounds.winSound);
+        if (this.round == 5) {
+          RepeatButton.addClasses([controlsStyles.blocked]);
+          showModal();
+          return;
+        }
+        toggleRepeatNext();
       }
     }
   }
