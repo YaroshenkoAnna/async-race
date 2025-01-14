@@ -376,7 +376,7 @@ class Game {
           clickedButton.classList.remove(styles$1.active);
         }
 
-        const releaseHandler = (releaseEvent, event) => {
+        const releaseHandler = (releaseEvent) => {
           const releaseType = releaseEvent.type;
           const isCorrectEvent =
             (isKeyboardEvent &&
@@ -386,29 +386,19 @@ class Game {
 
           if (isCorrectEvent) {
             clickedButton.classList.remove(styles$1.active);
-            document.removeEventListener(
-              "mouseup",
-              releaseHandler.bind(event, currentEvent)
-            );
+            document.removeEventListener("mouseup", releaseHandler);
             releaseEvent.target.removeEventListener(
               releaseType,
-              releaseHandler.bind(event, currentEvent)
+              releaseHandler
             );
             this.isKeyPressed = false;
           }
         };
 
         if (isKeyboardEvent) {
-          const currentEvent = event;
-          window.addEventListener(
-            "keyup",
-            releaseHandler.bind(event, currentEvent)
-          );
+          window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
-          document.addEventListener(
-            "mouseup",
-            releaseHandler.bind(event, currentEvent)
-          );
+          document.addEventListener("mouseup", releaseHandler);
         }
 
         if (symbol !== currentButton.getText()) {
@@ -709,4 +699,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-BlA_wQWZ.js.map
+//# sourceMappingURL=index-6a9rWNTg.js.map
