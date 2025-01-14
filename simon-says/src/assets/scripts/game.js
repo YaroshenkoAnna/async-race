@@ -7,7 +7,6 @@ import {
 } from "./statusAndControls.js";
 import { showModal } from "./modal.js";
 import { playSound, sounds } from "./audio.js";
-import { keyboardEvents } from "./keyboard.js";
 
 class Game {
   constructor() {
@@ -97,6 +96,8 @@ class Game {
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
 
     function isSymbolsInvalid() {
+      debugger;
+
       if (
         (isKeyboardEvent && event.type === "keydown") ||
         (isKeyboardEvent && event.type === "keyup")
@@ -143,12 +144,11 @@ class Game {
             (isKeyboardEvent &&
               releaseType === "keyup" &&
               releaseEvent.code === event.code) ||
-            (isMouseEvent &&
-              releaseType === "mouseup" &&
-              releaseEvent.target === clickedButton);
+            (isMouseEvent && releaseType === "mouseup");
 
           if (isCorrectEvent) {
             clickedButton.classList.remove(styles.active);
+            document.removeEventListener("mouseup", releaseHandler);
             releaseEvent.target.removeEventListener(
               releaseType,
               releaseHandler
@@ -160,7 +160,7 @@ class Game {
         if (isKeyboardEvent) {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
-          clickedButton.addEventListener("mouseup", releaseHandler);
+          document.addEventListener("mouseup", releaseHandler);
         }
 
         if (symbol !== currentButton.getText()) {
