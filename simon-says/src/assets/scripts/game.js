@@ -143,7 +143,22 @@ class Game {
               releaseType,
               releaseHandler
             );
+
             this.isKeyPressed = false;
+
+            if (this.clickCounter === this.sequence.length) {
+              this.isInputBlocked = true;
+              playSound(sounds.winSound);
+              if (this.round == 5) {
+                RepeatButton.addClasses([controlsStyles.blocked]);
+                showModal();
+                this.keyboardMap.keys.forEach((key) =>
+                  key.removeClasses([styles.active])
+                );
+                return;
+              }
+              toggleRepeatNext();
+            }
           }
         };
 
@@ -159,18 +174,6 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
-        clickedButton.classList.remove(controlsStyles.active);
-      }
-
-      if (this.clickCounter === this.sequence.length) {
-        this.isInputBlocked = true;
-        playSound(sounds.winSound);
-        if (this.round == 5) {
-          RepeatButton.addClasses([controlsStyles.blocked]);
-          showModal();
-          return;
-        }
-        toggleRepeatNext();
       }
     }
   }

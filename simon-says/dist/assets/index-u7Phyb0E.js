@@ -134,13 +134,13 @@ const styles$2 = {
 	inactive: inactive
 };
 
-const keyboard = "_keyboard_pvcuk_1";
-const easy$1 = "_easy_pvcuk_14";
-const medium$1 = "_medium_pvcuk_18";
-const hard$1 = "_hard_pvcuk_22";
-const button = "_button_pvcuk_26";
-const active = "_active_pvcuk_58";
-const wrong = "_wrong_pvcuk_67";
+const keyboard = "_keyboard_1uqzf_1";
+const easy$1 = "_easy_1uqzf_14";
+const medium$1 = "_medium_1uqzf_18";
+const hard$1 = "_hard_1uqzf_22";
+const button = "_button_1uqzf_26";
+const active = "_active_1uqzf_67";
+const wrong = "_wrong_1uqzf_76";
 const styles$1 = {
 	keyboard: keyboard,
 	easy: easy$1,
@@ -375,7 +375,22 @@ class Game {
               releaseType,
               releaseHandler
             );
+
             this.isKeyPressed = false;
+
+            if (this.clickCounter === this.sequence.length) {
+              this.isInputBlocked = true;
+              playSound(sounds.winSound);
+              if (this.round == 5) {
+                RepeatButton.addClasses([styles$2.blocked]);
+                showModal();
+                this.keyboardMap.keys.forEach((key) =>
+                  key.removeClasses([styles$1.active])
+                );
+                return;
+              }
+              toggleRepeatNext();
+            }
           }
         };
 
@@ -391,18 +406,6 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
-        clickedButton.classList.remove(styles$2.active);
-      }
-
-      if (this.clickCounter === this.sequence.length) {
-        this.isInputBlocked = true;
-        playSound(sounds.winSound);
-        if (this.round == 5) {
-          RepeatButton.addClasses([styles$2.blocked]);
-          showModal();
-          return;
-        }
-        toggleRepeatNext();
       }
     }
   }
@@ -677,4 +680,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-C79s4uLO.js.map
+//# sourceMappingURL=index-u7Phyb0E.js.map

@@ -499,7 +499,7 @@ template {
 ._inactive_o151b_111 {
   pointer-events: none;
 }
-._keyboard_pvcuk_1 {
+._keyboard_1uqzf_1 {
   margin: 0 5px;
   border: 1px solid black;
   border-radius: 20px;
@@ -512,19 +512,19 @@ template {
   max-width: 100%;
 }
 
-._easy_pvcuk_14 {
+._easy_1uqzf_14 {
   grid-template-columns: repeat(8, 1fr);
 }
 
-._medium_pvcuk_18 {
+._medium_1uqzf_18 {
   grid-template-columns: repeat(14, 1fr);
 }
 
-._hard_pvcuk_22 {
+._hard_1uqzf_22 {
   grid-template-columns: repeat(12, 1fr);
 }
 
-._button_pvcuk_26 {
+._button_1uqzf_26 {
   -webkit-text-stroke: 1px #797979;
   display: flex;
   position: relative;
@@ -548,15 +548,15 @@ template {
     color 0.15 ease-in, text-shadow;
 }
 
-._easy_pvcuk_14 ._button_pvcuk_26:nth-child(7n + 1) {
+._easy_1uqzf_14 ._button_1uqzf_26:nth-child(7n + 1) {
   grid-column: 2 / span 2;
 }
 
-._medium_pvcuk_18 ._button_pvcuk_26:nth-child(13n + 1) {
+._medium_1uqzf_18 ._button_1uqzf_26:nth-child(13n + 1) {
   grid-column: 2 / span 2;
 }
 
-._active_pvcuk_58 {
+button:active {
   outline: 1px solid #d0e8ea;
   border: 2px solid #96c3e2;
   box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.35),
@@ -565,7 +565,16 @@ template {
   text-shadow: 0 0 5px #219cf3, 0 0 8px #219cf3;
 }
 
-._wrong_pvcuk_67 {
+._active_1uqzf_67 {
+  outline: 1px solid #d0e8ea;
+  border: 2px solid #96c3e2;
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.35),
+    inset 0 5px 5px rgba(0, 0, 0, 0.5), inset 0 15px 25px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  text-shadow: 0 0 5px #219cf3, 0 0 8px #219cf3;
+}
+
+._wrong_1uqzf_76 {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px inset,
     rgba(0, 0, 0, 0.5) 0px 5px 5px inset,
     rgba(0, 0, 0, 0.35) 0px 15px 25px inset;
@@ -578,14 +587,14 @@ template {
 }
 
 @media (max-width: 600px) {
-  ._medium_pvcuk_18 ._button_pvcuk_26,
-  ._hard_pvcuk_22 ._button_pvcuk_26 {
+  ._medium_1uqzf_18 ._button_1uqzf_26,
+  ._hard_1uqzf_22 ._button_1uqzf_26 {
     font-size: clamp(20px, 8.3vw, 50px);
   }
 }
 
 @media (max-width: 350px) {
-  ._easy_pvcuk_14 ._button_pvcuk_26 {
+  ._easy_1uqzf_14 ._button_1uqzf_26 {
     font-size: clamp(20px, 14.28vw, 50px);
   }
 }
