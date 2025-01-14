@@ -94,10 +94,10 @@ class Game {
   checkSequence(event) {
     const isKeyboardEvent = event.type === "keydown" || event.type === "keyup";
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
-    const isTouchEvent =
-      event.type === "touchstart" || event.type === "touchend";
 
     function isSymbolsInvalid() {
+      debugger;
+
       if (
         (isKeyboardEvent && event.type === "keydown") ||
         (isKeyboardEvent && event.type === "keyup")
@@ -106,7 +106,6 @@ class Game {
         if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return true;
       }
     }
-
     if (this.isInputBlocked || this.isKeyPressed || isSymbolsInvalid()) {
       return;
     } else {
@@ -116,7 +115,6 @@ class Game {
 
       if (
         (isMouseEvent && event.type === "mousedown") ||
-        (isTouchEvent && event.type === "touchstart") ||
         (isKeyboardEvent &&
           this.keyboardMap.values.includes(event.code.match(regex)[0]))
       ) {
@@ -128,14 +126,12 @@ class Game {
         this.enteredSymbols += symbol;
         InputDisplay.setText(this.enteredSymbols);
 
-        const clickedButton =
-          isMouseEvent || isTouchEvent
-            ? event.target
-            : document.getElementById(event.code.match(regex)[0]);
+        const clickedButton = isMouseEvent
+          ? event.target
+          : document.getElementById(event.code.match(regex)[0]);
         clickedButton.classList.add(styles.active);
-
         if (
-          symbol === currentButton.getText() &&
+          symbol == currentButton.getText() &&
           this.clickCounter === this.sequence.length &&
           this.round === 5
         ) {
@@ -148,15 +144,11 @@ class Game {
             (isKeyboardEvent &&
               releaseType === "keyup" &&
               releaseEvent.code === event.code) ||
-            (isMouseEvent &&
-              releaseType === "mouseup" &&
-              releaseEvent.target === clickedButton) ||
-            (isTouchEvent &&
-              releaseType === "touchend" &&
-              releaseEvent.target === clickedButton);
+            (isMouseEvent && releaseType === "mouseup");
 
           if (isCorrectEvent) {
             clickedButton.classList.remove(styles.active);
+            document.removeEventListener("mouseup", releaseHandler);
             releaseEvent.target.removeEventListener(
               releaseType,
               releaseHandler
@@ -168,9 +160,7 @@ class Game {
         if (isKeyboardEvent) {
           window.addEventListener("keyup", releaseHandler);
         } else if (isMouseEvent) {
-          clickedButton.addEventListener("mouseup", releaseHandler);
-        } else if (isTouchEvent) {
-          clickedButton.addEventListener("touchend", releaseHandler);
+          document.addEventListener("mouseup", releaseHandler);
         }
 
         if (symbol !== currentButton.getText()) {
@@ -184,7 +174,7 @@ class Game {
       if (this.clickCounter === this.sequence.length) {
         this.isInputBlocked = true;
         playSound(sounds.winSound);
-        if (this.round === 5) {
+        if (this.round == 5) {
           RepeatButton.addClasses([controlsStyles.blocked]);
           RepeatButton.disabled;
           showModal();
