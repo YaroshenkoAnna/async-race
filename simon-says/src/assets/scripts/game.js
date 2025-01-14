@@ -7,6 +7,7 @@ import {
 } from "./statusAndControls.js";
 import { showModal } from "./modal.js";
 import { playSound, sounds } from "./audio.js";
+import { keyboardEvents } from "./keyboard.js";
 
 class Game {
   constructor() {
@@ -114,6 +115,7 @@ class Game {
         (isKeyboardEvent &&
           this.keyboardMap.values.includes(event.code.match(regex)[0]))
       ) {
+        //window.removeEventListener("keydown", keyboardEvents);
         this.isKeyPressed = true;
         this.clickCounter++;
         const symbol = isKeyboardEvent
@@ -173,6 +175,7 @@ class Game {
         playSound(sounds.winSound);
         if (this.round == 5) {
           RepeatButton.addClasses([controlsStyles.blocked]);
+          RepeatButton.disabled;
           showModal();
           return;
         }

@@ -58,4 +58,12 @@ export class BaseElement {
   children() {
     return this._elem.children;
   }
+
+  disabled() {
+    this._elem.disabled = true;
+  }
+
+  undisabled() {
+    this._elem.disabled = false;
+  }
 }
