@@ -336,12 +336,14 @@ class Game {
     const isMouseEvent = event.type === "mousedown" || event.type === "mouseup";
 
     function isSymbolsInvalid() {
-      if (isKeyboardEvent && event.type === "keydown") {
+      if (
+        (isKeyboardEvent && event.type === "keydown") ||
+        (isKeyboardEvent && event.type === "keyup")
+      ) {
         const key = event.code;
         if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return true;
       }
     }
-
     if (this.isInputBlocked || this.isKeyPressed || isSymbolsInvalid()) {
       return;
     } else {
@@ -354,7 +356,6 @@ class Game {
         (isKeyboardEvent &&
           this.keyboardMap.values.includes(event.code.match(regex)[0]))
       ) {
-        //window.removeEventListener("keydown", keyboardEvents);
         this.isKeyPressed = true;
         this.clickCounter++;
         const symbol = isKeyboardEvent
@@ -699,4 +700,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-DiBpzBzh.js.map
+//# sourceMappingURL=index-DKcYFF1Q.js.map
