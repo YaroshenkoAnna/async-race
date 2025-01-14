@@ -20,7 +20,8 @@ class Game {
     this.round = 0;
     this.repeat = 0;
     this.isKeyPressed = false;
-    this.activeButton;
+    this.activeButton = null;
+    this.activeInputType = null;
   }
 
   setDifficulty(difficulty) {
@@ -104,9 +105,17 @@ class Game {
         if (!/^(Key[A-Z]|Digit[0-9])$/.test(key)) return true;
       }
     }
-    if (this.isInputBlocked || this.isKeyPressed || isSymbolsInvalid()) {
+    if (
+      this.isInputBlocked ||
+      this.isKeyPressed ||
+      isSymbolsInvalid() ||
+      (this.activeInputType &&
+        ((this.activeInputType === "keyboard" && isMouseEvent) ||
+          (this.activeInputType === "mouse" && isKeyboardEvent)))
+    ) {
       return;
     } else {
+      this.activeInputType = isKeyboardEvent ? "keyboard" : "mouse";
       const regex = /(?<=Key|Digit)\w+/;
       let currentButton =
         this.keyboardMap.keys[this.sequence[this.clickCounter]];
@@ -145,6 +154,7 @@ class Game {
             (isMouseEvent && releaseType === "mouseup");
 
           if (isCorrectEvent) {
+            this.activeInputType = null;
             clickedButton.classList.remove(styles.active);
             document.removeEventListener("mouseup", releaseHandler);
             releaseEvent.target.removeEventListener(
@@ -156,9 +166,17 @@ class Game {
         };
 
         if (isKeyboardEvent) {
-          window.addEventListener("keyup", releaseHandler);
+          if (this.currentReleaseHandler) {
+            window.removeEventListener("keyup", this.currentReleaseHandler);
+          }
+          this.currentReleaseHandler = releaseHandler.bind(this);
+          window.addEventListener("keyup", this.currentReleaseHandler);
         } else if (isMouseEvent) {
-          document.addEventListener("mouseup", releaseHandler);
+          if (this.currentReleaseHandler) {
+            document.removeEventListener("mouseup", this.currentReleaseHandler);
+          }
+          this.currentReleaseHandler = releaseHandler.bind(this);
+          document.addEventListener("mouseup", this.currentReleaseHandler);
         }
 
         if (symbol !== currentButton.getText()) {
