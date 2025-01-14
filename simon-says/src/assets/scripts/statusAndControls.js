@@ -101,6 +101,7 @@ export const RepeatButton = new Button(
   "Repeat the sequence",
   () => {
     game.repeatSequence();
+    RepeatButton.disabled;
     RepeatButton.addClasses([styles.blocked]);
   }
 );
@@ -108,6 +109,7 @@ const NewGameButton = new Button([styles.hidden], {}, "New game", startNewGame);
 const NextButton = new Button([styles.hidden], {}, "Next", () => {
   game.startNextRound();
   RepeatButton.removeClasses([styles.blocked]);
+  RepeatButton.undisabled;
   RoundIndicator.setText(`Round: ${game.round}`);
 });
 GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton, NextButton);
@@ -157,6 +159,7 @@ function showStartScreen() {
 
 function showGameScreen() {
   startScreenElem.forEach((obj) => obj.addClasses([styles.hidden]));
+  RepeatButton.undisabled;
   RepeatButton.removeClasses([styles.blocked]);
   gameScreenElem.forEach((obj) => {
     if (obj === NextButton) {

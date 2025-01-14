@@ -57,3 +57,10 @@ export function generateKeyboard(difficulty) {
 window.addEventListener("keydown", (event) => {
   game.checkSequence(event);
 });
+window.addEventListener("keyup", (event) => {
+  game.checkSequence(event);
+});
+
+export function keyboardEvents(event) {
+  game.checkSequence(event);
+}

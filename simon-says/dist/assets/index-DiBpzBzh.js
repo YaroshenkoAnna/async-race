@@ -96,6 +96,14 @@ class BaseElement {
   children() {
     return this._elem.children;
   }
+
+  disabled() {
+    this._elem.disabled = true;
+  }
+
+  undisabled() {
+    this._elem.disabled = false;
+  }
 }
 
 const wrapper = "_wrapper_1d2cn_1";
@@ -346,6 +354,7 @@ class Game {
         (isKeyboardEvent &&
           this.keyboardMap.values.includes(event.code.match(regex)[0]))
       ) {
+        //window.removeEventListener("keydown", keyboardEvents);
         this.isKeyPressed = true;
         this.clickCounter++;
         const symbol = isKeyboardEvent
@@ -405,6 +414,7 @@ class Game {
         playSound(sounds.winSound);
         if (this.round == 5) {
           RepeatButton.addClasses([styles$2.blocked]);
+          RepeatButton.disabled;
           showModal();
           return;
         }
@@ -478,6 +488,9 @@ function generateKeyboard(difficulty) {
 }
 
 window.addEventListener("keydown", (event) => {
+  game.checkSequence(event);
+});
+window.addEventListener("keyup", (event) => {
   game.checkSequence(event);
 });
 
@@ -579,6 +592,7 @@ const RepeatButton = new Button(
   "Repeat the sequence",
   () => {
     game.repeatSequence();
+    RepeatButton.disabled;
     RepeatButton.addClasses([styles$2.blocked]);
   }
 );
@@ -586,6 +600,7 @@ const NewGameButton = new Button([styles$2.hidden], {}, "New game", startNewGame
 const NextButton = new Button([styles$2.hidden], {}, "Next", () => {
   game.startNextRound();
   RepeatButton.removeClasses([styles$2.blocked]);
+  RepeatButton.undisabled;
   RoundIndicator.setText(`Round: ${game.round}`);
 });
 GameButtons.appendChildren(PlayButton, NewGameButton, RepeatButton, NextButton);
@@ -635,6 +650,7 @@ function showStartScreen() {
 
 function showGameScreen() {
   startScreenElem.forEach((obj) => obj.addClasses([styles$2.hidden]));
+  RepeatButton.undisabled;
   RepeatButton.removeClasses([styles$2.blocked]);
   gameScreenElem.forEach((obj) => {
     if (obj === NextButton) {
@@ -683,4 +699,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-DpdcIXiC.js.map
+//# sourceMappingURL=index-DiBpzBzh.js.map
