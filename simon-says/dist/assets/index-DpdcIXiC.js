@@ -134,13 +134,13 @@ const styles$2 = {
 	inactive: inactive
 };
 
-const keyboard = "_keyboard_1uqzf_1";
-const easy$1 = "_easy_1uqzf_14";
-const medium$1 = "_medium_1uqzf_18";
-const hard$1 = "_hard_1uqzf_22";
-const button = "_button_1uqzf_26";
-const active = "_active_1uqzf_67";
-const wrong = "_wrong_1uqzf_76";
+const keyboard = "_keyboard_1gasj_1";
+const easy$1 = "_easy_1gasj_14";
+const medium$1 = "_medium_1gasj_18";
+const hard$1 = "_hard_1gasj_22";
+const button = "_button_1gasj_26";
+const active = "_active_1gasj_67";
+const wrong = "_wrong_1gasj_76";
 const styles$1 = {
 	keyboard: keyboard,
 	easy: easy$1,
@@ -358,6 +358,13 @@ class Game {
           ? event.target
           : document.getElementById(event.code.match(regex)[0]);
         clickedButton.classList.add(styles$1.active);
+        if (
+          symbol == currentButton.getText() &&
+          this.clickCounter === this.sequence.length &&
+          this.round === 5
+        ) {
+          clickedButton.classList.remove(styles$1.active);
+        }
 
         const releaseHandler = (releaseEvent) => {
           const releaseType = releaseEvent.type;
@@ -375,22 +382,7 @@ class Game {
               releaseType,
               releaseHandler
             );
-
             this.isKeyPressed = false;
-
-            if (this.clickCounter === this.sequence.length) {
-              this.isInputBlocked = true;
-              playSound(sounds.winSound);
-              if (this.round == 5) {
-                RepeatButton.addClasses([styles$2.blocked]);
-                showModal();
-                this.keyboardMap.keys.forEach((key) =>
-                  key.removeClasses([styles$1.active])
-                );
-                return;
-              }
-              toggleRepeatNext();
-            }
           }
         };
 
@@ -406,6 +398,17 @@ class Game {
           this.isInputBlocked = true;
           return;
         }
+      }
+
+      if (this.clickCounter === this.sequence.length) {
+        this.isInputBlocked = true;
+        playSound(sounds.winSound);
+        if (this.round == 5) {
+          RepeatButton.addClasses([styles$2.blocked]);
+          showModal();
+          return;
+        }
+        toggleRepeatNext();
       }
     }
   }
@@ -680,4 +683,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-u7Phyb0E.js.map
+//# sourceMappingURL=index-DpdcIXiC.js.map

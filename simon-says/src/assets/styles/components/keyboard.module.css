@@ -54,7 +54,7 @@
 .medium .button:nth-child(13n + 1) {
   grid-column: 2 / span 2;
 }
-
+/* 
 button:active {
   outline: 1px solid #d0e8ea;
   border: 2px solid #96c3e2;
@@ -62,7 +62,7 @@ button:active {
     inset 0 5px 5px rgba(0, 0, 0, 0.5), inset 0 15px 25px rgba(0, 0, 0, 0.35);
   color: #fff;
   text-shadow: 0 0 5px #219cf3, 0 0 8px #219cf3;
-}
+} */
 
 .active {
   outline: 1px solid #d0e8ea;
