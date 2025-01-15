@@ -4,6 +4,7 @@ import {
   InputDisplay,
   toggleRepeatNext,
   RepeatButton,
+  RoundIndicator,
 } from "./statusAndControls.js";
 import { showModal } from "./modal.js";
 import { playSound, sounds } from "./audio.js";
@@ -34,6 +35,7 @@ class Game {
 
   initGame() {
     this.round = 1;
+    RoundIndicator.setText(`Round: ${game.round}`);
     this.playSequence(this.generateSequence(2));
   }
 
