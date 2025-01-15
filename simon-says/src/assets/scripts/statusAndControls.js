@@ -16,11 +16,11 @@ export class Button extends BaseElement {
 
 export const InfoPanel = new BaseElement("div", [styles.container]);
 
-const RoundIndicator = new BaseElement(
+export const RoundIndicator = new BaseElement(
   "div",
   [styles.button, styles.info, styles.hidden, styles.inactive],
   {},
-  `Round: 0`
+  `Round: 1`
 );
 
 export const InputDisplay = new BaseElement(

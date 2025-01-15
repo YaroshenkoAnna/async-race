@@ -274,6 +274,7 @@ class Game {
 
   initGame() {
     this.round = 1;
+    RoundIndicator.setText(`Round: ${game.round}`);
     this.playSequence(this.generateSequence(2));
   }
 
@@ -529,7 +530,7 @@ const RoundIndicator = new BaseElement(
   "div",
   [styles$2.button, styles$2.info, styles$2.hidden, styles$2.inactive],
   {},
-  `Round: 0`
+  `Round: 1`
 );
 
 const InputDisplay = new BaseElement(
@@ -717,4 +718,4 @@ const Wrapper = new BaseElement("div", [styles$3.wrapper]);
 Wrapper.appendChildren(ModalContainer, Header, Main);
 
 document.body.appendChild(Wrapper._elem);
-//# sourceMappingURL=index-D1tLGPkb.js.map
+//# sourceMappingURL=index-1N4oHErO.js.map
