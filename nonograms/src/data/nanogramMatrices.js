@@ -231,3 +231,26 @@ const dino = [
   [0, 1, 1, 1, 0],
   [1, 1, 0, 1, 0],
 ];
+
+export const nanogramMatrices = {
+  pagurian,
+  basketball,
+  ox,
+  bug,
+  cat,
+  monster,
+  kite,
+  wolf,
+  frog,
+  christmasDeco,
+  alien,
+  computer,
+  dog,
+  clock,
+  camel,
+  dino,
+  heart,
+  bomb,
+};
+
+
