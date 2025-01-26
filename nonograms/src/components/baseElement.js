@@ -9,12 +9,20 @@ export class BaseElement {
     node.textContent = text;
   }
 
+  setText(text) {
+    this._node.textContent = text;
+  }
+
   addClasses(classes) {
     this._node.classList.add(...classes);
   }
 
   removeClasses(classes) {
     this._node.classList.remove(...classes);
+  }
+
+  toggleClass(toggledClass) {
+    this._node.classList.toggle(toggledClass);
   }
 
   setAttributes(atr) {

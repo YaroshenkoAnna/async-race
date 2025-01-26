@@ -28,6 +28,6 @@ function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
 }
 
-function generateGameField(selector) {
+function generateGameField(selector) {[]
   return new GameField(getCurrentData(selector)[0]);
 }

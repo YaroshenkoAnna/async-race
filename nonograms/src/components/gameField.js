@@ -9,6 +9,7 @@ export class GameField extends BaseElement {
     this.container = new BaseElement({ tag: "div", classes: ["container"] });
     this.append(this.container);
     this.generateRows(dataObj.size);
+    this.addListener("contextmenu", (e) => e.preventDefault());
   }
 
   generateRows(length) {

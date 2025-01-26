@@ -7,6 +7,10 @@ export class Cell extends BaseElement {
     this.columnNumber = columnNumber;
     this.rowNumber = rowNumber;
     this.addBoldBorder(columnNumber, rowNumber, size);
+    this.addListener("click", this.toggleCellFill.bind(this));
+    this.addListener("contextmenu", this.toggleCross.bind(this));
+    this.isFilled = false;
+    this.hasCross = false;
   }
 
   addBoldBorder(col, row, length) {
@@ -29,6 +33,29 @@ export class Cell extends BaseElement {
       this.addClasses([styles.bb2]);
     } else if (row % boldBorderEvery === 0) {
       this.addClasses([styles.bt2]);
+    }
+  }
+
+  toggleCellFill() {
+    this.cross = false;
+    this.setText("");
+    if (this.isFilled) {
+      this.isFilled = false;
+    } else {
+      this.isFilled = true;
+    }
+    this.toggleClass(styles.filled);
+  }
+
+  toggleCross() {
+    this.isFilled = false;
+    this.removeClasses([styles.filled]);
+    if (this.hasCross) {
+      this.hasCross = false;
+      this.setText("");
+    } else {
+      this.hasCross = true;
+      this.setText("X");
     }
   }
 }
