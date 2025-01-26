@@ -6,7 +6,7 @@ export class GameField extends BaseElement {
   constructor(dataObj) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
-    this.container = new BaseElement({ tag: "div", classes: ["container"] });
+    this.container = new BaseElement({ tag: "div", classes: [styles.field] });
     this.append(this.container);
     this.generateRows(dataObj.size);
     this.addListener("contextmenu", (e) => e.preventDefault());
