@@ -11,7 +11,7 @@ export class GameField extends BaseElement {
       tag: "div",
       classes: [styles.cells],
     });
-
+    this.cellsMap = [];
     this.append(this.generateSolutionSection(), this.cells);
     this.generateRows(dataObj.size);
     this.generateHints();
@@ -22,13 +22,16 @@ export class GameField extends BaseElement {
     for (let i = 0; i < length; i++) {
       const row = new BaseElement({ tag: "div", classes: [styles.row] });
       this.cells.append(row);
+      this.cellsMap.push([]);
       this.generateCells(row, length, i);
     }
   }
 
   generateCells(parent, length, rowNumber) {
     for (let i = 0; i < length; i++) {
-      const cell = new Cell(i, rowNumber, length);
+      const cell = new Cell(i, rowNumber, length, this);
+
+      this.cellsMap[rowNumber].push(cell);
       parent.append(cell);
     }
   }
@@ -45,5 +48,21 @@ export class GameField extends BaseElement {
       classes: [styles.solution],
     });
     return solution;
+  }
+
+  checkVictory() {
+    const isCorrect = this.dataObj.solution.every((row, rowIndex) =>
+      row.every(
+        (cell, colIndex) => cell == this.cellsMap[rowIndex][colIndex].isFilled,
+      ),
+    );
+
+    if (isCorrect) {
+      this.handleVictory();
+    }
+  }
+
+  handleVictory() {
+    console.log("Victory!");
   }
 }

@@ -2,10 +2,11 @@ import { BaseElement } from "./baseElement";
 import styles from "../styles/cell.module.scss";
 
 export class Cell extends BaseElement {
-  constructor(columnNumber, rowNumber, size) {
+  constructor(columnNumber, rowNumber, size, gameField) {
     super({ tag: "div", classes: [styles.cell] });
     this.columnNumber = columnNumber;
     this.rowNumber = rowNumber;
+    this.gameField = gameField;
     this.isFilled = false;
     this.hasCross = false;
 
@@ -33,6 +34,8 @@ export class Cell extends BaseElement {
     this.setText("");
     this.isFilled = !this.isFilled;
     this.toggleClass(styles.filled);
+
+    this.gameField.checkVictory();
   }
 
   toggleCross(event) {
@@ -47,5 +50,6 @@ export class Cell extends BaseElement {
       this.hasCross = true;
       this.setText("X");
     }
+    this.gameField.checkVictory();
   }
 }

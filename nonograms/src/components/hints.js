@@ -1,4 +1,4 @@
-import { BaseElement } from "./baseElement";
+import { BaseElement } from "./baseElement.js";
 import styles from "../styles/hints.module.scss";
 
 export class Hints extends BaseElement {
