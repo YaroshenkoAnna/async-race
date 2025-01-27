@@ -1,6 +1,7 @@
 import { BaseElement } from "./baseElement.js";
 import { Cell } from "./cell.js";
 import styles from "../styles/field.module.scss";
+import { Hints } from "./hints.js";
 
 export class GameField extends BaseElement {
   constructor(dataObj) {
@@ -9,6 +10,7 @@ export class GameField extends BaseElement {
     this.container = new BaseElement({ tag: "div", classes: [styles.field] });
     this.append(this.container);
     this.generateRows(dataObj.size);
+    this.generateHints();
     this.addListener("contextmenu", (e) => e.preventDefault());
   }
 
@@ -25,5 +27,11 @@ export class GameField extends BaseElement {
       const cell = new Cell(i, rowNumber, length);
       parent.append(cell);
     }
+  }
+
+  generateHints() {
+    const verticalHints = new Hints(this.dataObj, "vertical");
+    const horizontalHints = new Hints(this.dataObj, "horizontal");
+    this.append(verticalHints, horizontalHints);
   }
 }

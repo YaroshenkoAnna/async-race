@@ -1,0 +1,30 @@
+.cell {
+  aspect-ratio: 1 / 1;
+  min-height: 30px;
+  border: 1px solid rgb(76, 74, 74);
+  background: rgb(183, 182, 182);
+}
+
+.hints {
+  display: flex;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.row {
+  display: flex;
+}
+
+.vertical .row {
+  flex-direction: row;
+}
+
+.horizontal .row {
+  flex-direction: column;
+}
