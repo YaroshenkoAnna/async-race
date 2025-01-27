@@ -12,48 +12,29 @@ export class Hints extends BaseElement {
 
   calculateHints() {
     const solution = this.dataObj.solution;
-    if (this.className === "vertical") {
-      for (let i = 0; i < solution.length; i++) {
-        const hintArr = [];
-        let counter = 0;
-        for (let j = 0; j < solution.length; j++) {
-          if (solution[i][j]) {
-            counter++;
-          }
-          if (
-            (!solution[i][j] && counter) ||
-            (j === solution.length - 1 && solution[i][j])
-          ) {
-            hintArr.push(counter);
-            counter = 0;
-          }
+    const isVertical = this.className === "vertical";
+
+    for (let i = 0; i < solution.length; i++) {
+      const hintArr = [];
+      let counter = 0;
+
+      for (let j = 0; j < solution.length; j++) {
+        const cell = isVertical ? solution[i][j] : solution[j][i];
+
+        if (cell) {
+          counter++;
         }
-        this.createHints(hintArr);
-      }
-    }
-    if (this.className === "horizontal") {
-      for (let i = 0; i < solution.length; i++) {
-        const hintArr = [];
-        let counter = 0;
-        for (let j = 0; j < solution.length; j++) {
-          if (solution[j][i]) {
-            counter++;
-          }
-          if (
-            (!solution[j][i] && counter) ||
-            (j === solution.length - 1 && solution[j][i])
-          ) {
-            hintArr.push(counter);
-            counter = 0;
-          }
+        if ((!cell && counter) || (j === solution.length - 1 && cell)) {
+          hintArr.push(counter);
+          counter = 0;
         }
-        this.createHints(hintArr);
       }
+
+      this.createHints(hintArr);
     }
   }
 
   createHints(arr) {
-    console.log("1");
     const hintRow = new BaseElement({ tag: "div", classes: [styles.row] });
     this.append(hintRow);
     arr.forEach((el) => {
