@@ -1,8 +1,10 @@
-.cell {
+.hint {
   aspect-ratio: 1 / 1;
   min-height: 30px;
-  border: 1px solid rgb(76, 74, 74);
   background: rgb(183, 182, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hints {
@@ -11,14 +13,19 @@
 
 .vertical {
   flex-direction: column;
+  grid-area: vertical-hints;
 }
 
 .horizontal {
   flex-direction: row;
+  grid-area: horizontal-hints;
 }
 
 .row {
   display: flex;
+  justify-content: end;
+  background-color: black;
+  border: 1px solid black;
 }
 
 .vertical .row {
@@ -27,4 +34,20 @@
 
 .horizontal .row {
   flex-direction: column;
+}
+
+.vertical .row:nth-child(5n) {
+  border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.vertical .row:nth-child(5n + 1) {
+  border-top: 2px solid rgb(0, 0, 0);
+}
+
+.horizontal .row:nth-child(5n + 1) {
+  border-left: 2px solid rgb(0, 0, 0);
+}
+
+.horizontal .row:nth-child(5n) {
+  border-right: 2px solid rgb(0, 0, 0);
 }

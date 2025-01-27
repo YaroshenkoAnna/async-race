@@ -15,20 +15,15 @@ export class Cell extends BaseElement {
     this.addListener("contextmenu", this.toggleCross.bind(this));
   }
 
-  addBoldBorders(col, row, size) {
+  addBoldBorders(col, row) {
     const boldBorderEvery = 5;
 
     const addBorderClass = (condition, style) => {
       if (condition) this.addClasses([style]);
     };
-
-    addBorderClass(col === 0, styles.bl4);
-    addBorderClass(col === size - 1, styles.br4);
     addBorderClass((col + 1) % boldBorderEvery === 0, styles.br2);
     addBorderClass(col % boldBorderEvery === 0, styles.bl2);
 
-    addBorderClass(row === 0, styles.bt4);
-    addBorderClass(row === size - 1, styles.bb4);
     addBorderClass((row + 1) % boldBorderEvery === 0, styles.bb2);
     addBorderClass(row % boldBorderEvery === 0, styles.bt2);
   }

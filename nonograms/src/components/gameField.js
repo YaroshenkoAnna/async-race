@@ -7,8 +7,12 @@ export class GameField extends BaseElement {
   constructor(dataObj) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
-    this.container = new BaseElement({ tag: "div", classes: [styles.field] });
-    this.append(this.container);
+    this.cells = new BaseElement({
+      tag: "div",
+      classes: [styles.cells],
+    });
+
+    this.append(this.generateSolutionSection(), this.cells);
     this.generateRows(dataObj.size);
     this.generateHints();
     this.addListener("contextmenu", (e) => e.preventDefault());
@@ -17,7 +21,7 @@ export class GameField extends BaseElement {
   generateRows(length) {
     for (let i = 0; i < length; i++) {
       const row = new BaseElement({ tag: "div", classes: [styles.row] });
-      this.container.append(row);
+      this.cells.append(row);
       this.generateCells(row, length, i);
     }
   }
@@ -33,5 +37,13 @@ export class GameField extends BaseElement {
     const verticalHints = new Hints(this.dataObj, "vertical");
     const horizontalHints = new Hints(this.dataObj, "horizontal");
     this.append(verticalHints, horizontalHints);
+  }
+
+  generateSolutionSection() {
+    const solution = new BaseElement({
+      tag: "div",
+      classes: [styles.solution],
+    });
+    return solution;
   }
 }

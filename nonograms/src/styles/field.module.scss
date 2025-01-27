@@ -1,8 +1,21 @@
 .field {
-  display: flex;
-  flex-direction: column;
+  display: inline-grid;
+  grid-template-areas:
+    "solution horizontal-hints"
+    "vertical-hints puzzle";
 }
 
 .row {
   display: flex;
+}
+
+.cells {
+  grid-area: puzzle;
+}
+
+.solution {
+  aspect-ratio: 1 / 1;
+  min-width: max-content;
+  min-height: max-content;
+  grid-area: solution;
 }

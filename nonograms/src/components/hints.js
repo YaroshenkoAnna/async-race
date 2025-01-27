@@ -43,6 +43,7 @@ export class Hints extends BaseElement {
         classes: [styles.hint],
         text: el,
       });
+
       hintRow.append(hint);
     });
   }
