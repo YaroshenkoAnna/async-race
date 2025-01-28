@@ -3,13 +3,17 @@ import { GameField } from "./src/components/gameField.js";
 import { LevelSelector } from "./src/components/levelSelector.js";
 import { puzzleData } from "./src/data/puzzleData.js";
 import { Timer } from "./src/components/timer.js";
+import { GameControls } from "./src/game/gameControls.js";
+import { StorageManager } from "./src/game/storageManager.js";
 
 const wrapper = new BaseElement({ tag: "div", classes: ["wrapper"] });
 document.body.appendChild(wrapper.getNode());
-
+const storageManager = new StorageManager("nonograms345567");
 const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
 const timer = new Timer();
-wrapper.append(selectors, timer);
+
+const gameControls = new GameControls(storageManager, timer);
+wrapper.append(selectors, timer, gameControls);
 
 const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
   handleSelectorChange();

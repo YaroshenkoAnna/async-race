@@ -1,4 +1,4 @@
-export class storageManager {
+export class StorageManager {
   constructor(uniqueKey) {
     this.uniqueKey = uniqueKey;
     this.savedGameKey = this.uniqueKey + "_savedGame";
