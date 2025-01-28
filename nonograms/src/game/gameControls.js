@@ -3,7 +3,7 @@ import { Button } from "../components/button.js";
 import styles from "../styles/gameControls.module.scss";
 
 export class GameControls extends BaseElement {
-  constructor(storage, timer) {
+  constructor() {
     super({ tag: "div", classes: [styles.gameControls] });
     this.render();
   }

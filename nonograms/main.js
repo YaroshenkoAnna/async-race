@@ -1,47 +1,47 @@
 import { BaseElement } from "./src/components/baseElement.js";
-import { GameField } from "./src/components/gameField.js";
 import { LevelSelector } from "./src/components/levelSelector.js";
 import { puzzleData } from "./src/data/puzzleData.js";
 import { Timer } from "./src/components/timer.js";
 import { GameControls } from "./src/game/gameControls.js";
 import { StorageManager } from "./src/game/storageManager.js";
+import { GameManager } from "./src/game/gameManager.js";
 
 const wrapper = new BaseElement({ tag: "div", classes: ["wrapper"] });
 document.body.appendChild(wrapper.getNode());
-const storageManager = new StorageManager("nonograms345567");
-const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
-const timer = new Timer();
 
-const gameControls = new GameControls(storageManager, timer);
-wrapper.append(selectors, timer, gameControls);
+const storageManager = new StorageManager("nonograms345567");
+const timer = new Timer();
+const gameManager = new GameManager(wrapper, timer, storageManager);
+
+const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
+wrapper.append(selectors, timer);
 
 const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
-  handleSelectorChange();
+  updateGameSelector();
 });
 
-const gameSelector = generateGameSelector(difficultySelector);
-selectors.append(difficultySelector, gameSelector);
-wrapper.append(generateGameField(gameSelector));
+let gameSelector = createGameSelector(difficultySelector);
 
-function handleSelectorChange() {
-  const gameSelector = generateGameSelector(difficultySelector);
+selectors.append(difficultySelector, gameSelector);
+
+gameManager.startNewGame(getCurrentData(gameSelector));
+
+const gameControls = new GameControls(gameManager);
+wrapper.append(gameControls);
+
+function updateGameSelector() {
+  gameSelector = createGameSelector(difficultySelector);
   selectors.replaceChild(gameSelector);
-  wrapper.replaceChild(generateGameField(gameSelector));
+  gameManager.startNewGame(getCurrentData(gameSelector));
 }
 
-function generateGameSelector(obj) {
-  timer.reset();
+function createGameSelector(obj) {
   const currentData = getCurrentData(obj);
-  const gameSelector = new LevelSelector(currentData, "name", () => {
-    wrapper.replaceChild(generateGameField(gameSelector));
+  return new LevelSelector(currentData, "name", () => {
+    gameManager.startNewGame(getCurrentData(gameSelector));
   });
-  return gameSelector;
 }
 
 function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
-}
-
-function generateGameField(selector) {
-  return new GameField(getCurrentData(selector)[0], timer);
 }

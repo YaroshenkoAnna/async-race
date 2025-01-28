@@ -56,6 +56,12 @@ export class BaseElement {
     }
     this._node.replaceChild(addNode, this._node.lastElementChild);
   }
+
+  removeChild(child) {
+    if (child instanceof BaseElement) {
+      this._node.removeChild(child.getNode());
+    } else if (child instanceof HTMLElement) {
+      this._node.removeChild(child);
+    }
+  }
 }
-
-
