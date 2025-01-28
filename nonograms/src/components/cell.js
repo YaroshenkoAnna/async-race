@@ -36,6 +36,7 @@ export class Cell extends BaseElement {
     this.toggleClass(styles.filled);
 
     this.gameField.checkVictory();
+    //audio
   }
 
   toggleCross(event) {
@@ -51,6 +52,7 @@ export class Cell extends BaseElement {
       this.setText("X");
     }
     this.gameField.checkVictory();
+    //audio
   }
 
   clearData() {

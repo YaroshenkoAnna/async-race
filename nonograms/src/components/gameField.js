@@ -66,6 +66,11 @@ export class GameField extends BaseElement {
 
   handleVictory() {
     console.log("Victory!");
+    //block events in the field
+    // stop timer
+    //save to rating
+    //modal window
+    // victory audio
   }
 
   showSolution() {
@@ -76,9 +81,15 @@ export class GameField extends BaseElement {
         flatCellsMap[index].toggleCellFill();
       }
     });
+
+    //block events in the field
+    //stop timer
+    //don't check for victory
   }
 
   reset() {
     this.cellsMap.flat().forEach((cell) => cell.clearData());
+    //reset timer
+    // unblock events
   }
 }
