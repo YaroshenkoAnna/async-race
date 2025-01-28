@@ -5,7 +5,7 @@ import { Hints } from "./hints.js";
 import { Button } from "./button.js";
 
 export class GameField extends BaseElement {
-  constructor(dataObj) {
+  constructor(dataObj, timer) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
     this.cells = new BaseElement({
@@ -17,6 +17,8 @@ export class GameField extends BaseElement {
     this.generateRows(dataObj.size);
     this.generateHints();
     this.addListener("contextmenu", (e) => e.preventDefault());
+    this.timer = timer;
+    this.isFirstClick = true;
   }
 
   generateRows(length) {
@@ -67,7 +69,7 @@ export class GameField extends BaseElement {
   handleVictory() {
     console.log("Victory!");
     //block events in the field
-    // stop timer
+    this.timer.stop();
     //save to rating
     //modal window
     // victory audio
@@ -83,13 +85,13 @@ export class GameField extends BaseElement {
     });
 
     //block events in the field
-    //stop timer
+    this.timer.stop();
     //don't check for victory
   }
 
   reset() {
     this.cellsMap.flat().forEach((cell) => cell.clearData());
-    //reset timer
+    this.timer.reset();
     // unblock events
   }
 }

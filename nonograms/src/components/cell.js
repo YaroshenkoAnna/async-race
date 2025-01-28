@@ -9,7 +9,6 @@ export class Cell extends BaseElement {
     this.gameField = gameField;
     this.isFilled = false;
     this.hasCross = false;
-
     this.addBoldBorders(columnNumber, rowNumber, size);
 
     this.addListener("click", this.toggleCellFill.bind(this));
@@ -30,6 +29,10 @@ export class Cell extends BaseElement {
   }
 
   toggleCellFill() {
+    if (this.gameField.isFirstClick) {
+      this.gameField.timer.start();
+      this.gameField.isFirstClick = false;
+    }
     this.hasCross = false;
     this.setText("");
     this.isFilled = !this.isFilled;
