@@ -52,4 +52,11 @@ export class Cell extends BaseElement {
     }
     this.gameField.checkVictory();
   }
+
+  clearData() {
+    this.isFilled = false;
+    this.hasCross = false;
+    this.setText("");
+    this.removeClasses([styles.filled]);
+  }
 }

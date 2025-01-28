@@ -2,6 +2,7 @@ import { BaseElement } from "./baseElement.js";
 import { Cell } from "./cell.js";
 import styles from "../styles/field.module.scss";
 import { Hints } from "./hints.js";
+import { Button } from "./button.js";
 
 export class GameField extends BaseElement {
   constructor(dataObj) {
@@ -43,9 +44,10 @@ export class GameField extends BaseElement {
   }
 
   generateSolutionSection() {
-    const solution = new BaseElement({
-      tag: "div",
+    const solution = new Button({
+      text: "Show solution",
       classes: [styles.solution],
+      callback: this.showSolution.bind(this),
     });
     return solution;
   }
@@ -64,5 +66,19 @@ export class GameField extends BaseElement {
 
   handleVictory() {
     console.log("Victory!");
+  }
+
+  showSolution() {
+    this.reset();
+    const flatCellsMap = this.cellsMap.flat();
+    this.dataObj.solution.flat().forEach((cell, index) => {
+      if (cell) {
+        flatCellsMap[index].toggleCellFill();
+      }
+    });
+  }
+
+  reset() {
+    this.cellsMap.flat().forEach((cell) => cell.clearData());
   }
 }
