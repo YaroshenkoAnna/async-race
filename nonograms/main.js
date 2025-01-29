@@ -26,10 +26,11 @@ const gameManager = new GameManager(
   wrapper,
   timer,
   storageManager,
+  selectors,
   difficultySelector,
   gameSelector,
 );
-gameManager.startNewGame(getCurrentData(gameSelector));
+gameManager.startNewGame(getCurrentData(gameSelector)[0]);
 
 const gameControls = new GameControls(gameManager);
 wrapper.append(gameControls);
@@ -37,13 +38,14 @@ wrapper.append(gameControls);
 function updateGameSelector() {
   gameSelector = createGameSelector(difficultySelector);
   selectors.replaceChild(gameSelector);
-  gameManager.startNewGame(getCurrentData(gameSelector));
+  gameManager.startNewGame(getCurrentData(gameSelector)[0]);
 }
 
 function createGameSelector(obj) {
   const currentData = getCurrentData(obj);
+
   return new LevelSelector(currentData, "name", () => {
-    gameManager.startNewGame(getCurrentData(gameSelector));
+    gameManager.startNewGame(getCurrentData(gameSelector)[0]);
   });
 }
 

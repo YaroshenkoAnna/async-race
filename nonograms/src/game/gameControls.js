@@ -38,8 +38,6 @@ export class GameControls extends BaseElement {
           name: this.gameManager.currentGameField.dataObj.name,
           field: this.gameManager.currentGameField.dataObj,
         });
-
-        console.log("Игра сохранена!");
       },
     });
     const loadGameButton = new Button({

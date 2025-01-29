@@ -6,7 +6,7 @@ export class LevelSelector extends BaseElement {
     super({ tag: "select", attributes: { name: key } });
     this.levels = levels;
     this.key = key;
-    this.filterKeyArray = this.createFilterKeyArray(this.key);
+    this.filterKeyArray = this.createFilterKeyArray(this.key, puzzleData);
     this.createOptions(this.filterKeyArray);
     this.addListener("change", callback);
   }
@@ -43,12 +43,5 @@ export class LevelSelector extends BaseElement {
 
   getSelectedValue() {
     return this.getNode().value;
-  }
-
-  updateOptions(newDifficulty) {
-    this.levels = puzzleData.filter((el) => el.difficulty === newDifficulty);
-    this.levels = puzzleData;
-    this.filterKeyArray = this.createFilterKeyArray(newDifficulty);
-    this.createOptions(this.filterKeyArray);
   }
 }

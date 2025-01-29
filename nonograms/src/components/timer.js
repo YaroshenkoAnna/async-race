@@ -7,10 +7,11 @@ export class Timer extends BaseElement {
     super({ tag: "div", text: "00:00", classes: [styles.timer] });
     this.timeInterval;
     this.difference;
+    this.savedTime = 0;
   }
 
-  start(pastTime) {
-    const startTime = pastTime ? Date.now() - pastTime : Date.now();
+  start() {
+    const startTime = Date.now() - this.savedTime;
     this.timeInterval = setInterval(() => {
       this.difference = Date.now() - startTime;
 
@@ -26,6 +27,7 @@ export class Timer extends BaseElement {
     this.stop();
     this.setText("00:00");
     this.difference = 0;
+    this.savedTime = 0;
   }
 
   getCurrentTime() {

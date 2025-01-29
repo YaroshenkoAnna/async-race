@@ -64,4 +64,10 @@ export class BaseElement {
       this._node.removeChild(child);
     }
   }
+
+  clearChildren() {
+    while (this._node.firstChild) {
+      this._node.removeChild(this._node.firstChild);
+    }
+  }
 }
