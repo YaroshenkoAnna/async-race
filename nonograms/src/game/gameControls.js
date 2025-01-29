@@ -18,6 +18,9 @@ export class GameControls extends BaseElement {
     const resetButton = new Button({
       classes: [styles.button],
       text: "Reset Game",
+      callback: () => {
+        this.gameManager.currentGameField.reset();
+      },
     });
     const saveGameButton = new Button({
       classes: [styles.button],
