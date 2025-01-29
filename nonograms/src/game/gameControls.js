@@ -14,6 +14,9 @@ export class GameControls extends BaseElement {
     const randomGameButton = new Button({
       classes: [styles.button],
       text: "Random Game",
+      callback: () => {
+        this.gameManager.loadRandom();
+      },
     });
     const resetButton = new Button({
       classes: [styles.button],
@@ -48,7 +51,6 @@ export class GameControls extends BaseElement {
       text: "Continue Last Game",
       callback: () => {
         const savedData = this.storage.loadGame();
-
         if (!savedData) {
           return;
         }

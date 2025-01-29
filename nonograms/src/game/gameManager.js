@@ -1,6 +1,7 @@
 import { GameField } from "../components/gameField.js";
 import { LevelSelector } from "../components/levelSelector.js";
 import { puzzleData } from "../data/puzzleData.js";
+import { getRandomNumber } from "../utils/randomNumber.js";
 
 export class GameManager {
   constructor(wrapper, timer, storage, selectors, difficultySelector, level) {
@@ -19,9 +20,19 @@ export class GameManager {
     }
 
     this.timer.reset();
-    console.log(levelData);
     this.currentGameField = new GameField(levelData, this.timer);
     this.wrapper.append(this.currentGameField);
+  }
+
+  loadRandom() {
+    const difficulties = this.difficultySelector.filterKeyArray;
+    const difficulty = difficulties[getRandomNumber(0, difficulties.length)];
+    this.difficultySelector.setValue(difficulty);
+    this.updateGameSelector(difficulty, () => {});
+    const names = this.level.filterKeyArray;
+    const name = names[getRandomNumber(0, names.length)];
+    this.level.setValue(name);
+    this.startNewGame(this.getCurrentData(this.level));
   }
 
   loadGame(data) {
@@ -57,7 +68,6 @@ export class GameManager {
     );
 
     const newGameSelector = new LevelSelector(filteredLevels, "name", () => {
-      console.log(this.getCurrentData(newGameSelector));
       this.startNewGame(this.getCurrentData(newGameSelector));
     });
 
