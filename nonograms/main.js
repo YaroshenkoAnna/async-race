@@ -11,7 +11,6 @@ document.body.appendChild(wrapper.getNode());
 
 const storageManager = new StorageManager("nonograms345567");
 const timer = new Timer();
-const gameManager = new GameManager(wrapper, timer, storageManager);
 
 const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
 wrapper.append(selectors, timer);
@@ -23,7 +22,13 @@ const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
 let gameSelector = createGameSelector(difficultySelector);
 
 selectors.append(difficultySelector, gameSelector);
-
+const gameManager = new GameManager(
+  wrapper,
+  timer,
+  storageManager,
+  difficultySelector,
+  gameSelector,
+);
 gameManager.startNewGame(getCurrentData(gameSelector));
 
 const gameControls = new GameControls(gameManager);

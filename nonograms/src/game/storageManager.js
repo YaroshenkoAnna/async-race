@@ -5,13 +5,13 @@ export class StorageManager {
     this.leaderboardKey = this.uniqueKey + "_leaderboard";
   }
 
-  saveGame(state) {
-    localStorage.setItem(this.savedGameKey, JSON.stringify(state));
+  saveGame(gameState) {
+    localStorage.setItem(this.storageKey, JSON.stringify(gameState));
   }
 
   loadGame() {
-    //обработать случай, когда в localStorage нет сохраненной игры
-    return JSON.parse(localStorage.getItem(this.savedGameKey));
+    const savedData = localStorage.getItem(this.storageKey);
+    return savedData ? JSON.parse(savedData) : null;
   }
 
   saveLeaderboard(leaderboard) {

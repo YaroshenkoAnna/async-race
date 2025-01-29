@@ -43,7 +43,7 @@ export class Cell extends BaseElement {
   }
 
   toggleCross(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     this.isFilled = false;
     this.removeClasses([styles.filled]);
 

@@ -1,3 +1,4 @@
+import { puzzleData } from "../data/puzzleData.js";
 import { BaseElement } from "./baseElement.js";
 
 export class LevelSelector extends BaseElement {
@@ -21,6 +22,7 @@ export class LevelSelector extends BaseElement {
         attributes: { value: el },
         text: el,
       });
+
       this.append(option);
     });
   }
@@ -33,5 +35,20 @@ export class LevelSelector extends BaseElement {
 
   getCurrentValueIndex() {
     return this.getNode().selectedIndex;
+  }
+
+  setValue(value) {
+    this.getNode().value = value;
+  }
+
+  getSelectedValue() {
+    return this.getNode().value;
+  }
+
+  updateOptions(newDifficulty) {
+    this.levels = puzzleData.filter((el) => el.difficulty === newDifficulty);
+    this.levels = puzzleData;
+    this.filterKeyArray = this.createFilterKeyArray(newDifficulty);
+    this.createOptions(this.filterKeyArray);
   }
 }

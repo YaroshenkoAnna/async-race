@@ -1,5 +1,6 @@
 import { BaseElement } from "./baseElement.js";
 import styles from "../styles/timer.module.scss";
+import { formatTime } from "../utils/formatTime.js";
 
 export class Timer extends BaseElement {
   constructor() {
@@ -12,13 +13,8 @@ export class Timer extends BaseElement {
     const startTime = pastTime ? Date.now() - pastTime : Date.now();
     this.timeInterval = setInterval(() => {
       this.difference = Date.now() - startTime;
-      const minutes = Math.floor(this.difference / (1000 * 60))
-        .toString()
-        .padStart(2, "0");
-      const seconds = Math.floor(this.difference / 1000 - minutes * 60)
-        .toString()
-        .padStart(2, "0");
-      this.setText(`${minutes}:${seconds}`);
+
+      this.setText(formatTime(this.difference));
     }, 1000);
   }
 
@@ -33,6 +29,10 @@ export class Timer extends BaseElement {
   }
 
   getCurrentTime() {
-    return Math.round(this.difference / 1000);
+    return this.difference;
+  }
+
+  setTime(time) {
+    this.setText(formatTime(time));
   }
 }
