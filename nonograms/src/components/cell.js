@@ -1,6 +1,5 @@
 import { BaseElement } from "./baseElement";
 import styles from "../styles/cell.module.scss";
-import { SoundManager } from "../game/audioManager";
 
 export class Cell extends BaseElement {
   constructor(columnNumber, rowNumber, size, gameField) {
@@ -36,9 +35,9 @@ export class Cell extends BaseElement {
     }
     if (event) {
       if (this.isFilled) {
-        SoundManager.play("cancel");
+        this.gameField.soundManager.play("cancel");
       } else {
-        SoundManager.play("click");
+        this.gameField.soundManager.play("click");
       }
     }
     this.hasCross = false;
@@ -53,11 +52,10 @@ export class Cell extends BaseElement {
     if (event) {
       event.preventDefault();
       if (this.hasCross) {
-        SoundManager.play("cancel")
-      }else{
-        SoundManager.play("cross")
+        this.gameField.soundManager.play("cancel");
+      } else {
+        this.gameField.soundManager.play("cross");
       }
-      
     }
     this.isFilled = false;
     this.removeClasses([styles.filled]);

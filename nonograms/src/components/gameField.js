@@ -3,10 +3,10 @@ import { Cell } from "./cell.js";
 import styles from "../styles/field.module.scss";
 import { Hints } from "./hints.js";
 import { Button } from "./button.js";
-import { SoundManager } from "../game/audioManager.js";
+import { StorageManager } from "../game/storageManager.js";
 
 export class GameField extends BaseElement {
-  constructor(dataObj, timer) {
+  constructor(dataObj, timer, soundManager) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
     this.cells = new BaseElement({
@@ -20,6 +20,7 @@ export class GameField extends BaseElement {
     this.addListener("contextmenu", (e) => e.preventDefault());
     this.timer = timer;
     this.isFirstClick = true;
+    this.soundManager = soundManager;
   }
 
   generateRows(length) {
@@ -71,9 +72,17 @@ export class GameField extends BaseElement {
     console.log("Victory!");
     //block events in the field
     this.timer.stop();
-    //save to rating
+    const result = {
+      time: this.timer.difference,
+      name: this.dataObj.name,
+      difficulty: this.dataObj.difficulty,
+    };
+
+    console.log(result);
+
+    //storageManager.saveLeaderboard();
     //modal window
-    SoundManager.play("win");
+    this.soundManager.play("win");
   }
 
   showSolution() {
@@ -93,6 +102,7 @@ export class GameField extends BaseElement {
   reset() {
     this.cellsMap.flat().forEach((cell) => cell.clearData());
     this.timer.reset();
+    this.isFirstClick = true;
     // unblock events
   }
 }

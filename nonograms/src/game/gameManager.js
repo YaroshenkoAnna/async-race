@@ -4,7 +4,7 @@ import { puzzleData } from "../data/puzzleData.js";
 import { getRandomNumber } from "../utils/randomNumber.js";
 
 export class GameManager {
-  constructor(wrapper, timer, storage, selectors, difficultySelector, level) {
+  constructor(wrapper, timer, storage, selectors, difficultySelector, level, soundManager) {
     this.wrapper = wrapper;
     this.timer = timer;
     this.storage = storage;
@@ -12,6 +12,7 @@ export class GameManager {
     this.currentGameField = null;
     this.difficultySelector = difficultySelector;
     this.level = level;
+    this.soundManager = soundManager
   }
 
   startNewGame(levelData) {
@@ -20,7 +21,7 @@ export class GameManager {
     }
 
     this.timer.reset();
-    this.currentGameField = new GameField(levelData, this.timer);
+    this.currentGameField = new GameField(levelData, this.timer, this.soundManager);
     this.wrapper.append(this.currentGameField);
   }
 
