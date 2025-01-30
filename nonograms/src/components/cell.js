@@ -1,5 +1,6 @@
 import { BaseElement } from "./baseElement";
 import styles from "../styles/cell.module.scss";
+import { SoundManager } from "../game/audioManager";
 
 export class Cell extends BaseElement {
   constructor(columnNumber, rowNumber, size, gameField) {
@@ -28,10 +29,17 @@ export class Cell extends BaseElement {
     addBorderClass(row % boldBorderEvery === 0, styles.bt2);
   }
 
-  toggleCellFill() {
+  toggleCellFill(event) {
     if (this.gameField.isFirstClick) {
       this.gameField.timer.start();
       this.gameField.isFirstClick = false;
+    }
+    if (event) {
+      if (this.isFilled) {
+        SoundManager.play("cancel");
+      } else {
+        SoundManager.play("click");
+      }
     }
     this.hasCross = false;
     this.setText("");
@@ -39,11 +47,18 @@ export class Cell extends BaseElement {
     this.toggleClass(styles.filled);
 
     this.gameField.checkVictory();
-    //audio
   }
 
   toggleCross(event) {
-    if (event) event.preventDefault();
+    if (event) {
+      event.preventDefault();
+      if (this.hasCross) {
+        SoundManager.play("cancel")
+      }else{
+        SoundManager.play("cross")
+      }
+      
+    }
     this.isFilled = false;
     this.removeClasses([styles.filled]);
 
@@ -55,7 +70,6 @@ export class Cell extends BaseElement {
       this.setText("X");
     }
     this.gameField.checkVictory();
-    //audio
   }
 
   clearData() {

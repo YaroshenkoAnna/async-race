@@ -3,6 +3,7 @@ import { Cell } from "./cell.js";
 import styles from "../styles/field.module.scss";
 import { Hints } from "./hints.js";
 import { Button } from "./button.js";
+import { SoundManager } from "../game/audioManager.js";
 
 export class GameField extends BaseElement {
   constructor(dataObj, timer) {
@@ -72,7 +73,7 @@ export class GameField extends BaseElement {
     this.timer.stop();
     //save to rating
     //modal window
-    // victory audio
+    SoundManager.play("win");
   }
 
   showSolution() {
