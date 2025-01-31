@@ -14,7 +14,6 @@ export class GameControls extends BaseElement {
   }
 
   render() {
-    //проверка с текущей
     const randomGameButton = new Button({
       classes: [styles.button],
       text: "Random Game",

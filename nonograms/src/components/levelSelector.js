@@ -41,6 +41,10 @@ export class LevelSelector extends BaseElement {
     this.getNode().value = value;
   }
 
+  getValue(){
+    return this.getNode().value;
+  }
+
   getSelectedValue() {
     return this.getNode().value;
   }

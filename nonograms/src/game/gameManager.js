@@ -36,12 +36,17 @@ export class GameManager {
   }
 
   loadRandom() {
+    const currentName = this.level.getValue();
     const difficulties = this.difficultySelector.filterKeyArray;
     const difficulty = difficulties[getRandomNumber(0, difficulties.length)];
     this.difficultySelector.setValue(difficulty);
     this.updateGameSelector(difficulty, () => {});
     const names = this.level.filterKeyArray;
-    const name = names[getRandomNumber(0, names.length)];
+    let name;
+    do {
+      name = names[getRandomNumber(0, names.length)];
+    } while (name === currentName);
+
     this.level.setValue(name);
     this.startNewGame(this.getCurrentData(this.level));
   }
