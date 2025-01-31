@@ -16,12 +16,9 @@ export class Cell extends BaseElement {
       contextmenu: this.toggleCross.bind(this),
     };
 
-
     this.addListener("click", this.eventHandlers.click);
     this.addListener("contextmenu", this.eventHandlers.contextmenu);
   }
-
-  
 
   addBoldBorders(col, row) {
     const boldBorderEvery = 5;
@@ -52,7 +49,7 @@ export class Cell extends BaseElement {
     this.setText("");
     this.isFilled = !this.isFilled;
     this.toggleClass(styles.filled);
-
+    if (this.gameField.isSolutionShowed) return;
     this.gameField.checkVictory();
   }
 

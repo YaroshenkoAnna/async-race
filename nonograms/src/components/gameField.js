@@ -6,6 +6,8 @@ import { Button } from "./button.js";
 
 export class GameField extends BaseElement {
   maximalResultsLength = 5;
+  isSolutionShowed = false;
+
   constructor(dataObj, gameManager) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
@@ -91,6 +93,8 @@ export class GameField extends BaseElement {
 
   showSolution() {
     this.reset();
+    this.isSolutionShowed = true;
+
     const flatCellsMap = this.cellsMap.flat();
     this.dataObj.solution.flat().forEach((cell, index) => {
       if (cell) {
@@ -108,6 +112,7 @@ export class GameField extends BaseElement {
     this.timer.reset();
     this.isFirstClick = true;
     this.unblockGameEvents();
+    this.isSolutionShowed = false;
   }
 
   blockGameEvents() {
