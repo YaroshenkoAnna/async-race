@@ -6,11 +6,11 @@ export class StorageManager {
   }
 
   saveGame(gameState) {
-    localStorage.setItem(this.storageKey, JSON.stringify(gameState));
+    localStorage.setItem(this.savedGameKey, JSON.stringify(gameState));
   }
 
   loadGame() {
-    const savedData = localStorage.getItem(this.storageKey);
+    const savedData = localStorage.getItem(this.savedGameKey);
     return savedData ? JSON.parse(savedData) : null;
   }
 
@@ -19,6 +19,7 @@ export class StorageManager {
   }
 
   loadLeaderboard() {
-    localStorage.getItem(this.leaderboardKey);
+    const savedData = localStorage.getItem(this.leaderboardKey);
+    return savedData ? JSON.parse(savedData) : [];
   }
 }

@@ -3,10 +3,10 @@ import { Cell } from "./cell.js";
 import styles from "../styles/field.module.scss";
 import { Hints } from "./hints.js";
 import { Button } from "./button.js";
-import { StorageManager } from "../game/storageManager.js";
 
 export class GameField extends BaseElement {
-  constructor(dataObj, timer, soundManager) {
+  maximalResultsLength = 5;
+  constructor(dataObj, gameManager) {
     super({ tag: "div", classes: [styles.field] });
     this.dataObj = dataObj;
     this.cells = new BaseElement({
@@ -18,9 +18,12 @@ export class GameField extends BaseElement {
     this.generateRows(dataObj.size);
     this.generateHints();
     this.addListener("contextmenu", (e) => e.preventDefault());
-    this.timer = timer;
+    this.timer = gameManager.timer;
     this.isFirstClick = true;
-    this.soundManager = soundManager;
+    this.gameManager = gameManager;
+    this.soundManager = gameManager.soundManager;
+    this.storage = gameManager.storage;
+    this.modal = gameManager.modal;
   }
 
   generateRows(length) {
@@ -77,11 +80,13 @@ export class GameField extends BaseElement {
       name: this.dataObj.name,
       difficulty: this.dataObj.difficulty,
     };
-
-    console.log(result);
-
-    //storageManager.saveLeaderboard();
-    //modal window
+    const results = this.storage.loadLeaderboard();
+    if (results.length >= this.maximalResultsLength) {
+      results.shift();
+    }
+    results.push(result);
+    this.storage.saveLeaderboard(results);
+    this.modal.createWinModal(this.timer.difference);
     this.soundManager.play("win");
   }
 

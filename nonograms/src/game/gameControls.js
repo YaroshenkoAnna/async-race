@@ -3,11 +3,14 @@ import { Button } from "../components/button.js";
 import styles from "../styles/gameControls.module.scss";
 
 export class GameControls extends BaseElement {
+  isMute = false;
+  theme = "LEIGHT";
   constructor(gameManager) {
     super({ tag: "div", classes: [styles.gameControls] });
     this.gameManager = gameManager;
     this.render();
     this.storage = gameManager.storage;
+    this.modal = gameManager.modal;
   }
 
   render() {
@@ -18,6 +21,7 @@ export class GameControls extends BaseElement {
         this.gameManager.loadRandom();
       },
     });
+
     const resetButton = new Button({
       classes: [styles.button],
       text: "Reset Game",
@@ -25,6 +29,7 @@ export class GameControls extends BaseElement {
         this.gameManager.currentGameField.reset();
       },
     });
+
     const saveGameButton = new Button({
       classes: [styles.button],
       text: "Save Game",
@@ -46,6 +51,7 @@ export class GameControls extends BaseElement {
         });
       },
     });
+
     const loadGameButton = new Button({
       classes: [styles.button],
       text: "Continue Last Game",
@@ -54,7 +60,6 @@ export class GameControls extends BaseElement {
         if (!savedData) {
           return;
         }
-
         this.gameManager.loadGame(savedData);
       },
     });
@@ -62,14 +67,38 @@ export class GameControls extends BaseElement {
     const showScores = new Button({
       classes: [styles.button],
       text: "Show Score",
+      callback: () => {
+        const results = this.storage.loadLeaderboard();
+        this.modal.createRating(results);
+      },
     });
+
     const themeButton = new Button({
       classes: [styles.button],
       text: "Theme: LIGHT",
+      callback: () => {
+        if (this.theme === "LIGHT") {
+          this.theme = "DARK";
+        } else {
+          this.theme = "LIGHT";
+        }
+        themeButton.setText(`Theme: ${this.theme}`);
+      },
     });
     const soundButton = new Button({
       classes: [styles.button],
       text: "Sound: ON",
+      callback: () => {
+        this.gameManager.soundManager.toggleMute();
+
+        if (this.isMute) {
+          soundButton.setText("Sound: ON");
+          this.isMute = false;
+        } else {
+          soundButton.setText("Sound: OFF");
+          this.isMute = true;
+        }
+      },
     });
 
     this.append(

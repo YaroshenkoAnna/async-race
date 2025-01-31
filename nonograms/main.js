@@ -6,6 +6,7 @@ import { GameControls } from "./src/game/gameControls.js";
 import { StorageManager } from "./src/game/storageManager.js";
 import { GameManager } from "./src/game/gameManager.js";
 import { SoundManager } from "./src/game/audioManager.js";
+import { Modal } from "./src/components/modal.js";
 
 const wrapper = new BaseElement({ tag: "div", classes: ["wrapper"] });
 document.body.appendChild(wrapper.getNode());
@@ -13,9 +14,10 @@ document.body.appendChild(wrapper.getNode());
 const storageManager = new StorageManager("nonograms345567");
 const soundManager = new SoundManager();
 const timer = new Timer();
+const modal = new Modal();
 
 const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
-wrapper.append(selectors, timer);
+wrapper.append(selectors, timer, modal);
 
 const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
   updateGameSelector();
@@ -32,6 +34,7 @@ const gameManager = new GameManager(
   difficultySelector,
   gameSelector,
   soundManager,
+  modal,
 );
 gameManager.startNewGame(getCurrentData(gameSelector)[0]);
 
