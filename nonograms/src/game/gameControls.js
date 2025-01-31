@@ -4,7 +4,7 @@ import styles from "../styles/gameControls.module.scss";
 
 export class GameControls extends BaseElement {
   isMute = false;
-  theme = "LEIGHT";
+  theme = "LIGHT";
   constructor(gameManager) {
     super({ tag: "div", classes: [styles.gameControls] });
     this.gameManager = gameManager;
@@ -14,6 +14,7 @@ export class GameControls extends BaseElement {
   }
 
   render() {
+    //проверка с текущей
     const randomGameButton = new Button({
       classes: [styles.button],
       text: "Random Game",
@@ -82,6 +83,7 @@ export class GameControls extends BaseElement {
         } else {
           this.theme = "LIGHT";
         }
+        // сохранять в сторедж
         themeButton.setText(`Theme: ${this.theme}`);
       },
     });
@@ -90,7 +92,7 @@ export class GameControls extends BaseElement {
       text: "Sound: ON",
       callback: () => {
         this.gameManager.soundManager.toggleMute();
-
+ // сохранять в сторедж
         if (this.isMute) {
           soundButton.setText("Sound: ON");
           this.isMute = false;

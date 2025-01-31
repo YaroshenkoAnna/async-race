@@ -72,8 +72,7 @@ export class GameField extends BaseElement {
   }
 
   handleVictory() {
-    console.log("Victory!");
-    //block events in the field
+    this.blockGameEvents();
     this.timer.stop();
     const result = {
       time: this.timer.difference,
@@ -99,7 +98,7 @@ export class GameField extends BaseElement {
       }
     });
 
-    //block events in the field
+    this.blockGameEvents();
     this.timer.stop();
     //don't check for victory
   }
@@ -108,6 +107,20 @@ export class GameField extends BaseElement {
     this.cellsMap.flat().forEach((cell) => cell.clearData());
     this.timer.reset();
     this.isFirstClick = true;
-    // unblock events
+    this.unblockGameEvents();
+  }
+
+  blockGameEvents() {
+    this.cellsMap.flat().forEach((cell) => {
+      cell.removeListener("click", cell.eventHandlers.click);
+      cell.removeListener("contextmenu", cell.eventHandlers.contextmenu);
+    });
+  }
+
+  unblockGameEvents() {
+    this.cellsMap.flat().forEach((cell) => {
+      cell.addListener("click", cell.eventHandlers.click);
+      cell.addListener("contextmenu", cell.eventHandlers.contextmenu);
+    });
   }
 }

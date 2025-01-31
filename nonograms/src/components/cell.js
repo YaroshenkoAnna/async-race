@@ -11,9 +11,17 @@ export class Cell extends BaseElement {
     this.hasCross = false;
     this.addBoldBorders(columnNumber, rowNumber, size);
 
-    this.addListener("click", this.toggleCellFill.bind(this));
-    this.addListener("contextmenu", this.toggleCross.bind(this));
+    this.eventHandlers = {
+      click: this.toggleCellFill.bind(this),
+      contextmenu: this.toggleCross.bind(this),
+    };
+
+
+    this.addListener("click", this.eventHandlers.click);
+    this.addListener("contextmenu", this.eventHandlers.contextmenu);
   }
+
+  
 
   addBoldBorders(col, row) {
     const boldBorderEvery = 5;
