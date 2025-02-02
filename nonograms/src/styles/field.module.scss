@@ -1,8 +1,15 @@
+@use "variables.css";
+
 .field {
   display: inline-grid;
   grid-template-areas:
     "solution horizontal-hints"
     "vertical-hints puzzle";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-area: game;
+  border: 3px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .row {
@@ -11,6 +18,7 @@
 
 .cells {
   grid-area: puzzle;
+  border: 3px solid var(--primary-color);
 }
 
 .solution {
@@ -18,4 +26,8 @@
   min-width: max-content;
   min-height: max-content;
   grid-area: solution;
+  background: var(--bg-color);
+  font-size: 25px;
+  color: var(--primary-color);
+  border: solid 3px var(--primary-color);
 }

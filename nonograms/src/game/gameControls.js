@@ -15,7 +15,7 @@ export class GameControls extends BaseElement {
 
   render() {
     const randomGameButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.random],
       text: "Random Game",
       callback: () => {
         this.gameManager.loadRandom();
@@ -23,7 +23,7 @@ export class GameControls extends BaseElement {
     });
 
     const resetButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.reset],
       text: "Reset Game",
       callback: () => {
         this.gameManager.currentGameField.reset();
@@ -31,7 +31,7 @@ export class GameControls extends BaseElement {
     });
 
     const saveGameButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.save],
       text: "Save Game",
       callback: () => {
         if (!this.gameManager.currentGameField) {
@@ -53,7 +53,7 @@ export class GameControls extends BaseElement {
     });
 
     const loadGameButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.load],
       text: "Continue Last Game",
       callback: () => {
         const savedData = this.storage.loadGame();
@@ -65,7 +65,7 @@ export class GameControls extends BaseElement {
     });
 
     const showScores = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.score],
       text: "Show Score",
       callback: () => {
         const results = this.storage.loadLeaderboard();
@@ -74,9 +74,11 @@ export class GameControls extends BaseElement {
     });
 
     const themeButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.theme],
       text: "Theme: LIGHT",
       callback: () => {
+        document.documentElement.setAttribute("data-theme", "light");
+
         if (this.theme === "LIGHT") {
           this.theme = "DARK";
         } else {
@@ -84,14 +86,18 @@ export class GameControls extends BaseElement {
         }
         // сохранять в сторедж
         themeButton.setText(`Theme: ${this.theme}`);
+        document.documentElement.setAttribute(
+          "data-theme",
+          this.theme === "LIGHT" ? "light" : "dark",
+        );
       },
     });
     const soundButton = new Button({
-      classes: [styles.button],
+      classes: [styles.button, styles.sound],
       text: "Sound: ON",
       callback: () => {
         this.gameManager.soundManager.toggleMute();
- // сохранять в сторедж
+        // сохранять в сторедж
         if (this.isMute) {
           soundButton.setText("Sound: ON");
           this.isMute = false;

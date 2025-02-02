@@ -1,9 +1,14 @@
 import { puzzleData } from "../data/puzzleData.js";
 import { BaseElement } from "./baseElement.js";
+import styles from "../styles/selector.module.scss";
 
 export class LevelSelector extends BaseElement {
   constructor(levels, key, callback) {
-    super({ tag: "select", attributes: { name: key } });
+    super({
+      tag: "select",
+      classes: [styles.selector],
+      attributes: { name: key },
+    });
     this.levels = levels;
     this.key = key;
     this.filterKeyArray = this.createFilterKeyArray(this.key, puzzleData);
@@ -41,7 +46,7 @@ export class LevelSelector extends BaseElement {
     this.getNode().value = value;
   }
 
-  getValue(){
+  getValue() {
     return this.getNode().value;
   }
 

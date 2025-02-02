@@ -1,0 +1,55 @@
+@use "variables.css";
+
+body {
+  background-image: url("../assets/images/bg13.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background-color: var(--bg-main-color);
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: min(700px, 95vw);
+
+  display: inline-grid;
+  grid-template-areas:
+    "selectors selectors timer "
+    "game game buttons";
+  //  grid-template-columns: 1.5fr 1fr 1fr;
+  //  grid-template-rows: auto 1fr;
+  gap: 20px;
+}
+
+.selectors {
+  grid-area: selectors;
+  display: flex;
+  gap: 25px;
+}
+
+.title {
+  color: var(--primary-color);
+  font-size: 40px;
+  margin: 0;
+  padding: 20px;
+}
+
+@keyframes themeFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  animation: themeFade 0.3s ease-in-out;
+}

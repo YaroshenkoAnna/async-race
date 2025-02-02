@@ -1,10 +1,15 @@
+@use "variables.css";
+
 .hint {
   aspect-ratio: 1 / 1;
-  min-height: 30px;
-  background: rgb(183, 182, 182);
+  max-height: 50px;
+  height: 10vmin;
+  background: var(--bg-hints);
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--primary-color);
+  font-size: 30px;
 }
 
 .hints {
@@ -14,18 +19,20 @@
 .vertical {
   flex-direction: column;
   grid-area: vertical-hints;
+  border: 3px solid var(--primary-color);
 }
 
 .horizontal {
   flex-direction: row;
   grid-area: horizontal-hints;
+  border: 3px solid var(--primary-color);
 }
 
 .row {
   display: flex;
   justify-content: end;
-  background-color: black;
-  border: 1px solid black;
+  background-color: var(--bg-row-hints);
+  border: 1px solid var(--primary-color);
 }
 
 .vertical .row {
@@ -37,17 +44,17 @@
 }
 
 .vertical .row:nth-child(5n) {
-  border-bottom: 2px solid rgb(0, 0, 0);
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .vertical .row:nth-child(5n + 1) {
-  border-top: 2px solid rgb(0, 0, 0);
+  border-top: 2px solid var(--primary-color);
 }
 
 .horizontal .row:nth-child(5n + 1) {
-  border-left: 2px solid rgb(0, 0, 0);
+  border-left: 2px solid var(--primary-color);
 }
 
 .horizontal .row:nth-child(5n) {
-  border-right: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid var(--primary-color);
 }

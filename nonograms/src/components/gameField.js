@@ -76,6 +76,8 @@ export class GameField extends BaseElement {
   handleVictory() {
     this.blockGameEvents();
     this.timer.stop();
+    this.cellsMap.flat().forEach((cell) => cell.setText(""));
+
     const result = {
       time: this.timer.difference,
       name: this.dataObj.name,

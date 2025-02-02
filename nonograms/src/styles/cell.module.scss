@@ -1,26 +1,31 @@
+@use "variables.css";
+
 .cell {
   aspect-ratio: 1 / 1;
-  min-height: 30px;
-  border: 1px solid rgb(76, 74, 74);
-  background: rgb(183, 182, 182);
+  max-height: 50px;
+  height: 10vmin;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
 }
 
 .bt2 {
-  border-top: 2px solid rgb(24, 24, 24);
+  border-top: 2px solid var(--border-bold-color);
 }
 
 .bb2 {
-  border-bottom: 2px solid rgb(24, 24, 24);
+  border-bottom: 2px solid var(--border-bold-color);
 }
 
 .bl2 {
-  border-left: 2px solid rgb(24, 24, 24);
+  border-left: 2px solid var(--border-bold-color);
 }
 
 .br2 {
-  border-right: 2px solid rgb(24, 24, 24);
+  border-right: 2px solid var(--border-bold-color);
 }
 
 .filled {
-  background: rgb(0, 0, 0);
+  background: var(--primary-color);
 }
+
+

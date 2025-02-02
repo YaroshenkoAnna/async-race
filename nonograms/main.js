@@ -7,16 +7,25 @@ import { StorageManager } from "./src/game/storageManager.js";
 import { GameManager } from "./src/game/gameManager.js";
 import { SoundManager } from "./src/game/audioManager.js";
 import { Modal } from "./src/components/modal.js";
+import styles from "./src/styles/main.module.scss";
 
-const wrapper = new BaseElement({ tag: "div", classes: ["wrapper"] });
-document.body.appendChild(wrapper.getNode());
+const uniqueKey = "nonograms345567";
+const container = new BaseElement({ tag: "div", classes: [styles.container] });
+document.body.appendChild(container.getNode());
+const title = new BaseElement({
+  tag: "h1",
+  classes: [styles.title],
+  text: "Nonograms",
+});
+const wrapper = new BaseElement({ tag: "div", classes: [styles.wrapper] });
+container.append(title, wrapper);
 
-const storageManager = new StorageManager("nonograms345567");
+const storageManager = new StorageManager(uniqueKey);
 const soundManager = new SoundManager();
 const timer = new Timer();
 const modal = new Modal();
 
-const selectors = new BaseElement({ tag: "div", classes: ["selectors"] });
+const selectors = new BaseElement({ tag: "div", classes: [styles.selectors] });
 wrapper.append(selectors, timer, modal);
 
 const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
