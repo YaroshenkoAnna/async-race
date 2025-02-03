@@ -1,0 +1,1114 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10+.
+ */
+
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+
+[hidden] {
+  display: none;
+}
+:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._selector_r71rh_33 {
+  height: 5rem;
+  width: 18rem;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  text-align: center;
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+}
+
+._selector_r71rh_33:first-child {
+  width: 13rem;
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._timer_4sz56_33 {
+  grid-area: timer;
+  font-size: 3rem;
+  align-self: center;
+  color: var(--primary-color);
+}/* @font-face {
+  font-family: "Ubuntu";
+  src: url("../assets/fonts/Ubuntu.ttf");
+} */
+:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._gameControls_emjcz_37 {
+  display: flex;
+  flex-direction: column;
+  grid-area: buttons;
+}
+
+._button_emjcz_43 {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  width: 33rem;
+  height: 5rem;
+  position: relative;
+  text-align: left;
+  padding-left: 4.5rem;
+  cursor: pointer;
+  font-size: 2.8rem;
+  box-sizing: border-box;
+}
+
+._button_emjcz_43:before {
+  content: "";
+  position: absolute;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: 0.5rem;
+  top: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+._save_emjcz_68:before {
+  background-image: url("./save-DmN_37kL.png");
+}
+
+._random_emjcz_72:before {
+  background-image: url("./dice-tChAvCqC.png");
+}
+
+._score_emjcz_76:before {
+  background-image: url("./score-CRiSpCCc.png");
+}
+
+._theme_emjcz_80:before {
+  background-image: url("./themes-B782VECi.png");
+}
+
+._continue_emjcz_84:before {
+  background-image: url("./arrow-BusiukC1.png");
+}
+
+._reset_emjcz_88:before {
+  background-image: url("./reset-C8xtRQdA.png");
+}
+
+._load_emjcz_92:before {
+  background-image: url("./down-CoQYeaNA.png");
+}
+
+._sound_emjcz_96:before {
+  background-image: url("./sound-DEdEIAye.png");
+}
+
+@media (max-width: 768px) {
+  ._gameControls_emjcz_37 {
+    display: none;
+  }
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._cell_i0240_33 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  aspect-ratio: 1/1;
+  max-height: 50px;
+  max-width: 50px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+}
+
+._bt2_i0240_45 {
+  border-top: 2px solid var(--border-bold-color);
+}
+
+._bb2_i0240_49 {
+  border-bottom: 2px solid var(--border-bold-color);
+}
+
+._bl2_i0240_53 {
+  border-left: 2px solid var(--border-bold-color);
+}
+
+._br2_i0240_57 {
+  border-right: 2px solid var(--border-bold-color);
+}
+
+._filled_i0240_61 {
+  background: var(--primary-color);
+}
+
+._c5_i0240_65 {
+  width: var(--width5);
+  font-size: min(var(--width5) * 0.8, 50px);
+}
+
+._c10_i0240_70 {
+  width: var(--width10);
+  font-size: min(var(--width10) * 0.8, 50px);
+}
+
+._c15_i0240_75 {
+  width: var(--width15);
+  font-size: min(var(--width15) * 0.8, 50px);
+}
+
+@media (max-width: 768px) {
+  ._c5_i0240_65 {
+    width: var(--width5-768);
+    font-size: min(var(--width5-768) * 0.8, 50px);
+  }
+  ._c10_i0240_70 {
+    width: var(--width10-768);
+    font-size: min(var(--width10-768) * 0.8, 50px);
+  }
+  ._c15_i0240_75 {
+    width: var(--width15-768);
+    font-size: min(var(--width15-768) * 0.8, 50px);
+  }
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._field_1ubhq_33 {
+  justify-self: center;
+  align-self: center;
+  display: inline-grid;
+  grid-template-areas: "solution horizontal-hints" "vertical-hints puzzle";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-area: game;
+  border: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+._row_1ubhq_45 {
+  display: flex;
+  width: 100%;
+}
+
+._cells_1ubhq_50 {
+  grid-area: puzzle;
+  border: 3px solid var(--primary-color);
+  transition: color 0.4s ease-in, border-color 0.4s ease-in;
+}
+
+._solution_1ubhq_56 {
+  aspect-ratio: 1/1;
+  grid-area: solution;
+  background: var(--bg-color);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  border: solid 3px var(--primary-color);
+  cursor: pointer;
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._hint_1hbn2_33 {
+  aspect-ratio: 1/1;
+  max-height: 50px;
+  max-width: 50px;
+  background: var(--bg-hints);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+  font-size: min(2vmin, 30px);
+}
+
+._h5_1hbn2_45 {
+  width: var(--width5);
+  font-size: min(var(--width5) * 0.8, 50px);
+}
+
+._h10_1hbn2_50 {
+  width: var(--width10);
+  font-size: min(var(--width10) * 0.8, 50px);
+}
+
+._h15_1hbn2_55 {
+  width: var(--width15);
+  font-size: min(var(--width15) * 0.8, 50px);
+}
+
+._hints_1hbn2_60 {
+  display: flex;
+}
+
+._vertical_1hbn2_64 {
+  flex-direction: column;
+  grid-area: vertical-hints;
+  border: 3px solid var(--primary-color);
+}
+
+._horizontal_1hbn2_70 {
+  flex-direction: row;
+  grid-area: horizontal-hints;
+  border: 3px solid var(--primary-color);
+}
+
+._row_1hbn2_76 {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  background-color: var(--bg-row-hints);
+  border: 1px solid var(--primary-color);
+}
+
+._vertical_1hbn2_64 ._row_1hbn2_76 {
+  flex-direction: row;
+}
+
+._horizontal_1hbn2_70 ._row_1hbn2_76 {
+  flex-direction: column;
+}
+
+._vertical_1hbn2_64 ._row_1hbn2_76:nth-child(5n) {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+._vertical_1hbn2_64 ._row_1hbn2_76:nth-child(5n+1) {
+  border-top: 2px solid var(--primary-color);
+}
+
+._horizontal_1hbn2_70 ._row_1hbn2_76:nth-child(5n+1) {
+  border-left: 2px solid var(--primary-color);
+}
+
+._horizontal_1hbn2_70 ._row_1hbn2_76:nth-child(5n) {
+  border-right: 2px solid var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  ._h5_1hbn2_45 {
+    width: var(--width5-768);
+    font-size: min(var(--width5-768) * 0.8, 50px);
+  }
+  ._h10_1hbn2_50 {
+    width: var(--width10-768);
+    font-size: min(var(--width10-768) * 0.8, 50px);
+  }
+  ._h15_1hbn2_55 {
+    width: var(--width15-768);
+    font-size: min(var(--width15-768) * 0.8, 50px);
+  }
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._modal_1y8pu_33 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  outline: none;
+  color: var(--primary-color);
+  font-size: 3rem;
+  transition: transform 1s ease, opacity 0.8s ease, display 0.8s ease-in-out allow-discrete;
+}
+._modal_1y8pu_33[open] {
+  opacity: 1;
+  display: flex;
+}
+@starting-style {
+  ._modal_1y8pu_33[open] {
+    opacity: 0;
+  }
+}
+._modal_1y8pu_33:not([open]) {
+  opacity: 0;
+}
+
+._button_1y8pu_63 {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  font-size: 3rempx;
+  border: 1px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  width: max-content;
+  cursor: pointer;
+}
+
+._container_1y8pu_74 {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+._table_1y8pu_81 {
+  border: 2px solid var(--primary-color);
+}
+
+._item_1y8pu_85 {
+  border: 2px solid var(--primary-color);
+  padding: 0.5rem 1.5rem;
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("./bg13-Dauu0O_j.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+._container_1v24d_46 {
+  position: relative;
+  text-align: center;
+  background-color: var(--bg-main-color);
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+._wrapper_1v24d_54 {
+  display: inline-grid;
+  grid-template-areas: "selectors selectors timer " "game game buttons";
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+}
+
+._selectors_1v24d_62 {
+  grid-area: selectors;
+  display: flex;
+  gap: 2.5rem;
+}
+
+._title_1v24d_68 {
+  color: var(--primary-color);
+  font-size: 4rem;
+  margin: 0;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+  ._wrapper_1v24d_54 {
+    grid-template-areas: "selectors timer buttons " "game game game";
+  }
+}
+._burgerMenu_1v24d_83 {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 100px;
+  position: relative;
+}
+
+._active_1v24d_95 ._item_1v24d_95:first-child {
+  transform: rotate(45deg);
+}
+
+._active_1v24d_95 ._item_1v24d_95:last-child {
+  transform: rotate(-45deg);
+}
+
+._item_1v24d_95 {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease-in;
+}
+._item_1v24d_95:first-child {
+  transform: translateY(4px);
+}
+._item_1v24d_95:last-child {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+  ._wrapper_1v24d_54 {
+    grid-template-areas: "selectors timer buttons " "game game game";
+  }
+  ._burgerMenu_1v24d_83 {
+    display: flex;
+  }
+}
+@media (max-width: 400px) {
+  body {
+    width: 100%;
+  }
+}:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme=dark] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}
+
+._burgerMenu_25zch_33 {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 100px;
+  position: relative;
+  background-color: var(--bg-color);
+  z-index: 15;
+}
+
+._active_25zch_47 ._item_25zch_47:first-child {
+  transform: rotate(45deg);
+}
+
+._active_25zch_47 ._item_25zch_47:last-child {
+  transform: rotate(-45deg);
+}
+
+._item_25zch_47 {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease-in;
+}
+._item_25zch_47:first-child {
+  transform: translateY(4px);
+}
+._item_25zch_47:last-child {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  ._burgerMenu_25zch_33 {
+    display: flex;
+  }
+  ._showed_25zch_74 {
+    left: 0;
+    top: 0;
+    padding: 100px 30px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7019607843);
+  }
+}
