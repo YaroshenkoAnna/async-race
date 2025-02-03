@@ -48,12 +48,11 @@ export class Modal extends BaseElement {
       tag: "thead",
       classes: [styles.tableTitles],
     });
-    const tbody = new BaseElement({ tag: "tbody", classes: [styles.tabl] });
+    const tbody = new BaseElement({ tag: "tbody" });
 
     const headers = ["#", "Time", "Puzzle", "Difficulty"];
     const trHead = new BaseElement({
       tag: "tr",
-      classes: [styles.it],
     });
     headers.forEach((header) => {
       trHead.append(
