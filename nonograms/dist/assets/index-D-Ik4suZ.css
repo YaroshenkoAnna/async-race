@@ -652,7 +652,7 @@ template {
   --bg-row-hints: #313131;
 }
 
-._field_ztdlb_33 {
+._field_12g95_33 {
   justify-self: center;
   align-self: center;
   display: inline-grid;
@@ -664,18 +664,18 @@ template {
   color: var(--primary-color);
 }
 
-._row_ztdlb_45 {
+._row_12g95_45 {
   display: flex;
   width: 100%;
 }
 
-._cells_ztdlb_50 {
+._cells_12g95_50 {
   grid-area: puzzle;
   border: 3px solid var(--primary-color);
   transition: color 0.4s ease-in, border-color 0.4s ease-in;
 }
 
-._solution_ztdlb_56 {
+._solution_12g95_56 {
   aspect-ratio: 1/1;
   grid-area: solution;
   background: var(--bg-color);
@@ -685,33 +685,33 @@ template {
   cursor: pointer;
 }
 
-._s5_ztdlb_66 {
-  width: calc(var(--width5) * 3 + 10px);
-  font-size: calc((var(--width5) * 3 + 10px) * 0.25);
+._s5_12g95_66 {
+  width: min(var(--width5) * 3 + 10px, 160px);
+  font-size: min((var(--width5) * 3 + 10px) * 0.25, 30px);
 }
 
-._s10_ztdlb_71 {
-  width: calc(var(--width10) * 4 + 10px);
-  font-size: calc((var(--width10) * 4 + 10px) * 0.25);
+._s10_12g95_71 {
+  width: min(var(--width10) * 4 + 10px, 210px);
+  font-size: min((var(--width10) * 4 + 10px) * 0.25, 30px);
 }
 
-._s15_ztdlb_76 {
-  width: calc(var(--width15) * 6 + 10px);
-  font-size: calc((var(--width15) * 6 + 10px) * 0.25);
+._s15_12g95_76 {
+  width: min(var(--width15) * 6 + 10px, 310px);
+  font-size: min((var(--width15) * 6 + 10px) * 0.25, 30px);
 }
 
 @media (max-width: 768px) {
-  ._s5_ztdlb_66 {
-    width: calc(var(--width5-768) * 3 + 10px);
-    font-size: calc((var(--width5-768) * 3 + 10px) * 0.25);
+  ._s5_12g95_66 {
+    width: min(var(--width5-768) * 3 + 10px, 160px);
+    font-size: min((var(--width5-768) * 3 + 10px) * 0.25, 30px);
   }
-  ._s10_ztdlb_71 {
+  ._s10_12g95_71 {
     width: calc(var(--width10-768) * 4 + 10px);
-    font-size: calc((var(--width10-768) * 4 + 10px) * 0.25);
+    font-size: min((var(--width10-768) * 4 + 10px) * 0.25, 30px);
   }
-  ._s15_ztdlb_76 {
+  ._s15_12g95_76 {
     width: calc(var(--width15-768) * 6 + 10px);
-    font-size: calc((var(--width15-768) * 6 + 10px) * 0.25);
+    font-size: min((var(--width15-768) * 6 + 10px) * 0.25, 30px);
   }
 }:root {
   --bg-color: #f0f0f0;

@@ -774,13 +774,13 @@ class Cell extends BaseElement {
   }
 }
 
-const field = "_field_ztdlb_33";
-const row$1 = "_row_ztdlb_45";
-const cells = "_cells_ztdlb_50";
-const solution = "_solution_ztdlb_56";
-const s5 = "_s5_ztdlb_66";
-const s10 = "_s10_ztdlb_71";
-const s15 = "_s15_ztdlb_76";
+const field = "_field_12g95_33";
+const row$1 = "_row_12g95_45";
+const cells = "_cells_12g95_50";
+const solution = "_solution_12g95_56";
+const s5 = "_s5_12g95_66";
+const s10 = "_s10_12g95_71";
+const s15 = "_s15_12g95_76";
 const styles$4 = {
 	field: field,
 	row: row$1,
@@ -1387,4 +1387,4 @@ function createGameSelector(obj) {
 function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
 }
-//# sourceMappingURL=index-Cdf7yXaN.js.map
+//# sourceMappingURL=index-90WiAak2.js.map

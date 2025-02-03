@@ -39,33 +39,33 @@
 }
 
 .s5 {
-  width: calc(var(--width5) * 3 + 10px);
-  font-size: calc((var(--width5) * 3 + 10px) * 0.25);
+  width: min(calc(var(--width5) * 3 + 10px), 160px);
+  font-size: min(calc((var(--width5) * 3 + 10px) * 0.25), 30px);
 }
 
 .s10 {
-  width: calc(var(--width10) * 4 + 10px);
-  font-size: calc((var(--width10) * 4 + 10px) * 0.25);
+  width: min(calc(var(--width10) * 4 + 10px), 210px);
+  font-size: min(calc((var(--width10) * 4 + 10px) * 0.25), 30px);
 }
 
 .s15 {
-  width: calc(var(--width15) * 6 + 10px);
-  font-size: calc((var(--width15) * 6 + 10px) * 0.25);
+  width: min(calc(var(--width15) * 6 + 10px), 310px);
+  font-size: min(calc((var(--width15) * 6 + 10px) * 0.25), 30px);
 }
 
 @media (max-width: 768px) {
   .s5 {
-    width: calc(var(--width5-768) * 3 + 10px);
-    font-size: calc((var(--width5-768) * 3 + 10px) * 0.25);
+    width: min(calc(var(--width5-768) * 3 + 10px), 160px);
+    font-size: min(calc((var(--width5-768) * 3 + 10px) * 0.25), 30px);
   }
 
   .s10 {
     width: calc(var(--width10-768) * 4 + 10px);
-    font-size: calc((var(--width10-768) * 4 + 10px) * 0.25);
+    font-size: min(calc((var(--width10-768) * 4 + 10px) * 0.25), 30px);
   }
 
   .s15 {
     width: calc(var(--width15-768) * 6 + 10px);
-    font-size: calc((var(--width15-768) * 6 + 10px) * 0.25);
+    font-size: min(calc((var(--width15-768) * 6 + 10px) * 0.25), 30px);
   }
 }
