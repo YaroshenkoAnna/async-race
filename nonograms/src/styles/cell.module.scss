@@ -1,9 +1,13 @@
 @use "variables.css";
 
 .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
   aspect-ratio: 1 / 1;
   max-height: 50px;
-  height: 10vmin;
+  max-width: 50px;
   border: 1px solid var(--border-color);
   background: var(--bg-color);
 }
@@ -28,4 +32,34 @@
   background: var(--primary-color);
 }
 
+.c5 {
+  width: var(--width5);
+  font-size: min(calc(var(--width5) * 0.8), 50px);
+}
 
+.c10 {
+  width: var(--width10);
+  font-size: min(calc(var(--width10) * 0.8), 50px);
+}
+
+.c15 {
+  width: var(--width15);
+  font-size: min(calc(var(--width15) * 0.8), 50px);
+}
+
+@media (max-width: 768px) {
+  .c5 {
+    width: var(--width5-768);
+    font-size: min(calc(var(--width5-768) * 0.8), 50px);
+  }
+  
+  .c10 {
+    width: var(--width10-768);
+    font-size: min(calc(var(--width10-768) * 0.8), 50px);
+  }
+  
+  .c15 {
+    width: var(--width15-768);
+    font-size: min(calc(var(--width15-768) * 0.8), 50px);
+  }
+}

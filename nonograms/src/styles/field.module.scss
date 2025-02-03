@@ -1,6 +1,7 @@
 @use "variables.css";
 
 .field {
+  align-self: center;
   display: inline-grid;
   grid-template-areas:
     "solution horizontal-hints"
@@ -14,20 +15,28 @@
 
 .row {
   display: flex;
+  width: 100%;
 }
 
 .cells {
   grid-area: puzzle;
   border: 3px solid var(--primary-color);
+  transition:
+    color 0.4s ease-in,
+    border-color 0.4s ease-in;
 }
 
 .solution {
   aspect-ratio: 1 / 1;
-  min-width: max-content;
-  min-height: max-content;
+
   grid-area: solution;
   background: var(--bg-color);
-  font-size: 25px;
+  font-size: 2.5rem;
   color: var(--primary-color);
   border: solid 3px var(--primary-color);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* … */
 }

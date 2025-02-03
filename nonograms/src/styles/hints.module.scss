@@ -3,13 +3,28 @@
 .hint {
   aspect-ratio: 1 / 1;
   max-height: 50px;
-  height: 10vmin;
+  max-width: 50px;
   background: var(--bg-hints);
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
-  font-size: 30px;
+  font-size: min(2vmin, 30px);
+}
+
+.h5 {
+  width: var(--width5);
+  font-size: min(calc(var(--width5) * 0.8), 50px);
+}
+
+.h10 {
+  width: var(--width10);
+  font-size: min(calc(var(--width10) * 0.8), 50px);
+}
+
+.h15 {
+  width: var(--width15);
+  font-size: min(calc(var(--width15) * 0.8), 50px);
 }
 
 .hints {
@@ -29,6 +44,7 @@
 }
 
 .row {
+  width: 100%;
   display: flex;
   justify-content: end;
   background-color: var(--bg-row-hints);
@@ -57,4 +73,21 @@
 
 .horizontal .row:nth-child(5n) {
   border-right: 2px solid var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .h5 {
+    width: var(--width5-768);
+    font-size: min(calc(var(--width5-768) * 0.8), 50px);
+  }
+
+  .h10 {
+    width: var(--width10-768);
+    font-size: min(calc(var(--width10-768) * 0.8), 50px);
+  }
+
+  .h15 {
+    width: var(--width15-768);
+    font-size: min(calc(var(--width15-768) * 0.8), 50px);
+  }
 }

@@ -15,6 +15,8 @@ export class GameField extends BaseElement {
       tag: "div",
       classes: [styles.cells],
     });
+    this.addClasses([styles[`f${dataObj.size}`]]);
+    this.cells.addClasses([styles[`c${dataObj.size}`]]);
     this.cellsMap = [];
     this.append(this.generateSolutionSection(), this.cells);
     this.generateRows(dataObj.size);

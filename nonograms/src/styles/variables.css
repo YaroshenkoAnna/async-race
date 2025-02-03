@@ -6,6 +6,18 @@
   --bg-main-color: #00000000;
   --bg-hints: #cccccc;
   --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, 100vh) - 32px) / 8);
+  --width10-768: calc((min(100vw, 100vh) - 42px) / 14);
+  --width15-768: calc((min(100vw, 100vh) - 52px) / 21);
 }
 
 [data-theme="dark"] {

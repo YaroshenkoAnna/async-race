@@ -1,5 +1,9 @@
 @use "variables.css";
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   background-image: url("../assets/images/bg13.jpg");
   background-position: center;
@@ -17,39 +21,36 @@ body {
 }
 
 .wrapper {
-  width: min(700px, 95vw);
-
   display: inline-grid;
   grid-template-areas:
     "selectors selectors timer "
     "game game buttons";
-  //  grid-template-columns: 1.5fr 1fr 1fr;
-  //  grid-template-rows: auto 1fr;
-  gap: 20px;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
 }
 
 .selectors {
   grid-area: selectors;
   display: flex;
-  gap: 25px;
+  gap: 2.5rem;
 }
 
 .title {
   color: var(--primary-color);
-  font-size: 40px;
+  font-size: 4rem;
   margin: 0;
-  padding: 20px;
+  padding: 2rem;
 }
 
-@keyframes themeFade {
-  from {
-    opacity: 0;
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
   }
-  to {
-    opacity: 1;
-  }
-}
 
-body {
-  animation: themeFade 0.3s ease-in-out;
+  .wrapper {
+    grid-template-areas:
+      "selectors timer buttons "
+      "game game game";
+  }
 }

@@ -2,15 +2,16 @@ import { BaseElement } from "./baseElement";
 import styles from "../styles/cell.module.scss";
 
 export class Cell extends BaseElement {
+  hasCross = false;
+  isFilled = false;
   constructor(columnNumber, rowNumber, size, gameField) {
     super({ tag: "div", classes: [styles.cell] });
     this.columnNumber = columnNumber;
     this.rowNumber = rowNumber;
     this.gameField = gameField;
-    this.isFilled = false;
-    this.hasCross = false;
-    this.addBoldBorders(columnNumber, rowNumber, size);
 
+    this.addBoldBorders(columnNumber, rowNumber, size);
+    this.addClasses([styles[`c${size}`]]);
     this.eventHandlers = {
       click: this.toggleCellFill.bind(this),
       contextmenu: this.toggleCross.bind(this),
@@ -70,7 +71,7 @@ export class Cell extends BaseElement {
       this.setText("");
     } else {
       this.hasCross = true;
-      this.setText("X");
+      this.setText("×");
     }
     this.gameField.checkVictory();
   }
