@@ -14,6 +14,7 @@ body {
 }
 
 .container {
+  position: relative;
   text-align: center;
   background-color: var(--bg-main-color);
   max-height: 100vh;
@@ -52,5 +53,63 @@ body {
     grid-template-areas:
       "selectors timer buttons "
       "game game game";
+  }
+}
+
+.burgerMenu {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 100px;
+  position: relative;
+}
+.active .item:first-child {
+  transform: rotate(45deg);
+}
+
+.active .item:last-child {
+  transform: rotate(-45deg);
+}
+
+.item {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease-in;
+
+  &:first-child {
+    transform: translateY(4px);
+  }
+
+  &:last-child {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+
+  .wrapper {
+    grid-template-areas:
+      "selectors timer buttons "
+      "game game game";
+  }
+
+  .burgerMenu {
+    display: flex;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    width: 100%;
   }
 }

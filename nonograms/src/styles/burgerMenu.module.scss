@@ -1,0 +1,58 @@
+@use "variables.css";
+
+.burgerMenu {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 100px;
+  position: relative;
+  background-color: var(--bg-color);
+  z-index: 15;
+}
+.active .item:first-child {
+  transform: rotate(45deg);
+}
+
+.active .item:last-child {
+  transform: rotate(-45deg);
+}
+
+.item {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease-in;
+
+  &:first-child {
+    transform: translateY(4px);
+  }
+
+  &:last-child {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 768px) {
+  .burgerMenu {
+    display: flex;
+  }
+
+  .showed {
+    left: 0;
+    top: 0;
+    padding: 100px 30px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    background: #000000b3;
+  }
+}

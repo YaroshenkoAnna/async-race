@@ -8,6 +8,7 @@ import { GameManager } from "./src/game/gameManager.js";
 import { SoundManager } from "./src/game/audioManager.js";
 import { Modal } from "./src/components/modal.js";
 import styles from "./src/styles/main.module.scss";
+import { BurgerMenu } from "./src/components/burgerMenu.js";
 
 const uniqueKey = "nonograms345567";
 const container = new BaseElement({ tag: "div", classes: [styles.container] });
@@ -26,6 +27,7 @@ const timer = new Timer();
 const modal = new Modal();
 
 const selectors = new BaseElement({ tag: "div", classes: [styles.selectors] });
+
 wrapper.append(selectors, timer, modal);
 
 const difficultySelector = new LevelSelector(puzzleData, "difficulty", () => {
@@ -48,7 +50,9 @@ const gameManager = new GameManager(
 gameManager.startNewGame(getCurrentData(gameSelector)[0]);
 
 const gameControls = new GameControls(gameManager);
-wrapper.append(gameControls);
+const burgerMenu = new BurgerMenu(gameControls);
+
+wrapper.append(burgerMenu, gameControls);
 
 function updateGameSelector() {
   gameSelector = createGameSelector(difficultySelector);
