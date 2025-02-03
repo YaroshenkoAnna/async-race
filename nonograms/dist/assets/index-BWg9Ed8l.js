@@ -503,15 +503,15 @@ class Button extends BaseElement {
   }
 }
 
-const gameControls$1 = "_gameControls_emjcz_37";
-const button$1 = "_button_emjcz_43";
-const save = "_save_emjcz_68";
-const random = "_random_emjcz_72";
-const score = "_score_emjcz_76";
-const theme = "_theme_emjcz_80";
-const reset = "_reset_emjcz_88";
-const load = "_load_emjcz_92";
-const sound = "_sound_emjcz_96";
+const gameControls$1 = "_gameControls_18gyh_33";
+const button$1 = "_button_18gyh_39";
+const save = "_save_18gyh_64";
+const random = "_random_18gyh_68";
+const score = "_score_18gyh_72";
+const theme = "_theme_18gyh_76";
+const reset = "_reset_18gyh_84";
+const load = "_load_18gyh_88";
+const sound = "_sound_18gyh_92";
 const styles$6 = {
 	gameControls: gameControls$1,
 	button: button$1,
@@ -519,7 +519,7 @@ const styles$6 = {
 	random: random,
 	score: score,
 	theme: theme,
-	"continue": "_continue_emjcz_84",
+	"continue": "_continue_18gyh_80",
 	reset: reset,
 	load: load,
 	sound: sound
@@ -774,15 +774,21 @@ class Cell extends BaseElement {
   }
 }
 
-const field = "_field_1ubhq_33";
-const row$1 = "_row_1ubhq_45";
-const cells = "_cells_1ubhq_50";
-const solution = "_solution_1ubhq_56";
+const field = "_field_18tq0_33";
+const row$1 = "_row_18tq0_45";
+const cells = "_cells_18tq0_50";
+const solution = "_solution_18tq0_56";
+const s5 = "_s5_18tq0_66";
+const s10 = "_s10_18tq0_71";
+const s15 = "_s15_18tq0_76";
 const styles$4 = {
 	field: field,
 	row: row$1,
 	cells: cells,
-	solution: solution
+	solution: solution,
+	s5: s5,
+	s10: s10,
+	s15: s15
 };
 
 const hint = "_hint_1hbn2_33";
@@ -864,7 +870,6 @@ class GameField extends BaseElement {
       tag: "div",
       classes: [styles$4.cells],
     });
-    this.addClasses([styles$4[`f${dataObj.size}`]]);
     this.cells.addClasses([styles$4[`c${dataObj.size}`]]);
     this.cellsMap = [];
     this.append(this.generateSolutionSection(), this.cells);
@@ -909,6 +914,7 @@ class GameField extends BaseElement {
       classes: [styles$4.solution],
       callback: this.showSolution.bind(this),
     });
+    solution.addClasses([styles$4[`s${this.dataObj.size}`]]);
     return solution;
   }
 
@@ -1129,11 +1135,11 @@ class SoundManager {
   }
 }
 
-const modal$1 = "_modal_1y8pu_33";
-const button = "_button_1y8pu_63";
-const container$2 = "_container_1y8pu_74";
-const table = "_table_1y8pu_81";
-const item$2 = "_item_1y8pu_85";
+const modal$1 = "_modal_aktho_33";
+const button = "_button_aktho_63";
+const container$2 = "_container_aktho_74";
+const table = "_table_aktho_81";
+const item$2 = "_item_aktho_85";
 const styles$2 = {
 	modal: modal$1,
 	button: button,
@@ -1187,12 +1193,11 @@ class Modal extends BaseElement {
       tag: "thead",
       classes: [styles$2.tableTitles],
     });
-    const tbody = new BaseElement({ tag: "tbody", classes: [styles$2.tabl] });
+    const tbody = new BaseElement({ tag: "tbody" });
 
     const headers = ["#", "Time", "Puzzle", "Difficulty"];
     const trHead = new BaseElement({
       tag: "tr",
-      classes: [styles$2.it],
     });
     headers.forEach((header) => {
       trHead.append(
@@ -1237,13 +1242,13 @@ class Modal extends BaseElement {
   }
 }
 
-const container$1 = "_container_1v24d_46";
-const wrapper$1 = "_wrapper_1v24d_54";
-const selectors$1 = "_selectors_1v24d_62";
-const title$1 = "_title_1v24d_68";
-const burgerMenu$2 = "_burgerMenu_1v24d_83";
-const active$1 = "_active_1v24d_95";
-const item$1 = "_item_1v24d_95";
+const container$1 = "_container_1c385_46";
+const wrapper$1 = "_wrapper_1c385_54";
+const selectors$1 = "_selectors_1c385_62";
+const title$1 = "_title_1c385_68";
+const burgerMenu$2 = "_burgerMenu_1c385_83";
+const active$1 = "_active_1c385_95";
+const item$1 = "_item_1c385_95";
 const styles$1 = {
 	container: container$1,
 	wrapper: wrapper$1,
@@ -1254,10 +1259,10 @@ const styles$1 = {
 	item: item$1
 };
 
-const burgerMenu$1 = "_burgerMenu_25zch_33";
-const active = "_active_25zch_47";
-const item = "_item_25zch_47";
-const showed = "_showed_25zch_74";
+const burgerMenu$1 = "_burgerMenu_nbtqg_33";
+const active = "_active_nbtqg_47";
+const item = "_item_nbtqg_52";
+const showed = "_showed_nbtqg_79";
 const styles = {
 	burgerMenu: burgerMenu$1,
 	active: active,
@@ -1382,4 +1387,4 @@ function createGameSelector(obj) {
 function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
 }
-//# sourceMappingURL=index-CWMofJG3.js.map
+//# sourceMappingURL=index-BWg9Ed8l.js.map

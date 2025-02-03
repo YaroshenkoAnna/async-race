@@ -37,3 +37,35 @@
   border: solid 3px var(--primary-color);
   cursor: pointer;
 }
+
+.s5 {
+  width: calc(var(--width5) * 3 + 10px);
+  font-size: calc((var(--width5) * 3 + 10px) * 0.25);
+}
+
+.s10 {
+  width: calc(var(--width10) * 4 + 10px);
+  font-size: calc((var(--width10) * 4 + 10px) * 0.25);
+}
+
+.s15 {
+  width: calc(var(--width15) * 6 + 10px);
+  font-size: calc((var(--width15) * 6 + 10px) * 0.25);
+}
+
+@media (max-width: 768px) {
+  .s5 {
+    width: calc(var(--width5-768) * 3 + 10px);
+    font-size: calc((var(--width5-768) * 3 + 10px) * 0.25);
+  }
+
+  .s10 {
+    width: calc(var(--width10-768) * 4 + 10px);
+    font-size: calc((var(--width10-768) * 4 + 10px) * 0.25);
+  }
+
+  .s15 {
+    width: calc(var(--width15-768) * 6 + 10px);
+    font-size: calc((var(--width15-768) * 6 + 10px) * 0.25);
+  }
+}

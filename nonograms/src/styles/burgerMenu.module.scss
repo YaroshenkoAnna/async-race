@@ -13,6 +13,11 @@
   background-color: var(--bg-color);
   z-index: 15;
 }
+
+.active {
+  position: fixed;
+  right: calc(100vw / 2 - 186px);
+}
 .active .item:first-child {
   transform: rotate(45deg);
 }
@@ -54,5 +59,12 @@
     position: fixed;
     z-index: 10;
     background: #000000b3;
+  }
+}
+
+@media (max-width: 400px) {
+  .active {
+    right: calc(50vw - 156px);
+    top: 65px;
   }
 }

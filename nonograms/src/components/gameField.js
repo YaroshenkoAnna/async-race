@@ -15,7 +15,6 @@ export class GameField extends BaseElement {
       tag: "div",
       classes: [styles.cells],
     });
-    this.addClasses([styles[`f${dataObj.size}`]]);
     this.cells.addClasses([styles[`c${dataObj.size}`]]);
     this.cellsMap = [];
     this.append(this.generateSolutionSection(), this.cells);
@@ -60,6 +59,7 @@ export class GameField extends BaseElement {
       classes: [styles.solution],
       callback: this.showSolution.bind(this),
     });
+    solution.addClasses([styles[`s${this.dataObj.size}`]]);
     return solution;
   }
 
