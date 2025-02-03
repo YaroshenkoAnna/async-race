@@ -34,7 +34,10 @@ export class GameControls extends BaseElement {
       classes: [styles.button, styles.save],
       text: "Save Game",
       callback: () => {
-        if (!this.gameManager.currentGameField) {
+        if (
+          !this.gameManager.currentGameField ||
+          this.gameManager.currentGameField.isSolutionShowed
+        ) {
           return;
         }
         this.storage.saveGame({
@@ -84,7 +87,6 @@ export class GameControls extends BaseElement {
         } else {
           this.theme = "LIGHT";
         }
-        // сохранять в сторедж
         themeButton.setText(`Theme: ${this.theme}`);
         document.documentElement.setAttribute(
           "data-theme",
@@ -97,7 +99,6 @@ export class GameControls extends BaseElement {
       text: "Sound: ON",
       callback: () => {
         this.gameManager.soundManager.toggleMute();
-        // сохранять в сторедж
         if (this.isMute) {
           soundButton.setText("Sound: ON");
           this.isMute = false;

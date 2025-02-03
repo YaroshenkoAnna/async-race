@@ -1,10 +1,12 @@
 {
-  "name": "vite-project",
+  "name": "nanogram",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "main.js",
   "scripts": {
     "dev": "vite",
+    "deploy": "npm run build && gh-pages -d dist -e nanogram",
     "build": "vite build",
     "preview": "vite preview"
   },

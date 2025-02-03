@@ -93,6 +93,7 @@ export class GameField extends BaseElement {
     this.storage.saveLeaderboard(results);
     this.modal.createWinModal(this.timer.difference);
     this.soundManager.play("win");
+    this.isSolutionShowed = true;
   }
 
   showSolution() {
@@ -108,7 +109,6 @@ export class GameField extends BaseElement {
 
     this.blockGameEvents();
     this.timer.stop();
-    //don't check for victory
   }
 
   reset() {
