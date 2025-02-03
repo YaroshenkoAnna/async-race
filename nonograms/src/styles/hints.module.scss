@@ -60,18 +60,33 @@
 }
 
 .vertical .row:nth-child(5n) {
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--border-bold-color);
 }
 
 .vertical .row:nth-child(5n + 1) {
+  border-top: 2px solid var(--border-bold-color);
+}
+
+.vertical .row:first-child {
   border-top: 2px solid var(--primary-color);
+}
+.vertical .row:last-child {
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .horizontal .row:nth-child(5n + 1) {
-  border-left: 2px solid var(--primary-color);
+  border-left: 2px solid var(--border-bold-color);
 }
 
 .horizontal .row:nth-child(5n) {
+  border-right: 2px solid var(--border-bold-color);
+}
+
+.horizontal .row:first-child {
+  border-left: 2px solid var(--primary-color);
+}
+
+.horizontal .row:last-child {
   border-right: 2px solid var(--primary-color);
 }
 

@@ -386,7 +386,7 @@ puzzleData.sort((a, b) => {
   return a.name > b.name ? 1 : -1;
 });
 
-const selector = "_selector_r71rh_33";
+const selector = "_selector_11ers_33";
 const styles$8 = {
 	selector: selector
 };
@@ -444,7 +444,7 @@ class LevelSelector extends BaseElement {
   }
 }
 
-const timer$1 = "_timer_4sz56_33";
+const timer$1 = "_timer_ppuom_33";
 const styles$7 = {
 	timer: timer$1
 };
@@ -503,15 +503,15 @@ class Button extends BaseElement {
   }
 }
 
-const gameControls$1 = "_gameControls_18gyh_33";
-const button$1 = "_button_18gyh_39";
-const save = "_save_18gyh_64";
-const random = "_random_18gyh_68";
-const score = "_score_18gyh_72";
-const theme = "_theme_18gyh_76";
-const reset = "_reset_18gyh_84";
-const load = "_load_18gyh_88";
-const sound = "_sound_18gyh_92";
+const gameControls$1 = "_gameControls_nhagv_33";
+const button$1 = "_button_nhagv_39";
+const save = "_save_nhagv_64";
+const random = "_random_nhagv_68";
+const score = "_score_nhagv_72";
+const theme = "_theme_nhagv_76";
+const reset = "_reset_nhagv_84";
+const load = "_load_nhagv_88";
+const sound = "_sound_nhagv_92";
 const styles$6 = {
 	gameControls: gameControls$1,
 	button: button$1,
@@ -519,7 +519,7 @@ const styles$6 = {
 	random: random,
 	score: score,
 	theme: theme,
-	"continue": "_continue_18gyh_80",
+	"continue": "_continue_nhagv_80",
 	reset: reset,
 	load: load,
 	sound: sound
@@ -670,15 +670,15 @@ class StorageManager {
   }
 }
 
-const cell = "_cell_i0240_33";
-const bt2 = "_bt2_i0240_45";
-const bb2 = "_bb2_i0240_49";
-const bl2 = "_bl2_i0240_53";
-const br2 = "_br2_i0240_57";
-const filled = "_filled_i0240_61";
-const c5 = "_c5_i0240_65";
-const c10 = "_c10_i0240_70";
-const c15 = "_c15_i0240_75";
+const cell = "_cell_11svv_33";
+const bt2 = "_bt2_11svv_45";
+const bb2 = "_bb2_11svv_49";
+const bl2 = "_bl2_11svv_53";
+const br2 = "_br2_11svv_57";
+const filled = "_filled_11svv_61";
+const c5 = "_c5_11svv_65";
+const c10 = "_c10_11svv_70";
+const c15 = "_c15_11svv_75";
 const styles$5 = {
 	cell: cell,
 	bt2: bt2,
@@ -774,13 +774,13 @@ class Cell extends BaseElement {
   }
 }
 
-const field = "_field_18tq0_33";
-const row$1 = "_row_18tq0_45";
-const cells = "_cells_18tq0_50";
-const solution = "_solution_18tq0_56";
-const s5 = "_s5_18tq0_66";
-const s10 = "_s10_18tq0_71";
-const s15 = "_s15_18tq0_76";
+const field = "_field_ztdlb_33";
+const row$1 = "_row_ztdlb_45";
+const cells = "_cells_ztdlb_50";
+const solution = "_solution_ztdlb_56";
+const s5 = "_s5_ztdlb_66";
+const s10 = "_s10_ztdlb_71";
+const s15 = "_s15_ztdlb_76";
 const styles$4 = {
 	field: field,
 	row: row$1,
@@ -791,14 +791,14 @@ const styles$4 = {
 	s15: s15
 };
 
-const hint = "_hint_1hbn2_33";
-const h5 = "_h5_1hbn2_45";
-const h10 = "_h10_1hbn2_50";
-const h15 = "_h15_1hbn2_55";
-const hints = "_hints_1hbn2_60";
-const vertical = "_vertical_1hbn2_64";
-const horizontal = "_horizontal_1hbn2_70";
-const row = "_row_1hbn2_76";
+const hint = "_hint_7qy14_33";
+const h5 = "_h5_7qy14_45";
+const h10 = "_h10_7qy14_50";
+const h15 = "_h15_7qy14_55";
+const hints = "_hints_7qy14_60";
+const vertical = "_vertical_7qy14_64";
+const horizontal = "_horizontal_7qy14_70";
+const row = "_row_7qy14_76";
 const styles$3 = {
 	hint: hint,
 	h5: h5,
@@ -1135,11 +1135,11 @@ class SoundManager {
   }
 }
 
-const modal$1 = "_modal_aktho_33";
-const button = "_button_aktho_63";
-const container$2 = "_container_aktho_74";
-const table = "_table_aktho_81";
-const item$2 = "_item_aktho_85";
+const modal$1 = "_modal_wfbqx_33";
+const button = "_button_wfbqx_63";
+const container$2 = "_container_wfbqx_74";
+const table = "_table_wfbqx_81";
+const item$2 = "_item_wfbqx_85";
 const styles$2 = {
 	modal: modal$1,
 	button: button,
@@ -1242,13 +1242,13 @@ class Modal extends BaseElement {
   }
 }
 
-const container$1 = "_container_1c385_46";
-const wrapper$1 = "_wrapper_1c385_54";
-const selectors$1 = "_selectors_1c385_62";
-const title$1 = "_title_1c385_68";
-const burgerMenu$2 = "_burgerMenu_1c385_83";
-const active$1 = "_active_1c385_95";
-const item$1 = "_item_1c385_95";
+const container$1 = "_container_1mpks_46";
+const wrapper$1 = "_wrapper_1mpks_54";
+const selectors$1 = "_selectors_1mpks_62";
+const title$1 = "_title_1mpks_68";
+const burgerMenu$2 = "_burgerMenu_1mpks_83";
+const active$1 = "_active_1mpks_95";
+const item$1 = "_item_1mpks_95";
 const styles$1 = {
 	container: container$1,
 	wrapper: wrapper$1,
@@ -1259,10 +1259,10 @@ const styles$1 = {
 	item: item$1
 };
 
-const burgerMenu$1 = "_burgerMenu_nbtqg_33";
-const active = "_active_nbtqg_47";
-const item = "_item_nbtqg_52";
-const showed = "_showed_nbtqg_79";
+const burgerMenu$1 = "_burgerMenu_3t56o_33";
+const active = "_active_3t56o_47";
+const item = "_item_3t56o_52";
+const showed = "_showed_3t56o_79";
 const styles = {
 	burgerMenu: burgerMenu$1,
 	active: active,
@@ -1387,4 +1387,4 @@ function createGameSelector(obj) {
 function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
 }
-//# sourceMappingURL=index-BWg9Ed8l.js.map
+//# sourceMappingURL=index-Cdf7yXaN.js.map
