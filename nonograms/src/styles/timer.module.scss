@@ -1,0 +1,8 @@
+@use "variables.css";
+
+.timer {
+  grid-area: timer;
+  font-size: 3rem;
+  align-self: center;
+  color: var(--primary-color);
+}

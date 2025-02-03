@@ -1,0 +1,31 @@
+:root {
+  --bg-color: #f0f0f0;
+  --primary-color: #000000;
+  --border-color: #5f5f5f;
+  --border-bold-color: #625230;
+  --bg-main-color: #00000000;
+  --bg-hints: #cccccc;
+  --bg-row-hints: #000000;
+  --width5: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 32px) / 8
+  );
+  --width10: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 42px) / 14
+  );
+  --width15: calc(
+    (min(calc(100vw - 330px - 20px), calc(100vh - 86px - 75px)) - 52px) / 21
+  );
+  --width5-768: calc((min(100vw, calc(100vh - 190px)) - 32px) / 8);
+  --width10-768: calc((min(100vw, calc(100vh - 190px)) - 42px) / 14);
+  --width15-768: calc((min(100vw, calc(100vh - 190px)) - 52px) / 21);
+}
+
+[data-theme="dark"] {
+  --bg-color: #272626;
+  --primary-color: #c1c1c1;
+  --border-color: #5f5f5f;
+  --border-bold-color: #626a75;
+  --bg-main-color: #000000b3;
+  --bg-hints: #646464;
+  --bg-row-hints: #313131;
+}

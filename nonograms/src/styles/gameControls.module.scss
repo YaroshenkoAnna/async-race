@@ -1,0 +1,71 @@
+@use "fonts.scss";
+@use "variables.css";
+
+.gameControls {
+  display: flex;
+  flex-direction: column;
+  grid-area: buttons;
+}
+
+.button {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  width: 33rem;
+  height: 5rem;
+  position: relative;
+  text-align: left;
+  padding-left: 4.5rem;
+  cursor: pointer;
+  font-size: 2.8rem;
+  box-sizing: border-box;
+}
+
+.button:before {
+  content: "";
+  position: absolute;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: 0.5rem;
+  top: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.save:before {
+  background-image: url("../assets/images/save.png");
+}
+
+.random:before {
+  background-image: url("../assets/images/dice.png");
+}
+
+.score:before {
+  background-image: url("../assets/images/score.png");
+}
+
+.theme:before {
+  background-image: url("../assets/images/themes.png");
+}
+
+.continue:before {
+  background-image: url("../assets/images/arrow.png");
+}
+
+.reset:before {
+  background-image: url("../assets/images/reset.png");
+}
+
+.load:before {
+  background-image: url("../assets/images/down.png");
+}
+
+.sound:before {
+  background-image: url("../assets/images/sound.png");
+}
+
+@media (max-width: 768px) {
+  .gameControls {
+    display: none;
+  }
+}

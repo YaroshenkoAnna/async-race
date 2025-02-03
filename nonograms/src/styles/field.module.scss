@@ -1,0 +1,39 @@
+@use "variables.css";
+
+.field {
+  justify-self: center;
+  align-self: center;
+  display: inline-grid;
+  grid-template-areas:
+    "solution horizontal-hints"
+    "vertical-hints puzzle";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-area: game;
+  border: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.cells {
+  grid-area: puzzle;
+  border: 3px solid var(--primary-color);
+  transition:
+    color 0.4s ease-in,
+    border-color 0.4s ease-in;
+}
+
+.solution {
+  aspect-ratio: 1 / 1;
+
+  grid-area: solution;
+  background: var(--bg-color);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  border: solid 3px var(--primary-color);
+  cursor: pointer;
+}
