@@ -63,6 +63,10 @@ export class Cell extends BaseElement {
         this.gameField.soundManager.play("cross");
       }
     }
+    if (this.gameField.isFirstClick) {
+      this.gameField.timer.start();
+      this.gameField.isFirstClick = false;
+    }
     this.isFilled = false;
     this.removeClasses([styles.filled]);
 
