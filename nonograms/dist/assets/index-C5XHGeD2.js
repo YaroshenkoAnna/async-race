@@ -753,6 +753,10 @@ class Cell extends BaseElement {
         this.gameField.soundManager.play("cross");
       }
     }
+    if (this.gameField.isFirstClick) {
+      this.gameField.timer.start();
+      this.gameField.isFirstClick = false;
+    }
     this.isFilled = false;
     this.removeClasses([styles$5.filled]);
 
@@ -1387,4 +1391,4 @@ function createGameSelector(obj) {
 function getCurrentData(obj) {
   return obj.createFilterData()[obj.getCurrentValueIndex()];
 }
-//# sourceMappingURL=index-90WiAak2.js.map
+//# sourceMappingURL=index-C5XHGeD2.js.map
