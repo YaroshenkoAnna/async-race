@@ -1,6 +1,6 @@
 # Video
 
-[Hier is a link to my video](https://www.youtube.com/watch?v=fu_8hAzahhM&t=10s)
+[Hier is a link to my video](https://www.youtube.com/watch?v=fu_8hAzahhM)
 
 # Transcription
 
