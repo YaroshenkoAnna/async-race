@@ -1,0 +1,11 @@
+# Video
+
+[Hier is a link to my video][https://www.youtube.com/watch?v=fu_8hAzahhM&t=10s]
+
+# Transcription
+
+Hello! My name is Anna Yaroshenko, and I am 37 years old. I have a degree in Civil and Industrial Engineering, and for most of my career, I worked as an engineer in the construction industry. After I moved to Germany circumstances kept pushing me toward finding myself in a new profession, and I realized that if I lacked the necessary knowledge, I simply needed to acquire it.
+Technology has always been a part of my life. I grew up with computers—our home had one quite early, and I saw it as more than just a device. I loved experimenting, editing layouts, and exploring new software. In 2014, I first tried programming. I started with C, then moved on to Java, and around that time, I stumbled upon a JavaScript course. That was when I realized how exciting it was to dive into coding, solve problems, and search for answers on forums. I couldn’t wait to get home to work on the next challenge!
+Unfortunately, I wasn’t able to continue learning back then, but the idea of programming never left my mind. In 2021, I returned to studying, completed a short course, and after immigrating to Germany, I kept learning while also studying German. Finally, in 2024, I joined RS School, and since then, my learning process has become structured and consistent.The assignments covered a wide range of topics, pushing me to expand my knowledge and spend nights solving fascinating challenges.
+Besides coding, I have a deep love for nature. I enjoy hiking, mushroom picking, swimming, and reading books. These activities help me recharge and bring balance to my life.Being outdoors, surrounded by forests and rivers, clears my mind and often brings unexpected insights—even into coding problems. Sometimes, a long walk or a swim is all it takes to find the missing piece to a complex solution.
+Now, I truly enjoy what I do. Seeing my skills improve day by day and my code become cleaner and more efficient is incredibly motivating. Programming, for me, is not just a profession but a continuous journey of learning, growth, and problem-solving. I’m confident that I’m on the right path and excited about the challenges and opportunities ahead!
