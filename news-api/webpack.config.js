@@ -1,9 +1,14 @@
-const path = require('path');
-const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const DotenvWebpackPlugin = require('dotenv-webpack');
-const EslingPlugin = require('eslint-webpack-plugin');
+import path from 'path';
+import { merge } from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import DotenvWebpackPlugin from 'dotenv-webpack';
+import EslingPlugin from 'eslint-webpack-plugin';
+import { fileURLToPath } from 'url';
+
+// Fix __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const baseConfig = {
     entry: path.resolve(__dirname, './src/index'),
@@ -38,9 +43,16 @@ const baseConfig = {
     ],
 };
 
-module.exports = ({ mode }) => {
-    const isProductionMode = mode === 'prod';
-    const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
+const getEnvConfig = async (mode) => {
+    if (mode === 'prod') {
+        const { default: prodConfig } = await import('./webpack.prod.config.js');
+        return prodConfig;
+    }
+    const { default: devConfig } = await import('./webpack.dev.config.js');
+    return devConfig;
+};
 
+export default async (env) => {
+    const envConfig = await getEnvConfig(env.mode);
     return merge(baseConfig, envConfig);
 };
