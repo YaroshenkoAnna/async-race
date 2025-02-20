@@ -108,6 +108,6 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "files": ["src/index.js"],
-  "include": ["**/*.ts", "src/index.js", "src/components/view/news/news.ts"],
+  "files": ["src/index.ts"],
+  "include": ["**/*.ts", "src/index.ts", "src/components/view/news/news.ts"],
 }
