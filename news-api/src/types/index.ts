@@ -18,3 +18,14 @@ export interface NewsApiError {
   code: string;
   message: string;
 }
+
+export interface NewsArticle {
+  author: string | null;
+  content: string | null;
+  description: string | null;
+  publishedAt: string;
+  source: NewsSource;
+  title: string;
+  url: string;
+  urlToImage: string | null;
+}
