@@ -109,5 +109,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "files": ["src/index.js"],
-  "include": ["**/*.ts", "src/index.js"],
+  "include": ["**/*.ts", "src/index.js", "src/components/view/news/news.js"],
 }
