@@ -1,0 +1,24 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["prettier", "import", "@typescript-eslint"],
+    "extends": [
+        "prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/strict-type-checked"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "ignorePatterns": ["webpack.config.js", "webpack.dev.config.js", "webpack.prod.config.js"],
+    "rules": {
+        "no-debugger": "off",
+        "no-console": 0,
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-explicit-any": "error"
+    }
+}
