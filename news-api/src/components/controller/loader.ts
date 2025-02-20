@@ -7,13 +7,16 @@ class Loader {
     this.options = options;
   }
 
-  getResp(
+  getResp<T>(
     { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-    callback: (data: unknown) => void = () => {
+    callback: (data: T) => void = () => {
       console.error('No callback for GET response');
     }
-  ) {
-    this.load('GET', endpoint, callback, options);
+  ): void {
+    fetch(endpoint, options)
+      .then((response) => response.json())
+      .then((data) => callback(data as T))
+      .catch((error) => console.error('Error fetching data:', error));
   }
 
   private errorHandler(res: Response): Response {
