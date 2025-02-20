@@ -17,7 +17,7 @@ export class AppView {
   }
 
   drawSources(data: SourcesResponse): void {
-    const values = data.sources ?? [];
+    const values = data.sources;
     this.sources.draw(values);
   }
 }

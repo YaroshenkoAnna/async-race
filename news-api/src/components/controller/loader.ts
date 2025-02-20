@@ -11,7 +11,7 @@ class Loader {
 
   getResp(
     { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-    callback: (data: SourcesResponse) => void 
+    callback: (data: SourcesResponse) => void
   ): void {
     this.load('GET', endpoint, callback, options);
   }
@@ -44,13 +44,17 @@ class Loader {
     options: Record<string, string> = {}
   ): void {
     fetch(this.makeUrl(options, endpoint), { method })
-      .then(this.errorHandler)
+      .then((res) => this.errorHandler(res))
       .then((res) => res.json())
       .then((data: SourcesResponse) => {
         callback(data);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          console.error(err.message);
+        } else {
+          console.error('An unknown error occurred');
+        }
       });
   }
 }
