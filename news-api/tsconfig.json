@@ -109,5 +109,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "files": ["src/index.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/components/app/app.ts"]
 }

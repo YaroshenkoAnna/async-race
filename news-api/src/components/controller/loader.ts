@@ -1,3 +1,5 @@
+import { SourcesResponse } from '../../types/index';
+
 class Loader {
   private baseLink: string;
   private options: Record<string, string>;
@@ -7,50 +9,49 @@ class Loader {
     this.options = options;
   }
 
-  getResp<T>(
+  getResp(
     { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-    callback: (data: T) => void = () => {
-      console.error('No callback for GET response');
-    }
+    callback: (data: SourcesResponse) => void 
   ): void {
-    fetch(endpoint, options)
-      .then((response) => response.json())
-      .then((data) => callback(data as T))
-      .catch((error) => console.error('Error fetching data:', error));
+    this.load('GET', endpoint, callback, options);
   }
 
   private errorHandler(res: Response): Response {
     if (!res.ok) {
-      if (res.status === 401 || res.status === 404)
-        console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-      throw Error(res.statusText);
+      if (res.status === 401 || res.status === 404) {
+        console.error(`Sorry, but there is ${String(res.status)} error: ${String(res.statusText)}`);
+      }
+      throw new Error(res.statusText);
     }
-
     return res;
   }
 
   private makeUrl(options: Record<string, string>, endpoint: string): string {
     const urlOptions = { ...this.options, ...options };
-    let url = `${this.baseLink}${endpoint}?`;
+    const url = new URL(endpoint, this.baseLink);
 
     Object.keys(urlOptions).forEach((key) => {
-      url += `${key}=${urlOptions[key]}&`;
+      url.searchParams.append(key, urlOptions[key]);
     });
 
-    return url.slice(0, -1);
+    return url.toString();
   }
 
   private load(
     method: string,
     endpoint: string,
-    callback: (data: unknown) => void,
+    callback: (data: SourcesResponse) => void,
     options: Record<string, string> = {}
-  ) {
+  ): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res) => res.json())
-      .then((data) => callback(data))
-      .catch((err) => console.error(err));
+      .then((data: SourcesResponse) => {
+        callback(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
 

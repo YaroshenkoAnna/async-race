@@ -9,7 +9,7 @@ export interface NewsSource {
 }
 
 export interface SourcesResponse {
-  status: string;
+  status: 'ok' | 'error';
   sources: NewsSource[];
 }
 
@@ -17,12 +17,6 @@ export interface NewsResponse {
   status: 'ok' | 'error';
   totalResults?: number;
   articles?: NewsArticle[];
-}
-
-export interface NewsApiError {
-  status: 'error';
-  code: string;
-  message: string;
 }
 
 export interface NewsArticle {

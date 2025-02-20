@@ -2,12 +2,12 @@
     "parser": "@typescript-eslint/parser",
     "plugins": ["prettier", "import", "@typescript-eslint"],
     "extends": [
-        
-        "prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/strict-type-checked",
+        "prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/strict-type-checked"
     ],
     "parserOptions": {
         "ecmaVersion": 2020,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "env": {
         "es6": true,

@@ -1,20 +1,32 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
+import { NewsResponse, SourcesResponse } from '../../types/index';
 
 class App {
   private controller: AppController;
   private view: AppView;
 
   constructor() {
-    this.controller = new AppController();
+    const API_URL = process.env.API_URL ?? 'https://newsapi.org/v2/';
+    const API_KEY = process.env.API_KEY ?? 'your_api_key_here';
+
+    this.controller = new AppController(API_URL, { apiKey: API_KEY });
     this.view = new AppView();
   }
 
-  start(): void {
-    document
-      .querySelector('.sources')
-      ?.addEventListener('click', (e: Event) => this.controller.getNews(e, (data) => this.view.drawNews(data)));
-    this.controller.getSources((data) => this.view.drawSources(data));
+  public start(): void {
+    const sourcesElement = document.querySelector('.sources');
+    if (sourcesElement) {
+      sourcesElement.addEventListener('click', (e) => {
+        this.controller.getNews(e, (data: NewsResponse) => {
+          this.view.drawNews(data);
+        });
+      });
+    }
+
+    this.controller.getSources((data: SourcesResponse) => {
+      this.view.drawSources(data);
+    });
   }
 }
 
