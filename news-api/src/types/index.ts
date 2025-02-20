@@ -8,9 +8,15 @@ export interface NewsSource {
   country: string;
 }
 
-export interface NewsSourcesResponse {
-  status: 'ok' | 'error';
+export interface SourcesResponse {
+  status: string;
   sources: NewsSource[];
+}
+
+export interface NewsResponse {
+  status: 'ok' | 'error';
+  totalResults?: number;
+  articles?: NewsArticle[];
 }
 
 export interface NewsApiError {
