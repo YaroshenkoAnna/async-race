@@ -1,3 +1,8 @@
+enum ResponseStatus {
+  OK = 'ok',
+  ERROR = 'error',
+}
+
 export interface NewsSource {
   id: string;
   name: string;
@@ -9,12 +14,12 @@ export interface NewsSource {
 }
 
 export interface SourcesResponse {
-  status: 'ok' | 'error';
+  status: ResponseStatus;
   sources: NewsSource[];
 }
 
 export interface NewsResponse {
-  status: 'ok' | 'error';
+  status: ResponseStatus;
   totalResults?: number;
   articles?: NewsArticle[];
 }

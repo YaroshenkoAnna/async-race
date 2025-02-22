@@ -7,8 +7,8 @@ class App {
   private view: AppView;
 
   constructor() {
-    const API_URL = process.env.API_URL ?? 'https://newsapi.org/v2/';
-    const API_KEY = process.env.API_KEY ?? 'your_api_key_here';
+    const API_URL = process.env.API_URL ?? '';
+    const API_KEY = process.env.API_KEY ?? '';
 
     this.controller = new AppController(API_URL, { apiKey: API_KEY });
     this.view = new AppView();
