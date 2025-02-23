@@ -1,6 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { NewsResponse, SourcesResponse } from '../../types/index';
+import { initMenuToggle } from '../menu';
 
 class App {
   private controller: AppController;
@@ -27,6 +28,7 @@ class App {
     this.controller.getSources((data: SourcesResponse) => {
       this.view.drawSources(data);
     });
+    initMenuToggle('.menu__button', '.menu');
   }
 }
 

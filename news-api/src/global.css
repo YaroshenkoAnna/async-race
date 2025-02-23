@@ -1,35 +1,114 @@
 body {
-    color: #fff;
-    background: #17181c;
-    font-family: sans-serif;
+  color: #fff;
+  background: #17181c;
+  font-family: sans-serif;
 }
 
 header {
-    padding: 10px 30px;
+  text-align: center;
+  padding: 10px 30px;
 }
 
 header h1 {
-    font-size: 40px;
-    font-weight: 800;
+  -webkit-text-stroke: 2px #70d6ff;
+  font-size: clamp(50px, 10vw, 72px);
+  font-weight: 800;
+  color: #17181c;
+}
+
+main {
+  position: relative;
+  text-align: center;
 }
 
 footer {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
 }
 footer .copyright a {
-    color: #444;
+  color: #444;
 }
 footer .copyright a:hover {
-    color: #555;
+  color: #555;
 }
 footer .copyright:before {
-    content: '©';
+  content: '©';
+}
+
+.logo {
+  height: 67px;
+  width: 76px;
+  background-image: url(images/rsschool.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.social {
+  fill: #fff;
+}
+
+.menu__button {
+  display: none;
+  cursor: pointer;
+}
+
+.linie1,
+.linie2 {
+  position: relative;
+  display: inline-block;
+  height: 2px;
+  width: 25px;
+  background: #70d6ff;
+}
+
+.linie1 {
+  right: -2px;
+  transform: rotate(30deg);
+  transition: transform 0.3s ease-in;
+}
+
+.linie2 {
+  left: -2px;
+  transform: rotate(-30deg);
+  transition: transform 0.3s ease-in;
+}
+
+.menu {
+  transition: transform 0.3s ease-in;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    position: absolute;
+    transform: translateY(-100vh);
+  }
+
+  .menu__opened {
+    padding-top: 20px;
+    position: relative;
+    transform: translateY(0);
+  }
+
+  .opened .linie1 {
+    right: -2px;
+    transform: rotate(150deg);
+  }
+
+  .opened .linie2 {
+    left: -2px;
+    transform: rotate(-150deg);
+  }
+
+  .menu__button {
+    display: block;
+  }
 }
