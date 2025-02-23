@@ -1,16 +1,18 @@
 import { SourcesResponse } from '../../types/index';
 
+export interface LoaderOptions {
+  apiKey: string;
+  sources?: string;
+}
+
 class Loader {
-  private baseLink: string;
-  private options: Record<string, string>;
+  constructor(
+    private baseLink: string,
+    public options: LoaderOptions
+  ) {}
 
-  constructor(baseLink: string, options: Record<string, string>) {
-    this.baseLink = baseLink;
-    this.options = options;
-  }
-
-  getResp(
-    { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
+  public getResp(
+    { endpoint, options }: { endpoint: string; options?: LoaderOptions },
     callback: (data: SourcesResponse) => void
   ): void {
     this.load('GET', endpoint, callback, options);
@@ -26,12 +28,15 @@ class Loader {
     return res;
   }
 
-  private makeUrl(options: Record<string, string>, endpoint: string): string {
+  private makeUrl(endpoint: string, options?: LoaderOptions): string {
     const urlOptions = { ...this.options, ...options };
     const url = new URL(endpoint, this.baseLink);
 
     Object.keys(urlOptions).forEach((key) => {
-      url.searchParams.append(key, urlOptions[key]);
+      const value = urlOptions[key as keyof LoaderOptions];
+      if (value !== undefined) {
+        url.searchParams.append(key, String(value));
+      }
     });
 
     return url.toString();
@@ -41,9 +46,9 @@ class Loader {
     method: string,
     endpoint: string,
     callback: (data: SourcesResponse) => void,
-    options: Record<string, string> = {}
+    options?: LoaderOptions
   ): void {
-    fetch(this.makeUrl(options, endpoint), { method })
+    fetch(this.makeUrl(endpoint, options), { method })
       .then((res) => this.errorHandler(res))
       .then((res) => res.json())
       .then((data: SourcesResponse) => {

@@ -2,13 +2,13 @@ import AppLoader from './appLoader';
 import { SourcesResponse, NewsResponse } from '../../types/index';
 
 class AppController extends AppLoader {
-  getSources(callback: (data: SourcesResponse) => void): void {
+  public getSources(callback: (data: SourcesResponse) => void): void {
     this.getResp({ endpoint: 'sources' }, (data: SourcesResponse) => {
       callback(data);
     });
   }
 
-  getNews(e: Event, callback: (data: NewsResponse) => void): void {
+  public getNews(e: Event, callback: (data: NewsResponse) => void): void {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
 
@@ -23,6 +23,7 @@ class AppController extends AppLoader {
               endpoint: 'everything',
               options: {
                 sources: sourceId,
+                apiKey: this.options.apiKey,
               },
             },
             (data: NewsResponse) => {
