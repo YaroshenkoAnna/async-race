@@ -29,6 +29,8 @@
   transition: 0.25s;
   cursor: pointer;
   padding: 1em 2em;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .language__button {
@@ -47,15 +49,14 @@
 .active {
   box-shadow: 0 0.5em 0.5em -0.4em #70d6ff;
 }
-
-.source__item:hover,
-.source__item:focus,
-.language__button:hover,
-.language__button:focus {
-  border-color: #3fcc59;
-  color: #69db7e;
-  box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
-  transform: translateY(-0.25em);
+@media (hover: hover) and (pointer: fine) {
+  .source__item:hover,
+  .language__button:hover {
+    border-color: #3fcc59;
+    color: #69db7e;
+    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    transform: translateY(-0.25em);
+  }
 }
 
 .source__item-name {
