@@ -1,5 +1,3 @@
-import { SourcesResponse } from '../../types/index';
-
 export interface LoaderOptions {
   apiKey: string;
   sources?: string;
@@ -11,11 +9,9 @@ class Loader {
     public options: LoaderOptions
   ) {}
 
-  public getResp(
-    { endpoint, options }: { endpoint: string; options?: LoaderOptions },
-    callback: (data: SourcesResponse) => void
-  ): void {
-    this.load('GET', endpoint, callback, options);
+  public getResp<T>(params: { endpoint: string; options?: LoaderOptions }, callback: (data: T) => void = () => {}): void {
+    const { endpoint, options } = params;
+    this.load<T>('GET', endpoint, callback, options);
   }
 
   private errorHandler(res: Response): Response {
@@ -42,16 +38,16 @@ class Loader {
     return url.toString();
   }
 
-  private load(
+  private load<T>(
     method: string,
     endpoint: string,
-    callback: (data: SourcesResponse) => void,
+    callback: (data: T) => void,
     options?: LoaderOptions
   ): void {
     fetch(this.makeUrl(endpoint, options), { method })
       .then((res) => this.errorHandler(res))
       .then((res) => res.json())
-      .then((data: SourcesResponse) => {
+      .then((data: T) => {
         callback(data);
       })
       .catch((err: unknown) => {

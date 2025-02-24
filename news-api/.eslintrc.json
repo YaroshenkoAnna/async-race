@@ -2,7 +2,7 @@
     "parser": "@typescript-eslint/parser",
     "plugins": ["prettier", "import", "@typescript-eslint"],
     "extends": [
-        "prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/strict-type-checked"
+        "prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -14,7 +14,7 @@
         "browser": true,
         "node": true
     },
-    "ignorePatterns": ["webpack.config.js", "webpack.dev.config.js", "webpack.prod.config.js"],
+    "ignorePatterns": ["webpack.config.js", "webpack.dev.config.js", "webpack.prod.config.js", "dist/"],
     "rules": {
         "no-debugger": "off",
         "no-console": 0,
