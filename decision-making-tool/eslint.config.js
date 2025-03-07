@@ -1,26 +1,36 @@
 import eslint from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
+import globals from "globals";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import parser from "@typescript-eslint/parser";
 import tseslint from "typescript-eslint";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import eslintConfigPrettier from "eslint-config-prettier";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 const __filename = String(fileURLToPath(import.meta.url));
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-const __dirname = String(dirname(__filename));
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+const __dirname = String(path.dirname(__filename));
+
 
 export default tseslint.config(
   eslint.configs.recommended,
-  tseslint.configs.recommendedTypeChecked, // Включаем правила с типовой проверкой
+  tseslint.configs.recommendedTypeChecked,
+  eslintPluginUnicorn.configs.recommended,
+
   {
     languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        myCustomGlobal: "readonly",
+      },
       parser: parser,
       parserOptions: {
-        project: "./tsconfig.json", // Указываем путь к tsconfig.json
+        project: "./tsconfig.json",
         tsconfigRootDir: __dirname,
-        projectService: true, // Разрешаем TypeScript анализировать файлы проекта
+        projectService: true,
         allowDefaultProject: true,
       },
     },
@@ -38,7 +48,8 @@ export default tseslint.config(
       ],
       "@typescript-eslint/member-ordering": "error",
       "class-methods-use-this": "error",
+      "unicorn/better-regex": "warn",
     },
   },
-  eslintConfigPrettier, // Подключаем Prettier как последнюю настройку
+  eslintConfigPrettier,
 );
