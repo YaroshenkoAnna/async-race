@@ -4,14 +4,6 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import parser from "@typescript-eslint/parser";
 import tseslint from "typescript-eslint";
 import eslintConfigPrettier from "eslint-config-prettier";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-const __filename = String(fileURLToPath(import.meta.url));
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-const __dirname = String(path.dirname(__filename));
 
 
 export default tseslint.config(
@@ -29,12 +21,15 @@ export default tseslint.config(
       parser: parser,
       parserOptions: {
         project: "./tsconfig.json",
-        tsconfigRootDir: __dirname,
         projectService: true,
         allowDefaultProject: true,
       },
     },
 
+    linterOptions: {
+      noInlineConfig: true,
+      reportUnusedDisableDirectives: "warn",
+    },
     rules: {
       "@typescript-eslint/consistent-type-assertions": [
         "error",
