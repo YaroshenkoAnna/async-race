@@ -43,6 +43,7 @@ export default tseslint.config(
       "@typescript-eslint/member-ordering": "error",
       "class-methods-use-this": "error",
       "unicorn/better-regex": "warn",
+      "max-lines-per-function": ["error", { max: 40, skipBlankLines: true }],
     },
   },
   eslintConfigPrettier,
