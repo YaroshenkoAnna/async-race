@@ -8,7 +8,7 @@ type InputOptions = {
 };
 
 export class Input extends BaseElement<"input"> {
-  constructor(options: InputOptions & BaseElementOptions<"input">) {
+  constructor(options: InputOptions & BaseElementOptions) {
     super({
       tag: "input",
       classNames: [styles.input],

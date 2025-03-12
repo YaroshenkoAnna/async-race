@@ -1,7 +1,10 @@
 export type Tags = keyof HTMLElementTagNameMap;
 
-export type BaseElementOptions<T extends Tags> = {
+export type TagOption<T extends Tags> = {
   tag: T;
+};
+
+export type BaseElementOptions = {
   classNames?: string[];
   text?: string;
   attributes?: Record<string, string | undefined>;
@@ -10,12 +13,14 @@ export type BaseElementOptions<T extends Tags> = {
 export class BaseElement<T extends Tags> extends HTMLElement {
   protected readonly _element: HTMLElementTagNameMap[T];
 
-  constructor(options: BaseElementOptions<T>) {
+  constructor(options: TagOption<T> & BaseElementOptions) {
     super();
     this._element = document.createElement(options.tag);
-    this.addClasses(options.classNames);
-    this.setText(options.text);
-    this.setAttributes(options.attributes);
+    if (options) {
+      this.addClasses(options.classNames);
+      this.setText(options.text);
+      this.setAttributes(options.attributes);
+    }
   }
 
   public get node(): HTMLElement {
