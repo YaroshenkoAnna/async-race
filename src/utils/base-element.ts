@@ -67,7 +67,9 @@ export class BaseElement<T extends Tags> extends HTMLElement {
     this._element.removeAttribute(attributeName);
   }
 
-  public appendChildren(children: Array<BaseElement<T> | Node>): void {
+  public appendChildren(
+    children: Array<HTMLElementTagNameMap[T] | Node>,
+  ): void {
     for (const child of children) {
       if (child instanceof BaseElement) {
         this._element.append(child.node);
