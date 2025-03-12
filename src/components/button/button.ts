@@ -2,7 +2,7 @@ import styles from "./button.module.scss";
 import { BaseElement } from "../../utils/base-element";
 
 type ButtonOptions = {
-  text: string;
+  text?: string;
   classes: string[];
   callback: () => void;
 };
