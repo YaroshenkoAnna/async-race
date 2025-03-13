@@ -11,7 +11,12 @@ export default tseslint.config(
   eslintPluginUnicorn.configs.recommended,
 
   {
-    ignores: ["./node_modules", "./dist", "./declarations.d.ts"],
+    ignores: [
+      "./node_modules",
+      "./dist",
+      "./declarations.d.ts",
+      "./vite.config.ts",
+    ],
     languageOptions: {
       globals: {
         ...globals.browser,

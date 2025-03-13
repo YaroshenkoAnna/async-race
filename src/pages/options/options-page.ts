@@ -1,8 +1,11 @@
-import styles from "./options-page.scss";
+import styles from "./options-page.module.scss";
 import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
-import { main } from "../../components/main/main";
 import { Button } from "../../components/button/button";
+
+export const main = new BaseElement<"main">({
+  tag: "main",
+});
 
 const optionsList = new BaseElement<"ul">({
   tag: "ul",

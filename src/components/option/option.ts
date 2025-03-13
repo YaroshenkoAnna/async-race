@@ -1,4 +1,4 @@
-import styles from "./option.module.scss";
+import styles from "./option.scss";
 import { BaseElement } from "../../utils/base-element";
 import { Input } from "../input/input";
 import { Button } from "../button/button";
