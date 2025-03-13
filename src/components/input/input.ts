@@ -16,6 +16,7 @@ export class Input extends BaseElement<"input"> {
     });
     this.setType(options.type);
     this.setName(options.name);
+    this.setAttributes(options.attributes);
     if (options.idNumber) {
       this.setAttributes({ id: `#${options.idNumber}` });
     }

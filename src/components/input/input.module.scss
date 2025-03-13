@@ -36,3 +36,9 @@
   transition-duration: var(--transition-duration);
   transition-property: filter, box-shadow, opacity;
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
