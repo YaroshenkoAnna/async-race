@@ -1,5 +1,11 @@
+import styles from "./main.module.scss";
 import { BaseElement } from "../../utils/base-element";
 
-export const main = new BaseElement<"main">({
-  tag: "main",
-});
+export class Main extends BaseElement<"main"> {
+  constructor() {
+    super({
+      tag: "main",
+      classNames: [styles.main],
+    });
+  }
+}

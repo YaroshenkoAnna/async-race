@@ -23,3 +23,8 @@
   transition-duration: var(--transition-duration);
   transition-property: filter, box-shadow, opacity;
 }
+
+.control-button {
+  width: 100%;
+  font-size: 1em;
+}

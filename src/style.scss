@@ -1,3 +1,13 @@
-body {
-  background-color: #fff;
+.main {
+  display: grid;
+  width: 100%;
+  max-width: 800px;
+
+  /*   grid-template-areas: "title title "
+              "options options"
+              "add add"
+              "paste paste"
+              "clear clear"
+              "save load"
+              "start start"; */
 }

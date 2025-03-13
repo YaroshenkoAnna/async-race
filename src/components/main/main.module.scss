@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 0.5rem;
+
+  width: 100%;
+  max-width: 800px;
+  min-height: 100dvh;
+
+  font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color-primary-50);
+
+  background-color: var(--color-primary-500);
+}

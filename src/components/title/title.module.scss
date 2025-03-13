@@ -1,8 +1,12 @@
 @use "../../assets/styles/variables";
 
 .title {
-  grid-area: heading;
+  grid-area: title;
+
+  font-size: 3em;
   color: var(--color-primary-50);
   text-align: center;
   text-shadow: 0 0 0.25rem var(--color-primary-50);
+
+  -webkit-text-stroke: 1px #000;
 }

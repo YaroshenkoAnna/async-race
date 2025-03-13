@@ -3,32 +3,40 @@ import { BaseElement } from "../../utils/base-element";
 import { Input } from "../input/input";
 import { Button } from "../button/button";
 
-export const option = new BaseElement<"li">({
-  tag: "li",
-  classNames: [styles.option],
-});
+export class Option extends BaseElement<"li"> {
+  constructor(idNumber: number) {
+    super({
+      tag: "li",
+      classNames: [styles.option],
+    });
 
-const textInput = new Input({
-  type: "text",
-  name: "title",
-  attributes: { placeholder: "Title" },
-  counter: 1,
-});
+    this.render(idNumber);
+  }
 
-const label = textInput.createLabel();
+  private render(id: number): void {
+    const textInput = new Input({
+      type: "text",
+      name: "title",
+      attributes: { placeholder: "Title" },
+      idNumber: id,
+    });
 
-const numberInput = new Input({
-  type: "number",
-  name: "weight",
-  attributes: { placeholder: "Weight", min: "0" },
-});
+    const label = textInput.createLabel();
 
-const deleteButton = new Button({
-  text: "Delete",
-  callback: (): void => {
-    option.deleteElement();
-  },
-});
+    const numberInput = new Input({
+      type: "number",
+      name: "weight",
+      attributes: { placeholder: "Weight", min: "0" },
+    });
 
-if (label) option.appendChildren([label]);
-option.appendChildren([textInput.node, numberInput.node, deleteButton.node]);
+    const deleteButton = new Button({
+      text: "Delete",
+      callback: (): void => {
+        this.deleteElement();
+      },
+    });
+
+    if (label) this.appendChildren([label]);
+    this.appendChildren([textInput.node, numberInput.node, deleteButton.node]);
+  }
+}

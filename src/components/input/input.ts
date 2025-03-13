@@ -5,7 +5,7 @@ import type { BaseElementOptions } from "../../utils/base-element";
 type InputOptions = {
   type: string;
   name: string;
-  counter?: number;
+  idNumber?: number;
 };
 
 export class Input extends BaseElement<"input"> {
@@ -16,8 +16,8 @@ export class Input extends BaseElement<"input"> {
     });
     this.setType(options.type);
     this.setName(options.name);
-    if (options.counter) {
-      this.setAttributes({ id: `#${options.counter}` });
+    if (options.idNumber) {
+      this.setAttributes({ id: `#${options.idNumber}` });
     }
   }
 

@@ -10,10 +10,9 @@ export class Button extends BaseElement<"button"> {
   constructor(options: BaseElementOptions & ButtonOptions) {
     super({
       tag: "button",
-      classNames: [styles.button],
+      classNames: [styles.button, ...(options.classNames ?? [])],
     });
     this.setText(options.text);
-    this.addClasses([styles.button]);
     this.addListener("click", options.callback);
   }
 }
