@@ -7,6 +7,7 @@ import { Main } from "../../components/main/main";
 import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
 import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
+import { OptionalInputModal } from "../../components/modal/optional-input-modal";
 
 export const main = new Main();
 const optionsList = new BaseElement<"ul">({
@@ -25,7 +26,10 @@ const addOptionButton = new Button({
 
 const pasteListButton = new Button({
   text: "Paste List",
-  callback: (): void => {},
+  callback: (): void => {
+    const modal = new OptionalInputModal();
+    modal.open();
+  },
   classNames: [buttonStyles["control-button"]],
 });
 
@@ -52,7 +56,7 @@ const loadListButton = new Button({
 const startButton = new Button({
   text: "Start",
   callback: (): void => {
-    const modal = new ValidationErrorModal(document.body);
+    const modal = new ValidationErrorModal();
     modal.open();
   },
   classNames: [buttonStyles["control-button"]],

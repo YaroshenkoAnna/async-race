@@ -2,21 +2,20 @@ import styles from "./modal.module.scss";
 import { BaseElement } from "../../utils/base-element";
 
 export class Modal extends BaseElement<"dialog"> {
-  private parent: HTMLElement;
-
-  constructor(parent: HTMLElement) {
+  constructor() {
     super({ tag: "dialog", classNames: [styles.modal] });
-    this.parent = parent;
   }
 
   public open(): void {
-    this.parent.append(this.node);
+    document.body.append(this.node);
     this.node.showModal();
+    console.log("Modal opened");
   }
 
   public close(): void {
     this.node.close();
     this.deleteElement();
+    console.log("Modal closed");
   }
 
   public render(): BaseElement<"div"> {
