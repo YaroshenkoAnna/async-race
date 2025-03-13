@@ -44,13 +44,13 @@ const startButton = new Button({
   callback: (): void => {},
 });
 
-main.append(
-  title,
-  optionsList,
-  addOptionButton,
-  pasteListButton,
-  clearListButton,
-  saveListButton,
-  loadListButton,
-  startButton,
-);
+main.appendChildren([
+  title.node,
+  optionsList.node,
+  addOptionButton.node,
+  pasteListButton.node,
+  clearListButton.node,
+  saveListButton.node,
+  loadListButton.node,
+  startButton.node,
+]);

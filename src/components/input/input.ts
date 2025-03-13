@@ -17,7 +17,7 @@ export class Input extends BaseElement<"input"> {
     this.setType(options.type);
     this.setName(options.name);
     if (options.counter) {
-      this.setAttribute("id", `#${options.counter}`);
+      this.setAttributes({ id: `#${options.counter}` });
     }
   }
 

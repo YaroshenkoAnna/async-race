@@ -10,11 +10,10 @@ export type BaseElementOptions = {
   attributes?: Record<string, string | undefined>;
 };
 
-export class BaseElement<T extends Tags> extends HTMLElement {
+export class BaseElement<T extends Tags> {
   protected readonly _element: HTMLElementTagNameMap[T];
 
   constructor(options: TagOption<T> & BaseElementOptions) {
-    super();
     this._element = document.createElement(options.tag);
     if (options) {
       this.addClasses(options.classNames);
@@ -67,9 +66,7 @@ export class BaseElement<T extends Tags> extends HTMLElement {
     this._element.removeAttribute(attributeName);
   }
 
-  public appendChildren(
-    children: Array<HTMLElementTagNameMap[T] | Node>,
-  ): void {
+  public appendChildren(children: Array<HTMLElement | Node>): void {
     for (const child of children) {
       if (child instanceof BaseElement) {
         this._element.append(child.node);

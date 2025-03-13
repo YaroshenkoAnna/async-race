@@ -30,5 +30,5 @@ const deleteButton = new Button({
   },
 });
 
-if (label) option.append(label);
-option.append(textInput, numberInput, deleteButton);
+if (label) option.appendChildren([label]);
+option.appendChildren([textInput.node, numberInput.node, deleteButton.node]);
