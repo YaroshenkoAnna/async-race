@@ -22,7 +22,7 @@ export class BaseElement<T extends Tags> {
     }
   }
 
-  public get node(): HTMLElement {
+  public get node(): HTMLElementTagNameMap[T] {
     return this._element;
   }
   public addClasses(classNames: string[] | undefined): void {
@@ -66,7 +66,7 @@ export class BaseElement<T extends Tags> {
     this._element.removeAttribute(attributeName);
   }
 
-  public appendChildren(children: Array<HTMLElement | Node>): void {
+  public appendChildren(...children: Array<BaseElement<Tags> | Node>): void {
     for (const child of children) {
       if (child instanceof BaseElement) {
         this._element.append(child.node);

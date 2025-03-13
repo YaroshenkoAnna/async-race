@@ -6,6 +6,7 @@ import { Button } from "../../components/button/button";
 import { Main } from "../../components/main/main";
 import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
+import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
 
 export const main = new Main();
 const optionsList = new BaseElement<"ul">({
@@ -17,7 +18,7 @@ const addOptionButton = new Button({
   text: "Add Option",
   callback: (): void => {
     const option = new Option(counter());
-    optionsList.appendChildren([option.node]);
+    optionsList.appendChildren(option.node);
   },
   classNames: [buttonStyles["control-button"]],
 });
@@ -50,17 +51,20 @@ const loadListButton = new Button({
 
 const startButton = new Button({
   text: "Start",
-  callback: (): void => {},
+  callback: (): void => {
+    const modal = new ValidationErrorModal(document.body);
+    modal.open();
+  },
   classNames: [buttonStyles["control-button"]],
 });
 
-main.appendChildren([
-  title.node,
-  optionsList.node,
-  addOptionButton.node,
-  pasteListButton.node,
-  clearListButton.node,
-  saveListButton.node,
-  loadListButton.node,
-  startButton.node,
-]);
+main.appendChildren(
+  title,
+  optionsList,
+  addOptionButton,
+  pasteListButton,
+  clearListButton,
+  saveListButton,
+  loadListButton,
+  startButton,
+);

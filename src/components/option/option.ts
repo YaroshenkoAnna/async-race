@@ -36,7 +36,7 @@ export class Option extends BaseElement<"li"> {
       },
     });
 
-    if (label) this.appendChildren([label]);
-    this.appendChildren([textInput.node, numberInput.node, deleteButton.node]);
+    if (label) this.appendChildren(label);
+    this.appendChildren(textInput, numberInput, deleteButton);
   }
 }
