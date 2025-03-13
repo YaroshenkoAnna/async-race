@@ -18,7 +18,7 @@ const optionsList = new BaseElement<"ul">({
 const addOptionButton = new Button({
   text: "Add Option",
   callback: (): void => {
-    const option = new Option(counter());
+    const option = new Option(counter.next());
     optionsList.appendChildren(option.node);
   },
   classNames: [buttonStyles["control-button"]],
@@ -27,7 +27,7 @@ const addOptionButton = new Button({
 const pasteListButton = new Button({
   text: "Paste List",
   callback: (): void => {
-    const modal = new OptionalInputModal();
+    const modal = new OptionalInputModal(optionsList);
     modal.open();
   },
   classNames: [buttonStyles["control-button"]],
@@ -37,6 +37,7 @@ const clearListButton = new Button({
   text: "Clear List",
   callback: (): void => {
     optionsList.deleteChildren();
+    counter.reset();
   },
   classNames: [buttonStyles["control-button"]],
 });

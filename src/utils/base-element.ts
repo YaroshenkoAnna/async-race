@@ -87,7 +87,6 @@ export class BaseElement<T extends Tags> {
   public deleteElement(): void {
     this.deleteChildren();
     this._element.remove();
-    console.log("removes");
   }
 
   public addListener(

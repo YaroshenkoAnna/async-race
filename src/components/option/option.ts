@@ -4,26 +4,31 @@ import { Input } from "../input/input";
 import { Button } from "../button/button";
 
 export class Option extends BaseElement<"li"> {
+  public titleInput: Input;
+  public weightInput: Input;
+
   constructor(idNumber: number) {
     super({
       tag: "li",
       classNames: [styles.option],
     });
 
-    this.render(idNumber);
+    const { titleInput, weightInput } = this.render(idNumber);
+    this.titleInput = titleInput;
+    this.weightInput = weightInput;
   }
 
-  private render(id: number): void {
-    const textInput = new Input({
+  private render(id: number): { titleInput: Input; weightInput: Input } {
+    const titleInput = new Input({
       type: "text",
       name: "title",
       attributes: { placeholder: "Title" },
       idNumber: id,
     });
 
-    const label = textInput.createLabel();
+    const label = titleInput.createLabel();
 
-    const numberInput = new Input({
+    const weightInput = new Input({
       type: "number",
       name: "weight",
       attributes: { placeholder: "Weight", min: "0" },
@@ -37,6 +42,8 @@ export class Option extends BaseElement<"li"> {
     });
 
     if (label) this.appendChildren(label);
-    this.appendChildren(textInput, numberInput, deleteButton);
+    this.appendChildren(titleInput, weightInput, deleteButton);
+
+    return { titleInput, weightInput };
   }
 }

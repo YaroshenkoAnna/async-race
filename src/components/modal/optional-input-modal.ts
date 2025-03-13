@@ -6,11 +6,14 @@ import { PLACEHOLDER_SAMPLE_CODE } from "../../constants/texts";
 import { parseInputToArray } from "../../utils/parsing";
 import { filterValidOptions } from "../../utils/filter-valid-options";
 import type { ParsedOptions } from "../../types/index";
+import { generateOptions } from "../../utils/generate-options";
 
 export class OptionalInputModal extends Modal {
-  constructor() {
+  private parent: BaseElement<"ul">;
+  constructor(parent: BaseElement<"ul">) {
     super();
     this.renderContent();
+    this.parent = parent;
   }
 
   private renderContent(): void {
@@ -59,12 +62,12 @@ export class OptionalInputModal extends Modal {
 
   private onConfirm(event: Event, inputText: string): void {
     event.preventDefault();
-    const parsedArray: string[] = parseInputToArray(inputText);
-    if (parsedArray.length > 0) {
-      const validOptions: ParsedOptions[] = filterValidOptions(parsedArray);
-      console.log(validOptions);
-    }
-
     this.close();
+    const parsedArray: string[] = parseInputToArray(inputText);
+    if (parsedArray.length === 0) return;
+    const validOptions: ParsedOptions[] | [] = filterValidOptions(parsedArray);
+    console.log(validOptions);
+    if (validOptions.length === 0) return;
+    generateOptions(this.parent, validOptions);
   }
 }
