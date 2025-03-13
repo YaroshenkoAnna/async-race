@@ -3,6 +3,9 @@ import { BaseElement } from "../../utils/base-element";
 import { Modal } from "./modal";
 import { Button } from "../button/button";
 import { PLACEHOLDER_SAMPLE_CODE } from "../../constants/texts";
+import { parseInputToArray } from "../../utils/parsing";
+import { filterValidOptions } from "../../utils/filter-valid-options";
+import type { ParsedOptions } from "../../types/index";
 
 export class OptionalInputModal extends Modal {
   constructor() {
@@ -44,14 +47,24 @@ export class OptionalInputModal extends Modal {
 
     const confirmButton = new Button({
       text: "Confirm",
-      callback: (event: Event): void => {
-        event.preventDefault();
-        this.close();
+      callback: (event): void => {
+        this.onConfirm(event, textArea.node.value);
       },
       classNames: [styles["modal-button"]],
     });
 
     buttonsContainer.appendChildren(cancelButton, confirmButton);
     form.appendChildren(textArea, buttonsContainer);
+  }
+
+  private onConfirm(event: Event, inputText: string): void {
+    event.preventDefault();
+    const parsedArray: string[] = parseInputToArray(inputText);
+    if (parsedArray.length > 0) {
+      const validOptions: ParsedOptions[] = filterValidOptions(parsedArray);
+      console.log(validOptions);
+    }
+
+    this.close();
   }
 }

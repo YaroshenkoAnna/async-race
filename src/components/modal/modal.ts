@@ -9,13 +9,11 @@ export class Modal extends BaseElement<"dialog"> {
   public open(): void {
     document.body.append(this.node);
     this.node.showModal();
-    console.log("Modal opened");
   }
 
   public close(): void {
     this.node.close();
     this.deleteElement();
-    console.log("Modal closed");
   }
 
   public render(): BaseElement<"div"> {
