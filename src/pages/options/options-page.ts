@@ -4,16 +4,21 @@ import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Main } from "../../components/main/main";
+import { counter } from "../../utils/counter";
+import { Option } from "../../components/option/option";
 
 export const main = new Main();
 const optionsList = new BaseElement<"ul">({
   tag: "ul",
-  classNames: [styles.optionsList],
+  classNames: [styles.options],
 });
 
 const addOptionButton = new Button({
   text: "Add Option",
-  callback: (): void => {},
+  callback: (): void => {
+    const option = new Option(counter());
+    optionsList.appendChildren([option.node]);
+  },
   classNames: [buttonStyles["control-button"]],
 });
 

@@ -1,13 +1,5 @@
-.main {
-  display: grid;
-  width: 100%;
-  max-width: 800px;
-
-  /*   grid-template-areas: "title title "
-              "options options"
-              "add add"
-              "paste paste"
-              "clear clear"
-              "save load"
-              "start start"; */
+body {
+  min-width: 100vw;
+  margin: 0 auto;
+  background-color: var(--color-primary-500);
 }
