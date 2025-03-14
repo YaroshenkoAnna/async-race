@@ -1,18 +1,19 @@
+import { DEFAULT_ID } from "../constants/numbers";
+
 export interface Counter {
   next: () => number;
   reset: () => void;
 }
 
 function createCounter(): Counter {
-  let count = 0;
+  let count = DEFAULT_ID;
 
   return {
     next: (): number => {
-      count += 1;
-      return count;
+      return count++;
     },
     reset: (): void => {
-      count = 0;
+      count = DEFAULT_ID;
     },
   };
 }

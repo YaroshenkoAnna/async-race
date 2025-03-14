@@ -6,7 +6,7 @@ import { PLACEHOLDER_SAMPLE_CODE } from "../../constants/texts";
 import { parseInputToArray } from "../../utils/parsing";
 import { filterValidOptions } from "../../utils/filter-valid-options";
 import type { ParsedOptions } from "../../types/index";
-import { generateOptions } from "../../utils/generate-options";
+import { generateOptions } from "../../pages/options/generate-options";
 
 export class OptionalInputModal extends Modal {
   private parent: BaseElement<"ul">;

@@ -1,7 +1,7 @@
-import type { Tags, BaseElement } from "./base-element";
-import type { ParsedOptions } from "../types/index";
-import { counter } from "./counter";
-import { Option } from "../components/option/option";
+import type { Tags, BaseElement } from "../../utils/base-element";
+import type { ParsedOptions } from "../../types/index";
+import { counter } from "../../utils/counter";
+import { Option } from "../../components/option/option";
 
 export function generateOptions(
   parent: BaseElement<Tags>,
