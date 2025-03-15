@@ -5,7 +5,7 @@ import type { BaseElementOptions } from "../../utils/base-element";
 type InputOptions = {
   type: string;
   name: string;
-  idNumber?: number;
+  id?: string;
 };
 
 export class Input extends BaseElement<"input"> {
@@ -17,8 +17,8 @@ export class Input extends BaseElement<"input"> {
     this.setType(options.type);
     this.setName(options.name);
     this.setAttributes(options.attributes);
-    if (options.idNumber) {
-      this.setAttributes({ id: `#${options.idNumber}` });
+    if (options.id) {
+      this.setAttributes({ id: options.id });
     }
   }
 
@@ -40,17 +40,5 @@ export class Input extends BaseElement<"input"> {
 
   public setName(name: string): void {
     this._element.setAttribute("name", name);
-  }
-
-  public createLabel(): HTMLElement | undefined {
-    if (!this.getAttribute("id")) return;
-    const id: string = this.getAttribute("id") || "";
-    const label = new BaseElement<"label">({
-      tag: "label",
-      classNames: [styles.label],
-      attributes: { for: id },
-    });
-    label.setText(id);
-    return label.node;
   }
 }

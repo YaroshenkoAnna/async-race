@@ -3,73 +3,88 @@ import buttonStyles from "../../components/button/button.module.scss";
 import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
-import { Main } from "../../components/main/main";
 import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
 import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
 import { OptionalInputModal } from "../../components/modal/optional-input-modal";
+import { optionStore } from "../../store/option-store";
+import { Router } from "../../router/router";
 
-export const main = new Main();
-const optionsList = new BaseElement<"ul">({
-  tag: "ul",
-  classNames: [styles.options],
-});
+export class OptionsPage extends BaseElement<"main"> {
+  constructor(router: Router) {
+    super({ tag: "main", classNames: [styles.optionsPage] });
 
-const addOptionButton = new Button({
-  text: "Add Option",
-  callback: (): void => {
-    const option = new Option(counter.next());
-    optionsList.appendChildren(option.node);
-  },
-  classNames: [buttonStyles["control-button"]],
-});
+    const optionsList = new BaseElement<"ul">({
+      tag: "ul",
+      classNames: [styles.options],
+    });
 
-const pasteListButton = new Button({
-  text: "Paste List",
-  callback: (): void => {
-    const modal = new OptionalInputModal(optionsList);
-    modal.open();
-  },
-  classNames: [buttonStyles["control-button"]],
-});
+    const addOptionButton = new Button({
+      text: "Add Option",
+      callback: (): void => {
+        optionStore.addOption({ title: "", weight: 0 });
+      },
+      classNames: [buttonStyles["control-button"]],
+    });
 
-const clearListButton = new Button({
-  text: "Clear List",
-  callback: (): void => {
-    optionsList.deleteChildren();
-    counter.reset();
-  },
-  classNames: [buttonStyles["control-button"]],
-});
+    optionStore.subscribe((items) => {
+      optionsList.deleteChildren();
+      items.forEach((item) => {
+        const option = new Option(item);
+        optionsList.appendChildren(option);
+      });
+    });
 
-const saveListButton = new Button({
-  text: "Save List to File",
-  callback: (): void => {},
-  classNames: [buttonStyles["control-button"]],
-});
+    const pasteListButton = new Button({
+      text: "Paste List",
+      callback: (): void => {
+        const modal = new OptionalInputModal(optionsList);
+        modal.open();
+      },
+      classNames: [buttonStyles["control-button"]],
+    });
 
-const loadListButton = new Button({
-  text: "Load List from File",
-  callback: (): void => {},
-  classNames: [buttonStyles["control-button"]],
-});
+    const clearListButton = new Button({
+      text: "Clear List",
+      callback: (): void => {
+        optionsList.deleteChildren();
+        counter.reset();
+        optionStore.reset();
+      },
+      classNames: [buttonStyles["control-button"]],
+    });
 
-const startButton = new Button({
-  text: "Start",
-  callback: (): void => {
-    const modal = new ValidationErrorModal();
-    modal.open();
-  },
-  classNames: [buttonStyles["control-button"]],
-});
+    const saveListButton = new Button({
+      text: "Save List to File",
+      callback: (): void => {},
+      classNames: [buttonStyles["control-button"]],
+    });
 
-main.appendChildren(
-  title,
-  optionsList,
-  addOptionButton,
-  pasteListButton,
-  clearListButton,
-  saveListButton,
-  loadListButton,
-  startButton,
-);
+    const loadListButton = new Button({
+      text: "Load List from File",
+      callback: (): void => {},
+      classNames: [buttonStyles["control-button"]],
+    });
+
+    const startButton = new Button({
+      text: "Start",
+      callback: (): void => {
+        // const modal = new ValidationErrorModal();
+        router.navigate("/wheel");
+        // modal.open();
+      },
+      classNames: [buttonStyles["control-button"]],
+    });
+
+    this.appendChildren(
+      title,
+      optionsList,
+      addOptionButton,
+      pasteListButton,
+      clearListButton,
+      saveListButton,
+      loadListButton,
+      startButton
+    );
+  }
+}

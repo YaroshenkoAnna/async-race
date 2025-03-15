@@ -1,7 +1,7 @@
 export type ParsedOptions = [string, number];
 
 export type OptionData = {
-  id: string;
+  id: number;
   title: string;
   weight: number;
 };

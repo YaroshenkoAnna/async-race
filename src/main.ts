@@ -1,4 +1,5 @@
-import "./style.scss";
-import { main } from "./pages/options/options-page";
+import { Router } from "./router/router";
+import { APP_ROUTES } from "./constants/routes";
 
-document.body.append(main.node);
+const router = new Router(APP_ROUTES);
+router.navigate("/");

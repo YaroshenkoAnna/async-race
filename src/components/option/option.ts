@@ -2,48 +2,48 @@ import styles from "./option.module.scss";
 import { BaseElement } from "../../utils/base-element";
 import { Input } from "../input/input";
 import { Button } from "../button/button";
+import { optionStore } from "../../store/option-store";
+import type { OptionData } from "../../types";
 
 export class Option extends BaseElement<"li"> {
-  public titleInput: Input;
-  public weightInput: Input;
-
-  constructor(idNumber: number) {
+  constructor(optionData: OptionData) {
     super({
       tag: "li",
       classNames: [styles.option],
     });
-
-    const { titleInput, weightInput } = this.render(idNumber);
-    this.titleInput = titleInput;
-    this.weightInput = weightInput;
+    this.render(optionData);
   }
 
-  private render(id: number): { titleInput: Input; weightInput: Input } {
+  private render(optionData: OptionData): void {
+    const id = new BaseElement<"span">({
+      tag: "span",
+      classNames: [styles.id],
+      text: optionData.id.toString(),
+    });
+
     const titleInput = new Input({
       type: "text",
       name: "title",
       attributes: { placeholder: "Title" },
-      idNumber: id,
+      id: optionData.id.toString(),
     });
-
-    const label = titleInput.createLabel();
+    titleInput.setValue(optionData.title);
 
     const weightInput = new Input({
       type: "number",
       name: "weight",
       attributes: { placeholder: "Weight", min: "0" },
     });
+    weightInput.setValue(optionData.weight.toString());
 
     const deleteButton = new Button({
       text: "Delete",
       callback: (): void => {
         this.deleteElement();
+        optionStore.removeOption(optionData.id);
       },
     });
 
-    if (label) this.appendChildren(label);
-    this.appendChildren(titleInput, weightInput, deleteButton);
-
-    return { titleInput, weightInput };
+    this.appendChildren(id, titleInput, weightInput, deleteButton);
   }
 }

@@ -68,6 +68,6 @@ export class OptionalInputModal extends Modal {
     const validOptions: ParsedOptions[] | [] = filterValidOptions(parsedArray);
     console.log(validOptions);
     if (validOptions.length === 0) return;
-    generateOptions(this.parent, validOptions);
+    generateOptions(validOptions);
   }
 }

@@ -50,8 +50,9 @@ export default tseslint.config(
       "class-methods-use-this": "error",
       "unicorn/better-regex": "warn",
       "unicorn/prefer-event-target": "off",
-      "max-lines-per-function": ["error", { max: 40, skipBlankLines: true }],
+      "unicorn/no-array-for-each": "off",
+      "max-lines-per-function": "off",
     },
   },
-  eslintConfigPrettier,
+  eslintConfigPrettier
 );

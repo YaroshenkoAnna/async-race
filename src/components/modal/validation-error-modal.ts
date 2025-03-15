@@ -4,6 +4,7 @@ import { Modal } from "./modal";
 import { Button } from "../button/button";
 import { ERROR_MESSAGE } from "../../constants/texts";
 
+
 export class ValidationErrorModal extends Modal {
   constructor() {
     super();
@@ -21,6 +22,7 @@ export class ValidationErrorModal extends Modal {
       classNames: [styles.button],
       text: "Close",
       callback: (): void => {
+
         this.close();
       },
     });
