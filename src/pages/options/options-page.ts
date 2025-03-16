@@ -5,13 +5,12 @@ import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
-import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
+//import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
 import { OptionalInputModal } from "../../components/modal/optional-input-modal";
 import { optionStore } from "../../store/option-store";
-import { Router } from "../../router/router";
 
 export class OptionsPage extends BaseElement<"main"> {
-  constructor(router: Router) {
+  constructor() {
     super({ tag: "main", classNames: [styles.optionsPage] });
 
     const optionsList = new BaseElement<"ul">({
@@ -70,7 +69,7 @@ export class OptionsPage extends BaseElement<"main"> {
       text: "Start",
       callback: (): void => {
         // const modal = new ValidationErrorModal();
-        router.navigate("/wheel");
+        globalThis.location.hash = "/wheel";
         // modal.open();
       },
       classNames: [buttonStyles["control-button"]],
@@ -84,7 +83,7 @@ export class OptionsPage extends BaseElement<"main"> {
       clearListButton,
       saveListButton,
       loadListButton,
-      startButton
+      startButton,
     );
   }
 }

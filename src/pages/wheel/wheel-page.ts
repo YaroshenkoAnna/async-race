@@ -11,7 +11,7 @@ export class WheelPage extends BaseElement<"main"> {
     const backButton = new Button({
       text: "Options",
       callback: (): void => {
-        globalThis.location.hash = "#options";
+        globalThis.location.hash = "/";
       },
     });
 
@@ -25,8 +25,11 @@ export class WheelPage extends BaseElement<"main"> {
     const timeInput = new Input({
       type: "number",
       name: "time",
-      attributes: { placeholder: "Time", min: "0", max: "16", id: "time" },
+      attributes: { placeholder: "Time", min: "0", max: "16" },
+      id: "Time",
     });
+    timeInput.setValue("5");
+
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
@@ -44,7 +47,7 @@ export class WheelPage extends BaseElement<"main"> {
       soundButton,
       span,
       timeInput,
-      startButton
+      startButton,
     );
   }
 }
