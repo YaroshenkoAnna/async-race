@@ -1,0 +1,1 @@
+import{B as t}from"./index-C0n3vUYj.js";import{B as o}from"./button-CFO-CYps.js";const s="_main_16fpf_1",e={main:s};class m extends t{constructor(){super({tag:"main",classNames:[e.main]});const a=new t({tag:"h1",text:"The page was not found"}),n=new o({text:"Go back",callback:()=>{globalThis.location.hash="/"}});this.appendChildren(a,n)}}export{m as NotFoundPage};
