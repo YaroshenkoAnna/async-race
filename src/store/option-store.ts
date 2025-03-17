@@ -11,10 +11,10 @@ class OptionStore extends Observable<OptionData[]> {
   constructor() {
     super(Storage.load("options") ?? []);
 
-    const maxId = this.value.reduce(
-      (max, item) => Math.max(max, item.id),
-      DEFAULT_ID,
-    );
+    const maxId =
+      this.value.length > 0
+        ? this.value.reduce((max, item) => Math.max(max, item.id), DEFAULT_ID)
+        : DEFAULT_ID - 1;
     this.idCounter = maxId + 1;
 
     this.subscribe((options) => Storage.save(STORAGE_KEY, options));
