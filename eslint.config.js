@@ -49,6 +49,7 @@ export default tseslint.config(
       "unicorn/no-negated-condition": "off",
       "unicorn/prefer-event-target": "off",
       "unicorn/no-array-for-each": "off",
+      "unicorn/no-array-reduce": "off",
       "unicorn/prefer-dom-node-remove": "off",
       "unicorn/no-null": "off",
       "max-lines-per-function": "off",

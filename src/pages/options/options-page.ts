@@ -18,6 +18,25 @@ export class OptionsPage extends BaseElement<"main"> {
       classNames: [styles.options],
     });
 
+    this.sub(
+      optionStore.subscribe((items) => {
+        console.log("Options updated:", items);
+        optionsList.deleteChildren();
+        items.forEach((item) => {
+          const option = new Option(item);
+          optionsList.appendChildren(option);
+        });
+      }),
+    );
+
+    const storedOptions = optionStore.value;
+    if (storedOptions.length > 0) {
+      storedOptions.forEach((item) => {
+        const option = new Option(item);
+        optionsList.appendChildren(option);
+      });
+    }
+
     const addOptionButton = new Button({
       text: "Add Option",
       callback: (): void => {

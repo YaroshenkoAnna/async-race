@@ -1,33 +1,42 @@
 import { Observable } from "../utils/observable";
 import type { OptionData } from "../types/index";
 import { DEFAULT_ID } from "../constants/numbers";
+import { Storage } from "./storage";
+
+const STORAGE_KEY = "options";
 
 class OptionStore extends Observable<OptionData[]> {
   private idCounter: number = DEFAULT_ID;
-  constructor(initialOptions: OptionData[] = []) {
-    super(initialOptions);
+
+  constructor() {
+    super(Storage.load("options") ?? []);
+
+    const maxId = this.value.reduce(
+      (max, item) => Math.max(max, item.id),
+      DEFAULT_ID,
+    );
+    this.idCounter = maxId + 1;
+
+    this.subscribe((options) => Storage.save(STORAGE_KEY, options));
   }
 
   public addOption(option: Omit<OptionData, "id">): void {
-    const newOption: OptionData = {
-      id: this.idCounter++,
-      ...option,
-    };
-    this.update((options) => {
-      return [...options, newOption];
-    });
+    const newOption: OptionData = { id: this.idCounter++, ...option };
+    this.update((options) => [...options, newOption]);
   }
 
   public updateOption(
     id: number,
-    updatedData: Partial<Omit<OptionData, "id">>
+    updatedData: Partial<Omit<OptionData, "id">>,
   ): void {
-    this.update((options) =>
+    this.silentUpdate((options) =>
       options.map((option) =>
-        option.id === id ? { ...option, ...updatedData } : option
-      )
+        option.id === id ? { ...option, ...updatedData } : option,
+      ),
     );
+    Storage.save(STORAGE_KEY, this.value);
   }
+
   public removeOption(id: number): void {
     this.update((options) => options.filter((option) => option.id !== id));
     if (this.value.length === 0) {
@@ -39,14 +48,6 @@ class OptionStore extends Observable<OptionData[]> {
     this.idCounter = DEFAULT_ID;
     this.set([]);
   }
-
-  /* public load(options: OptionData[]): void {
-    this.reset();
-    options.map(() => {
-      this.addOption();
-    });
-    this.idCounter = Number(options.at(-1)?.id) + 1;
-  } */
 }
 
 export const optionStore = new OptionStore();
