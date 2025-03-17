@@ -3,6 +3,8 @@ import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
+import { DEFAULT_TIME, MAX_TIME } from "../../constants/numbers";
+import { debounce } from "../../utils/debounce";
 
 export class WheelPage extends BaseElement<"main"> {
   constructor() {
@@ -27,11 +29,25 @@ export class WheelPage extends BaseElement<"main"> {
     const timeInput = new Input({
       type: "number",
       name: "time",
-      attributes: { placeholder: "Time", min: "0", max: "16" },
+      attributes: { min: "0", max: "30" },
       id: "Time",
       classNames: [styles.time],
     });
-    timeInput.setValue("5");
+    timeInput.setValue(DEFAULT_TIME.toString());
+    timeInput.addListener(
+      "input",
+      debounce((event) => {
+        const inputEvent = event as InputEvent;
+        const target = inputEvent.target as HTMLInputElement;
+        const value = Number(target.value);
+
+        if (value < DEFAULT_TIME) {
+          timeInput.setValue(DEFAULT_TIME.toString());
+        } else if (value > MAX_TIME) {
+          timeInput.setValue(MAX_TIME.toString());
+        }
+      }, 1000),
+    );
 
     const startButton = new Button({
       text: "Start",

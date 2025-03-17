@@ -3,3 +3,4 @@ export const DEFAULT_TITLE = "";
 export const DEFAULT_WEIGHT = 0;
 
 export const DEFAULT_TIME = 5;
+export const MAX_TIME = 30;
