@@ -97,12 +97,11 @@ export class OptionsPage extends BaseElement<"main"> {
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
-        if (guard(storedOptions)) {
+        if (guard(optionStore.value)) {
           globalThis.location.hash = "/wheel";
           this.unsubscribeAll();
         } else {
           const modal = new ValidationErrorModal();
-
           modal.open();
         }
       },
