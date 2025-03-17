@@ -51,8 +51,10 @@ export default tseslint.config(
       "unicorn/better-regex": "warn",
       "unicorn/prefer-event-target": "off",
       "unicorn/no-array-for-each": "off",
+      "unicorn/prefer-dom-node-remove": "off",
+      "unicorn/no-null": "off",
       "max-lines-per-function": "off",
     },
   },
-  eslintConfigPrettier
+  eslintConfigPrettier,
 );

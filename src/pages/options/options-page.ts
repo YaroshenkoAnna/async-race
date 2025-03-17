@@ -26,18 +26,20 @@ export class OptionsPage extends BaseElement<"main"> {
       classNames: [buttonStyles["control-button"]],
     });
 
-    optionStore.subscribe((items) => {
-      optionsList.deleteChildren();
-      items.forEach((item) => {
-        const option = new Option(item);
-        optionsList.appendChildren(option);
-      });
-    });
+    this.sub(
+      optionStore.subscribe((items) => {
+        optionsList.deleteChildren();
+        items.forEach((item) => {
+          const option = new Option(item);
+          optionsList.appendChildren(option);
+        });
+      }),
+    );
 
     const pasteListButton = new Button({
       text: "Paste List",
       callback: (): void => {
-        const modal = new OptionalInputModal(optionsList);
+        const modal = new OptionalInputModal();
         modal.open();
       },
       classNames: [buttonStyles["control-button"]],

@@ -10,8 +10,11 @@ export type BaseElementOptions = {
   attributes?: Record<string, string | undefined>;
 };
 
+export type Subscription = () => void;
+
 export class BaseElement<T extends Tags> {
   protected readonly _element: HTMLElementTagNameMap[T];
+  protected readonly _subscriptions: Subscription[] = [];
 
   constructor(options: TagOption<T> & BaseElementOptions) {
     this._element = document.createElement(options.tag);
@@ -86,7 +89,20 @@ export class BaseElement<T extends Tags> {
 
   public deleteElement(): void {
     this.deleteChildren();
+    this.unsubscribeAll();
     this._element.remove();
+  }
+
+  public sub(...subscriptions: Subscription[]): void {
+    subscriptions.forEach((subscription) => {
+      this._subscriptions.push(subscription);
+    });
+  }
+
+  public unsubscribeAll(): void {
+    this._subscriptions.forEach((subscription) => {
+      subscription();
+    });
   }
 
   public addListener(

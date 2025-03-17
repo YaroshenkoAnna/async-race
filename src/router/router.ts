@@ -28,7 +28,9 @@ export class Router {
       this.routes.find((route) => route.path === "404");
 
     if (route) {
-      this.outlet.innerHTML = "";
+      while (this.outlet.firstChild) {
+        this.outlet.removeChild(this.outlet.firstChild);
+      }
       route
         .page(this)
         .then((page) => {

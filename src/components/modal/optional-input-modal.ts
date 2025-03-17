@@ -9,11 +9,9 @@ import type { ParsedOptions } from "../../types/index";
 import { generateOptions } from "../../pages/options/generate-options";
 
 export class OptionalInputModal extends Modal {
-  private parent: BaseElement<"ul">;
-  constructor(parent: BaseElement<"ul">) {
+  constructor() {
     super();
     this.renderContent();
-    this.parent = parent;
   }
 
   private renderContent(): void {
