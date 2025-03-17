@@ -5,16 +5,22 @@ export class Router {
   private defaultRoute: string = "/";
   private routes: Route[];
   private outlet: BaseElement<"div">;
+  private navigate: (path: string) => void;
   constructor(routes: Route[], outlet: BaseElement<"div">) {
+    this.navigate = (path: string): void => {
+      globalThis.location.hash = path;
+    };
     globalThis.addEventListener("hashchange", () => {
       this.loadRoute();
     });
     this.routes = routes;
     this.outlet = outlet;
-  }
-  public navigate(path: string): void {
-    globalThis.location.hash = path;
-    this.loadRoute();
+
+    if (globalThis.location.hash === "") {
+      this.navigate(this.defaultRoute);
+    } else {
+      this.loadRoute();
+    }
   }
 
   private loadRoute(): void {

@@ -3,12 +3,17 @@ import Inspect from "vite-plugin-inspect";
 export default {
   base: "./",
   build: {
-    sourcemap: true,
+    sourcemap: false,
     target: "esnext",
-    compact: false,
+    compact: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   css: {
-    devSourcemap: true,
+    devSourcemap: false,
   },
   plugins: [Inspect()],
 };
