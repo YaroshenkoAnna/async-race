@@ -3,12 +3,14 @@ import buttonStyles from "../../components/button/button.module.scss";
 import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
-import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
 import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
 import { OptionalInputModal } from "../../components/modal/optional-input-modal";
 import { optionStore } from "../../store/option-store";
 import { guard } from "./guard";
+import { saveFile } from "../../utils/save-file";
+import { loadFile } from "../../utils/load-file";
+import type { OptionData } from "../../types";
 
 export class OptionsPage extends BaseElement<"main"> {
   constructor() {
@@ -68,7 +70,6 @@ export class OptionsPage extends BaseElement<"main"> {
       text: "Clear List",
       callback: (): void => {
         optionsList.deleteChildren();
-        counter.reset();
         optionStore.reset();
       },
       classNames: [buttonStyles["control-button"]],
@@ -76,13 +77,20 @@ export class OptionsPage extends BaseElement<"main"> {
 
     const saveListButton = new Button({
       text: "Save List to File",
-      callback: (): void => {},
+      callback: (): void => {
+        const storedOptions = optionStore.value;
+        saveFile(storedOptions, "options.json");
+      },
       classNames: [buttonStyles["control-button"]],
     });
 
     const loadListButton = new Button({
       text: "Load List from File",
-      callback: (): void => {},
+      callback: (): void => {
+        loadFile<OptionData[]>((data) => {
+          optionStore.set(data);
+        });
+      },
       classNames: [buttonStyles["control-button"]],
     });
 
