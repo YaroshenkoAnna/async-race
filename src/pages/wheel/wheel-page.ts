@@ -9,17 +9,19 @@ export class WheelPage extends BaseElement<"main"> {
     super({ tag: "main", classNames: [styles["wheel-page"]] });
 
     const backButton = new Button({
-      text: "Options",
+      text: "Back to Options",
       callback: (): void => {
         globalThis.location.hash = "/";
       },
+      classNames: [styles.back],
     });
 
     const soundButton = new Button({
-      text: "Sound",
+      text: "Sound: On",
       callback: (): void => {
         console.log("Sound");
       },
+      classNames: [styles.sound],
     });
 
     const timeInput = new Input({
@@ -27,6 +29,7 @@ export class WheelPage extends BaseElement<"main"> {
       name: "time",
       attributes: { placeholder: "Time", min: "0", max: "16" },
       id: "Time",
+      classNames: [styles.time],
     });
     timeInput.setValue("5");
 
@@ -35,19 +38,21 @@ export class WheelPage extends BaseElement<"main"> {
       callback: (): void => {
         console.log("Start");
       },
+      classNames: [styles.start],
     });
     const span = new BaseElement<"span">({
       tag: "span",
       text: "Time",
+      classNames: [styles.span],
     });
 
-    this.appendChildren(
-      title,
-      backButton,
-      soundButton,
-      span,
-      timeInput,
-      startButton,
-    );
+    const container = new BaseElement<"div">({
+      tag: "div",
+      classNames: [styles.container],
+    });
+
+    container.appendChildren(span, timeInput);
+
+    this.appendChildren(title, backButton, soundButton, container, startButton);
   }
 }

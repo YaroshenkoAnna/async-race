@@ -1,10 +1,11 @@
 import type { Route } from "../types/route";
+import type { BaseElement } from "../utils/base-element";
 
 export class Router {
   private defaultRoute: string = "/";
   private routes: Route[];
-  private outlet: HTMLElement;
-  constructor(routes: Route[], outlet: HTMLElement) {
+  private outlet: BaseElement<"div">;
+  constructor(routes: Route[], outlet: BaseElement<"div">) {
     globalThis.addEventListener("hashchange", () => {
       this.loadRoute();
     });
@@ -28,13 +29,12 @@ export class Router {
       this.routes.find((route) => route.path === "404");
 
     if (route) {
-      while (this.outlet.firstChild) {
-        this.outlet.removeChild(this.outlet.firstChild);
-      }
+      this.outlet.deleteChildren();
+
       route
         .page(this)
         .then((page) => {
-          this.outlet.append(page.node);
+          this.outlet.appendChildren(page);
         })
         .catch((error) => {
           console.error("Failed to load route page:", error);
