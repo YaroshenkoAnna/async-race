@@ -72,6 +72,7 @@ export class OptionsPage extends BaseElement<"main"> {
       callback: (): void => {
         // const modal = new ValidationErrorModal();
         globalThis.location.hash = "/wheel";
+        this.unsubscribeAll();
         // modal.open();
       },
       classNames: [buttonStyles["control-button"]],
