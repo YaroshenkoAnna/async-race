@@ -5,9 +5,10 @@ import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { counter } from "../../utils/counter";
 import { Option } from "../../components/option/option";
-//import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
+import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
 import { OptionalInputModal } from "../../components/modal/optional-input-modal";
 import { optionStore } from "../../store/option-store";
+import { guard } from "./guard";
 
 export class OptionsPage extends BaseElement<"main"> {
   constructor() {
@@ -90,10 +91,14 @@ export class OptionsPage extends BaseElement<"main"> {
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
-        // const modal = new ValidationErrorModal();
-        globalThis.location.hash = "/wheel";
-        this.unsubscribeAll();
-        // modal.open();
+        if (guard(storedOptions)) {
+          globalThis.location.hash = "/wheel";
+          this.unsubscribeAll();
+        } else {
+          const modal = new ValidationErrorModal();
+
+          modal.open();
+        }
       },
       classNames: [buttonStyles["control-button"]],
     });
