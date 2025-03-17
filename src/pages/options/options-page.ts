@@ -28,6 +28,7 @@ export class OptionsPage extends BaseElement<"main"> {
 
     this.sub(
       optionStore.subscribe((items) => {
+        console.log(items);
         optionsList.deleteChildren();
         items.forEach((item) => {
           const option = new Option(item);
