@@ -10,7 +10,7 @@
 }
 
 .container,
-.wheel-result {
+.result-container {
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -37,14 +37,25 @@
   grid-area: time;
 }
 
-.wheel-result {
+.result-container {
   grid-area: result;
   justify-self: center;
 
   width: 100%;
   max-width: 400px;
+  padding: 0;
 
   text-transform: uppercase;
+
+  .wheel-result {
+    overflow: hidden;
+
+    max-width: calc(100% - 2rem);
+    margin: 0.5rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .back {
