@@ -60,7 +60,10 @@ export class Option extends BaseElement<"li"> {
       name: "weight",
       attributes: { placeholder: "Weight", min: "0" },
     });
-    weightInput.setValue(optionData.weight.toString());
+    if (optionData.weight !== undefined) {
+      weightInput.setValue(optionData.weight.toString());
+    }
+
     weightInput.addListener("input", () => {
       const newWeight = Number(weightInput.getValue());
       if (optionData.weight !== newWeight) {

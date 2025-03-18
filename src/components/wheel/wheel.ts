@@ -26,7 +26,10 @@ export class Wheel extends BaseElement<"canvas"> {
     }
     this.onSegmentChange = onSegmentChange;
     this.options = shuffleArray(
-      options.filter((option) => option.weight > 0 && option.title),
+      options.filter(
+        (option) =>
+          option.weight !== undefined && option.weight > 0 && option.title,
+      ),
     );
     this.context = context;
     this.segmentColors = this.options.map(() => getRandomColor());
@@ -98,7 +101,7 @@ export class Wheel extends BaseElement<"canvas"> {
   private drawSegments(): void {
     const numberOfOptions = this.options.length;
     const commonOptionWeight = this.options.reduce(
-      (accumulator, option) => accumulator + option.weight,
+      (accumulator, option) => accumulator + (option.weight ?? 0),
       0,
     );
     let lastEndAngle = 0;
@@ -106,7 +109,8 @@ export class Wheel extends BaseElement<"canvas"> {
       const startAngle = lastEndAngle;
       const endAngle =
         startAngle +
-        ((2 * Math.PI) / commonOptionWeight) * this.options[index].weight;
+        ((2 * Math.PI) / commonOptionWeight) *
+          (this.options[index].weight ?? 0);
       lastEndAngle = endAngle;
       this.context.beginPath();
       this.context.moveTo(250, 250);
@@ -210,14 +214,15 @@ export class Wheel extends BaseElement<"canvas"> {
 
     let lastEndAngle = 0;
     const totalWeight = this.options.reduce(
-      (accumulator, option) => accumulator + option.weight,
+      (accumulator, option) => accumulator + (option.weight ?? 0),
       0,
     );
 
     for (let index = 0; index < this.options.length; index++) {
       const startAngle = lastEndAngle;
       const endAngle =
-        startAngle + ((2 * Math.PI) / totalWeight) * this.options[index].weight;
+        startAngle +
+        ((2 * Math.PI) / totalWeight) * (this.options[index].weight ?? 0);
 
       if (arrowAngle >= startAngle && arrowAngle <= endAngle) {
         return index;
