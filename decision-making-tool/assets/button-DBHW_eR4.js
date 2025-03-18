@@ -1,1 +1,0 @@
-import{B as s}from"./index-BqElEPun.js";const o="_button_b86pg_1",e={button:o,"control-button":"_control-button_b86pg_17"};class c extends s{constructor(t){super({tag:"button",classNames:[e.button,...t.classNames??[]]}),this.setText(t.text),this.addListener("click",t.callback)}}export{c as B,e as b};
