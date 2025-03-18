@@ -2,16 +2,14 @@ import type { OptionData } from "../types/index";
 
 const STORAGE_KEYS = {
   options: "ya-options",
-  soundEnabled: "ya-soundEnabled",
-  lastUrl: "ya-lastUrl",
+  soundDisabled: "ya-soundDisabled",
 } as const;
 
 type StorageKeys = keyof typeof STORAGE_KEYS;
 
 type StorageMap = {
   options: OptionData[] | null;
-  soundEnabled: boolean;
-  lastUrl: string;
+  soundDisabled: boolean;
 };
 
 export class Storage {

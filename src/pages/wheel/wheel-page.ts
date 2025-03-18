@@ -5,10 +5,16 @@ import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { DEFAULT_TIME, MAX_TIME } from "../../constants/numbers";
 import { debounce } from "../../utils/debounce";
+import { appStore } from "../../store/app-store";
 
 export class WheelPage extends BaseElement<"main"> {
+  private victorySound: HTMLAudioElement = new Audio(
+    "src/assets/audio/victory.mp3",
+  );
   constructor() {
     super({ tag: "main", classNames: [styles["wheel-page"]] });
+
+    appStore.registerSound(this.victorySound);
 
     const backButton = new Button({
       text: "Back to Options",
@@ -19,11 +25,15 @@ export class WheelPage extends BaseElement<"main"> {
     });
 
     const soundButton = new Button({
-      text: "Sound: On",
+      text: appStore.soundDisabled.value ? "Sound: Off" : "Sound: On",
       callback: (): void => {
-        console.log("Sound");
+        appStore.toggleSound();
       },
       classNames: [styles.sound],
+    });
+
+    appStore.soundDisabled.subscribe((disabled) => {
+      soundButton.setText(disabled ? "Sound: Off" : "Sound: On");
     });
 
     const timeInput = new Input({
@@ -52,7 +62,9 @@ export class WheelPage extends BaseElement<"main"> {
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
-        console.log("Start");
+        this.victorySound.play().catch((error) => {
+          console.error("Failed to play victory sound:", error);
+        });
       },
       classNames: [styles.start],
     });
