@@ -6,11 +6,11 @@ import { Input } from "../../components/input/input";
 import { DEFAULT_TIME, MAX_TIME } from "../../constants/numbers";
 import { debounce } from "../../utils/debounce";
 import { appStore } from "../../store/app-store";
+import { optionStore } from "../../store/option-store";
+import { Wheel } from "../../components/wheel/wheel";
 
 export class WheelPage extends BaseElement<"main"> {
-  private victorySound: HTMLAudioElement = new Audio(
-    "src/assets/audio/victory.mp3",
-  );
+  private victorySound: HTMLAudioElement = new Audio("victory.mp3");
   private interactiveElements: Array<
     BaseElement<"button"> | BaseElement<"input"> | BaseElement<"div">
   > = [];
@@ -91,7 +91,23 @@ export class WheelPage extends BaseElement<"main"> {
 
     container.appendChildren(span, timeInput);
 
-    this.appendChildren(title, backButton, soundButton, container, startButton);
+    const wheelResult = new BaseElement<"p">({
+      tag: "p",
+      classNames: [styles["wheel-result"]],
+      text: "Press Start",
+    });
+
+    const wheel = new Wheel(optionStore.value);
+
+    this.appendChildren(
+      title,
+      backButton,
+      soundButton,
+      container,
+      startButton,
+      wheelResult,
+      wheel,
+    );
     this.interactiveElements = [
       timeInput,
       startButton,

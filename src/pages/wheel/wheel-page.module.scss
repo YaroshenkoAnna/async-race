@@ -3,13 +3,15 @@
   grid-template-areas:
     "title title title"
     "back sound time"
-    "start start start";
+    "start start start"
+    "result result result"
+    "wheel wheel wheel";
   row-gap: 1rem;
 }
 
-.container {
+.container,
+.wheel-result {
   display: flex;
-  grid-area: time;
   gap: 1rem;
   align-items: center;
   justify-content: center;
@@ -29,6 +31,20 @@
   transition-timing-function: ease-in-out;
   transition-duration: var(--transition-duration);
   transition-property: filter, box-shadow, opacity;
+}
+
+.container {
+  grid-area: time;
+}
+
+.wheel-result {
+  grid-area: result;
+  justify-self: center;
+
+  width: 100%;
+  max-width: 400px;
+
+  text-transform: uppercase;
 }
 
 .back {
