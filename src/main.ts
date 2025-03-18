@@ -10,3 +10,5 @@ const container = new BaseElement<"div">({
 });
 document.body.append(container.node);
 new Router(APP_ROUTES, container);
+
+console.log(localStorage.getItem("ya-optionsCleared"));

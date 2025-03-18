@@ -11,6 +11,7 @@ import { guard } from "./guard";
 import { saveFile } from "../../utils/save-file";
 import { loadFile } from "../../utils/load-file";
 import type { OptionData } from "../../types";
+import { Storage } from "../../store/storage";
 
 export class OptionsPage extends BaseElement<"main"> {
   constructor() {
@@ -21,6 +22,11 @@ export class OptionsPage extends BaseElement<"main"> {
       classNames: [styles.options],
     });
 
+    const optionsCleared = Storage.load("optionsCleared");
+    console.log(optionsCleared, optionStore.value.length);
+    if (optionStore.value.length === 0 && !optionsCleared) {
+      optionStore.addOption({ title: "", weight: 1 });
+    }
     this.sub(
       optionStore.subscribe((items) => {
         optionsList.deleteChildren();
@@ -69,6 +75,7 @@ export class OptionsPage extends BaseElement<"main"> {
     const clearListButton = new Button({
       text: "Clear List",
       callback: (): void => {
+        Storage.save("optionsCleared", true);
         optionsList.deleteChildren();
         optionStore.reset();
       },
