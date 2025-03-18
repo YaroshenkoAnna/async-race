@@ -9,12 +9,13 @@ export class Wheel extends BaseElement<"canvas"> {
   private options: OptionData[];
   private rotationAngle = 0;
   private isSpinning = false;
+  private segmentColors: string[];
 
   constructor(options: OptionData[]) {
     super({ tag: "canvas", classNames: [styles.wheel] });
     this.node.width = 500;
     this.node.height = 500;
-    const context = this.node.getContext("2d", { willReadFrequently: true });
+    const context = this.node.getContext("2d");
     if (!context) {
       throw new Error("Failed to get 2D context");
     }
@@ -22,6 +23,7 @@ export class Wheel extends BaseElement<"canvas"> {
       options.filter((option) => option.weight > 0 && option.title),
     );
     this.context = context;
+    this.segmentColors = this.options.map(() => getRandomColor());
     this.clearCanvas();
     this.render();
   }
@@ -56,7 +58,7 @@ export class Wheel extends BaseElement<"canvas"> {
       this.render();
 
       if (progress < 1) {
-        setTimeout(() => requestAnimationFrame(animate), 1000 / 30);
+        setTimeout(() => requestAnimationFrame(animate), 1000 / 35);
       } else {
         this.isSpinning = false;
       }
@@ -75,6 +77,8 @@ export class Wheel extends BaseElement<"canvas"> {
     this.drawSegments();
     this.drawCenter();
     this.context.restore();
+
+    this.drawArrow();
   }
 
   private drawSegments(): void {
@@ -94,7 +98,7 @@ export class Wheel extends BaseElement<"canvas"> {
       this.context.moveTo(250, 250);
       this.context.arc(250, 250, 200, startAngle, endAngle);
       this.context.lineTo(250, 250);
-      this.context.fillStyle = getRandomColor();
+      this.context.fillStyle = this.segmentColors[index];
       this.context.fill();
       this.context.lineWidth = 1;
       this.context.strokeStyle = "rgb(0, 0, 0)";
@@ -107,10 +111,15 @@ export class Wheel extends BaseElement<"canvas"> {
   private drawCenter(): void {
     this.context.beginPath();
     this.context.arc(250, 250, 25, 0, 2 * Math.PI);
-    this.context.fillStyle = "rgb(0, 92, 138)";
+    this.context.fillStyle = "rgba(0, 92, 138)";
     this.context.fill();
     this.context.lineWidth = 1;
     this.context.strokeStyle = "rgb(0, 0, 0)";
+    this.context.stroke();
+    this.context.beginPath();
+    this.context.arc(250, 250, 23, 0, 2 * Math.PI);
+    this.context.lineWidth = 3;
+    this.context.strokeStyle = "rgb(241, 212, 212)";
     this.context.stroke();
   }
 
@@ -158,5 +167,24 @@ export class Wheel extends BaseElement<"canvas"> {
 
   private clearCanvas(): void {
     this.context.clearRect(0, 0, this.node.width, this.node.height);
+  }
+
+  private drawArrow(): void {
+    this.context.save();
+
+    this.context.shadowColor = "rgba(0, 0, 0, 0.5)";
+    this.context.shadowOffsetX = 2;
+    this.context.shadowOffsetY = 2;
+    this.context.beginPath();
+    this.context.moveTo(250, 70);
+    this.context.lineTo(240, 30);
+    this.context.lineTo(260, 30);
+    this.context.lineTo(250, 70);
+    this.context.fillStyle = "rgb(186, 186, 186)";
+    this.context.strokeStyle = "rgb(0, 0, 0)";
+    this.context.fill();
+    this.context.stroke();
+
+    this.context.restore();
   }
 }
