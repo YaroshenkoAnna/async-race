@@ -64,7 +64,6 @@ export class OptionalInputModal extends Modal {
     const parsedArray: string[] = parseInputToArray(inputText);
     if (parsedArray.length === 0) return;
     const validOptions: ParsedOptions[] | [] = filterValidOptions(parsedArray);
-    console.log(validOptions);
     if (validOptions.length === 0) return;
     generateOptions(validOptions);
   }

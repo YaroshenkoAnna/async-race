@@ -5,5 +5,4 @@ export function generateOptions(optionsArray: ParsedOptions[] = []): void {
   for (const [title, weight] of optionsArray) {
     optionStore.addOption({ title, weight });
   }
-  console.log(optionsArray);
 }

@@ -23,7 +23,6 @@ export class OptionsPage extends BaseElement<"main"> {
     });
 
     const optionsCleared = Storage.load("optionsCleared");
-    console.log(optionsCleared, optionStore.value.length);
     if (optionStore.value.length === 0 && !optionsCleared) {
       optionStore.addOption({ title: "", weight: 1 });
     }
