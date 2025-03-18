@@ -11,6 +11,10 @@ export class WheelPage extends BaseElement<"main"> {
   private victorySound: HTMLAudioElement = new Audio(
     "src/assets/audio/victory.mp3",
   );
+  private interactiveElements: Array<
+    BaseElement<"button"> | BaseElement<"input"> | BaseElement<"div">
+  > = [];
+
   constructor() {
     super({ tag: "main", classNames: [styles["wheel-page"]] });
 
@@ -59,12 +63,18 @@ export class WheelPage extends BaseElement<"main"> {
       }, 1000),
     );
 
+    const selectedTime = Number(timeInput.getValue());
+
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
-        this.victorySound.play().catch((error) => {
-          console.error("Failed to play victory sound:", error);
-        });
+        this.disable();
+        setTimeout(() => {
+          this.enable();
+          this.victorySound.play().catch((error) => {
+            console.error("Failed to play victory sound:", error);
+          });
+        }, selectedTime * 1000);
       },
       classNames: [styles.start],
     });
@@ -82,5 +92,26 @@ export class WheelPage extends BaseElement<"main"> {
     container.appendChildren(span, timeInput);
 
     this.appendChildren(title, backButton, soundButton, container, startButton);
+    this.interactiveElements = [
+      timeInput,
+      startButton,
+      backButton,
+      soundButton,
+      container,
+    ];
+  }
+
+  private disable(): void {
+    this.interactiveElements.forEach((element) => {
+      element.setAttributes({ disabled: "true" });
+      element.addClasses([styles.disabled]);
+    });
+  }
+
+  private enable(): void {
+    this.interactiveElements.forEach((element) => {
+      element.removeAttribute("disabled");
+      element.removeClasses([styles.disabled]);
+    });
   }
 }
