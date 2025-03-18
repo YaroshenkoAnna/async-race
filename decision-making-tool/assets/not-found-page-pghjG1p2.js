@@ -1,1 +1,0 @@
-import{B as t}from"./index-BT9xA_vY.js";import{B as o}from"./button-BNMyFhtG.js";const s="_main_16fpf_1",e={main:s};class m extends t{constructor(){super({tag:"main",classNames:[e.main]});const a=new t({tag:"h1",text:"The page was not found"}),n=new o({text:"Go back",callback:()=>{globalThis.location.hash="/"}});this.appendChildren(a,n)}}export{m as NotFoundPage};
