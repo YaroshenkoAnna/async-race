@@ -12,6 +12,7 @@ import { saveFile } from "../../utils/save-file";
 import { loadFile } from "../../utils/load-file";
 import type { OptionData } from "../../types";
 import { Storage } from "../../store/storage";
+import { DEFAULT_WEIGHT } from "../../constants/numbers";
 
 export class OptionsPage extends BaseElement<"main"> {
   constructor() {
@@ -24,7 +25,7 @@ export class OptionsPage extends BaseElement<"main"> {
 
     const optionsCleared = Storage.load("optionsCleared");
     if (optionStore.value.length === 0 && !optionsCleared) {
-      optionStore.addOption({ title: "", weight: 1 });
+      optionStore.addOption({ title: "", weight: DEFAULT_WEIGHT });
     }
     this.sub(
       optionStore.subscribe((items) => {

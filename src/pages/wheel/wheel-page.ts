@@ -3,11 +3,11 @@ import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
-import { DEFAULT_TIME, MAX_TIME } from "../../constants/numbers";
-import { debounce } from "../../utils/debounce";
+import { DEFAULT_TIME, MAX_TIME, MIN_TIME } from "../../constants/numbers";
 import { appStore } from "../../store/app-store";
 import { optionStore } from "../../store/option-store";
 import { Wheel } from "../../components/wheel/wheel";
+import { areValidateNumbers } from "../../utils/are-validate-numbers";
 
 export class WheelPage extends BaseElement<"main"> {
   private victorySound: HTMLAudioElement = new Audio("victory.mp3");
@@ -43,27 +43,11 @@ export class WheelPage extends BaseElement<"main"> {
     const timeInput = new Input({
       type: "number",
       name: "time",
-      attributes: { min: "0", max: "30" },
+      attributes: { min: MIN_TIME.toString(), max: MAX_TIME.toString() },
       id: "Time",
       classNames: [styles.time],
     });
     timeInput.setValue(DEFAULT_TIME.toString());
-    timeInput.addListener(
-      "input",
-      debounce((event) => {
-        const inputEvent = event as InputEvent;
-        const target = inputEvent.target as HTMLInputElement;
-        const value = Number(target.value);
-
-        if (value < DEFAULT_TIME) {
-          timeInput.setValue(DEFAULT_TIME.toString());
-        } else if (value > MAX_TIME) {
-          timeInput.setValue(MAX_TIME.toString());
-        }
-      }, 1000),
-    );
-
-    const selectedTime = Number(timeInput.getValue());
 
     const resultContainer = new BaseElement<"div">({
       tag: "div",
@@ -86,6 +70,12 @@ export class WheelPage extends BaseElement<"main"> {
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
+        const selectedTime = Number(timeInput.getValue());
+        if (
+          !areValidateNumbers(selectedTime, timeInput.node, MIN_TIME, MAX_TIME)
+        ) {
+          return;
+        }
         this.disable();
         resultContainer.removeClasses([styles.picked]);
         wheel.spinWheel(Number(timeInput.getValue()));
