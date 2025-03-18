@@ -10,8 +10,13 @@ export class Wheel extends BaseElement<"canvas"> {
   private rotationAngle = 0;
   private isSpinning = false;
   private segmentColors: string[];
+  private onSegmentChange?: (segmentTitle: string) => void;
+  private lastSegmentIndex: number | null = null;
 
-  constructor(options: OptionData[]) {
+  constructor(
+    options: OptionData[],
+    onSegmentChange?: (segmentTitle: string) => void,
+  ) {
     super({ tag: "canvas", classNames: [styles.wheel] });
     this.node.width = 500;
     this.node.height = 500;
@@ -19,6 +24,7 @@ export class Wheel extends BaseElement<"canvas"> {
     if (!context) {
       throw new Error("Failed to get 2D context");
     }
+    this.onSegmentChange = onSegmentChange;
     this.options = shuffleArray(
       options.filter((option) => option.weight > 0 && option.title),
     );
@@ -31,7 +37,6 @@ export class Wheel extends BaseElement<"canvas"> {
   public spinWheel(duration: number): void {
     if (this.isSpinning) return;
     this.isSpinning = true;
-
     const startRotation = this.rotationAngle;
     const startTime = performance.now();
     const targetRotation =
@@ -56,7 +61,6 @@ export class Wheel extends BaseElement<"canvas"> {
         (targetRotation - startRotation) * easeInOutExpo(progress);
 
       this.render();
-
       if (progress < 1) {
         setTimeout(() => requestAnimationFrame(animate), 1000 / 35);
       } else {
@@ -79,6 +83,16 @@ export class Wheel extends BaseElement<"canvas"> {
     this.context.restore();
 
     this.drawArrow();
+
+    const segmentIndex = this.getSegmentIndexByArrow();
+
+    if (segmentIndex !== null && segmentIndex !== this.lastSegmentIndex) {
+      const segmentTitle = this.options[segmentIndex].title;
+      if (this.onSegmentChange) {
+        this.onSegmentChange(segmentTitle);
+      }
+      this.lastSegmentIndex = segmentIndex;
+    }
   }
 
   private drawSegments(): void {
@@ -186,5 +200,32 @@ export class Wheel extends BaseElement<"canvas"> {
     this.context.stroke();
 
     this.context.restore();
+  }
+
+  private getSegmentIndexByArrow(): number | null {
+    let arrowAngle = Math.PI / 2 - this.rotationAngle + Math.PI;
+
+    arrowAngle = (arrowAngle + 2 * Math.PI * 100) % (2 * Math.PI);
+    if (arrowAngle < 0) arrowAngle += 2 * Math.PI;
+
+    let lastEndAngle = 0;
+    const totalWeight = this.options.reduce(
+      (accumulator, option) => accumulator + option.weight,
+      0,
+    );
+
+    for (let index = 0; index < this.options.length; index++) {
+      const startAngle = lastEndAngle;
+      const endAngle =
+        startAngle + ((2 * Math.PI) / totalWeight) * this.options[index].weight;
+
+      if (arrowAngle >= startAngle && arrowAngle <= endAngle) {
+        return index;
+      }
+
+      lastEndAngle = endAngle;
+    }
+
+    return null;
   }
 }

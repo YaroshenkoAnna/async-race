@@ -65,15 +65,26 @@ export class WheelPage extends BaseElement<"main"> {
 
     const selectedTime = Number(timeInput.getValue());
 
-    const wheel = new Wheel(optionStore.value);
+    const result = new BaseElement<"p">({
+      tag: "p",
+      classNames: [styles["wheel-result"]],
+    });
+
+    const wheel = new Wheel(optionStore.value, (segmentTitle: string) => {
+      result.setText(`${segmentTitle}`);
+    });
+
+    result.setText("press start to spin the wheel");
 
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
         this.disable();
+        result.removeClasses([styles.picked]);
         wheel.spinWheel(Number(timeInput.getValue()));
         setTimeout(() => {
           this.enable();
+          result.addClasses([styles.picked]);
           this.victorySound.play().catch((error) => {
             console.error("Failed to play victory sound:", error);
           });
@@ -94,19 +105,13 @@ export class WheelPage extends BaseElement<"main"> {
 
     container.appendChildren(span, timeInput);
 
-    const wheelResult = new BaseElement<"p">({
-      tag: "p",
-      classNames: [styles["wheel-result"]],
-      text: "Press Start",
-    });
-
     this.appendChildren(
       title,
       backButton,
       soundButton,
       container,
       startButton,
-      wheelResult,
+      result,
       wheel,
     );
     this.interactiveElements = [
