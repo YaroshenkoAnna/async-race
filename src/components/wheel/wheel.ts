@@ -7,11 +7,14 @@ import styles from "./wheel.module.scss";
 export class Wheel extends BaseElement<"canvas"> {
   private context: CanvasRenderingContext2D;
   private options: OptionData[];
+  private rotationAngle = 0;
+  private isSpinning = false;
+
   constructor(options: OptionData[]) {
     super({ tag: "canvas", classNames: [styles.wheel] });
     this.node.width = 500;
     this.node.height = 500;
-    const context = this.node.getContext("2d");
+    const context = this.node.getContext("2d", { willReadFrequently: true });
     if (!context) {
       throw new Error("Failed to get 2D context");
     }
@@ -19,12 +22,59 @@ export class Wheel extends BaseElement<"canvas"> {
       options.filter((option) => option.weight > 0 && option.title),
     );
     this.context = context;
+    this.clearCanvas();
     this.render();
   }
 
+  public spinWheel(duration: number): void {
+    if (this.isSpinning) return;
+    this.isSpinning = true;
+
+    const startRotation = this.rotationAngle;
+    const startTime = performance.now();
+    const targetRotation =
+      startRotation + Math.PI * 2 * duration + Math.PI * 2 * Math.random();
+
+    const easeInOutExpo = (x: number): number => {
+      return x === 0
+        ? 0
+        : x === 1
+          ? 1
+          : x < 0.5
+            ? Math.pow(2, 20 * x - 10) / 2
+            : (2 - Math.pow(2, -20 * x + 10)) / 2;
+    };
+
+    const animate = (currentTime: number): void => {
+      const elapsedTime = (currentTime - startTime) / 1000;
+      const progress = Math.min(elapsedTime / duration, 1);
+
+      this.rotationAngle =
+        startRotation +
+        (targetRotation - startRotation) * easeInOutExpo(progress);
+
+      this.render();
+
+      if (progress < 1) {
+        setTimeout(() => requestAnimationFrame(animate), 1000 / 30);
+      } else {
+        this.isSpinning = false;
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
   public render(): void {
+    this.context.save();
+    this.clearCanvas();
+    this.context.translate(250, 250);
+    this.context.rotate(this.rotationAngle);
+    this.context.translate(-250, -250);
+
     this.drawSegments();
     this.drawCenter();
+    this.context.restore();
   }
 
   private drawSegments(): void {
@@ -36,12 +86,10 @@ export class Wheel extends BaseElement<"canvas"> {
     let lastEndAngle = 0;
     for (let index = 0; index < numberOfOptions; index++) {
       const startAngle = lastEndAngle;
-      console.log("Begin", lastEndAngle);
       const endAngle =
         startAngle +
         ((2 * Math.PI) / commonOptionWeight) * this.options[index].weight;
       lastEndAngle = endAngle;
-      console.log("End", lastEndAngle);
       this.context.beginPath();
       this.context.moveTo(250, 250);
       this.context.arc(250, 250, 200, startAngle, endAngle);
@@ -71,7 +119,7 @@ export class Wheel extends BaseElement<"canvas"> {
     startAngle: number,
     endAngle: number,
   ): void {
-    const radius = 120;
+    const radius = 110;
     const angle = (startAngle + endAngle) / 2;
     const x = 250 + radius * Math.cos(angle);
     const y = 250 + radius * Math.sin(angle);
@@ -89,7 +137,7 @@ export class Wheel extends BaseElement<"canvas"> {
 
     if (textHeight > segmentHeight) return;
 
-    const maxWidth = 120;
+    const maxWidth = 140;
     let truncatedText = text;
     while (this.context.measureText(truncatedText).width > maxWidth) {
       truncatedText = truncatedText.slice(0, -1);
@@ -106,5 +154,9 @@ export class Wheel extends BaseElement<"canvas"> {
     this.context.fillText(truncatedText, 0, 0);
 
     this.context.restore();
+  }
+
+  private clearCanvas(): void {
+    this.context.clearRect(0, 0, this.node.width, this.node.height);
   }
 }

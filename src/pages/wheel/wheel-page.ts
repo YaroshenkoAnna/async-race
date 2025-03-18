@@ -65,10 +65,13 @@ export class WheelPage extends BaseElement<"main"> {
 
     const selectedTime = Number(timeInput.getValue());
 
+    const wheel = new Wheel(optionStore.value);
+
     const startButton = new Button({
       text: "Start",
       callback: (): void => {
         this.disable();
+        wheel.spinWheel(Number(timeInput.getValue()));
         setTimeout(() => {
           this.enable();
           this.victorySound.play().catch((error) => {
@@ -96,8 +99,6 @@ export class WheelPage extends BaseElement<"main"> {
       classNames: [styles["wheel-result"]],
       text: "Press Start",
     });
-
-    const wheel = new Wheel(optionStore.value);
 
     this.appendChildren(
       title,
