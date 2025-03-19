@@ -47,7 +47,7 @@ export class OptionsPage extends BaseElement<"main"> {
     const addOptionButton = new Button({
       text: "Add Option",
       callback: (): void => {
-        optionStore.addOption({ title: "", weight: 0 });
+        optionStore.addOption({ title: "" });
       },
       classNames: [buttonStyles["control-button"]],
     });
