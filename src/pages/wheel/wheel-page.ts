@@ -3,11 +3,11 @@ import { BaseElement } from "../../utils/base-element";
 import { title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
-import { DEFAULT_TIME, MAX_TIME, MIN_TIME } from "../../constants/numbers";
+import { DEFAULT_TIME, MIN_TIME } from "../../constants/numbers";
 import { appStore } from "../../store/app-store";
 import { optionStore } from "../../store/option-store";
 import { Wheel } from "../../components/wheel/wheel";
-import { areValidateNumbers } from "../../utils/are-validate-numbers";
+import { areValidateNumbers } from "../../utils/is-valide-number";
 
 export class WheelPage extends BaseElement<"main"> {
   private victorySound: HTMLAudioElement = new Audio("victory.mp3");
@@ -43,7 +43,7 @@ export class WheelPage extends BaseElement<"main"> {
     const timeInput = new Input({
       type: "number",
       name: "time",
-      attributes: { min: MIN_TIME.toString(), max: MAX_TIME.toString() },
+      attributes: { min: MIN_TIME.toString() },
       id: "Time",
       classNames: [styles.time],
     });
@@ -71,9 +71,7 @@ export class WheelPage extends BaseElement<"main"> {
       text: "Start",
       callback: (): void => {
         const selectedTime = Number(timeInput.getValue());
-        if (
-          !areValidateNumbers(selectedTime, timeInput.node, MIN_TIME, MAX_TIME)
-        ) {
+        if (!areValidateNumbers(selectedTime, timeInput.node, MIN_TIME)) {
           return;
         }
         this.disable();
