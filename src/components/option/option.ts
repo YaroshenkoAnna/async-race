@@ -20,7 +20,7 @@ export class Option extends BaseElement<"li"> {
     const id = new BaseElement<"span">({
       tag: "span",
       classNames: [styles.id],
-      text: optionData.id.toString(),
+      text: `#${optionData.id.toString()}`,
     });
 
     const titleInput = new Input({
