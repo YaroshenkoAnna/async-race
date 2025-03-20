@@ -11,6 +11,7 @@ export class Router {
   constructor(routes: Route[], outlet: BaseElement<"div">) {
     this.navigate = (path: string): void => {
       globalThis.location.hash = path;
+      this.outlet.deleteChildren();
     };
     globalThis.addEventListener("hashchange", () => {
       this.loadRoute();

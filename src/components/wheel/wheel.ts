@@ -36,6 +36,7 @@ export class Wheel extends BaseElement<"canvas"> {
     this.segmentColors = this.options.map(() => getRandomColor());
     this.clearCanvas();
     this.render();
+    this.lastSegmentIndex = null;
   }
 
   public spinWheel(duration: number): void {
@@ -67,6 +68,8 @@ export class Wheel extends BaseElement<"canvas"> {
 
       if (progress < 1) {
         this.animationId = requestAnimationFrame(animate);
+      } else {
+        this.isSpinning = false;
       }
     };
 
@@ -94,6 +97,7 @@ export class Wheel extends BaseElement<"canvas"> {
     this.drawArrow();
 
     const segmentIndex = this.getSegmentIndexByArrow();
+    console.log(segmentIndex, this.lastSegmentIndex);
 
     if (segmentIndex !== null && segmentIndex !== this.lastSegmentIndex) {
       const segmentTitle = this.options[segmentIndex].title;

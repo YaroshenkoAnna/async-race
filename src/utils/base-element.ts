@@ -13,6 +13,7 @@ export type BaseElementOptions = {
 export type Subscription = () => void;
 
 export class BaseElement<T extends Tags> {
+  public children: BaseElement<Tags>[] = [];
   protected readonly _element: HTMLElementTagNameMap[T];
   protected readonly _subscriptions: Subscription[] = [];
 
@@ -23,6 +24,7 @@ export class BaseElement<T extends Tags> {
       this.setText(options.text);
       this.setAttributes(options.attributes);
     }
+    this.children = [];
   }
 
   public get node(): HTMLElementTagNameMap[T] {
@@ -73,6 +75,7 @@ export class BaseElement<T extends Tags> {
     for (const child of children) {
       if (child instanceof BaseElement) {
         this._element.append(child.node);
+        this.children = [...this.children, child];
       } else {
         if (child instanceof Node) {
           this._element.append(child);
@@ -82,8 +85,14 @@ export class BaseElement<T extends Tags> {
   }
 
   public deleteChildren(): void {
+    this.children.map((child) => {
+      child.deleteElement();
+    });
+    this.children = [];
+
     while (this._element.firstChild) {
-      this._element.firstChild.remove();
+      const child = this._element.firstChild;
+      child.remove();
     }
   }
 

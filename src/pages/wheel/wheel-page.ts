@@ -7,13 +7,14 @@ import { DEFAULT_TIME, MIN_TIME } from "../../constants/numbers";
 import { appStore } from "../../store/app-store";
 import { optionStore } from "../../store/option-store";
 import { Wheel } from "../../components/wheel/wheel";
-import { areValidateNumbers } from "../../utils/is-valide-number";
+import { areValidateNumbers } from "../../utils/is-valid-number";
 
 export class WheelPage extends BaseElement<"main"> {
   private victorySound: HTMLAudioElement = new Audio("victory.mp3");
   private interactiveElements: Array<
     BaseElement<"button"> | BaseElement<"input"> | BaseElement<"div">
   > = [];
+  private spinTimeout: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
     super({ tag: "main", classNames: [styles["wheel-page"]] });
@@ -77,7 +78,7 @@ export class WheelPage extends BaseElement<"main"> {
         this.disable();
         resultContainer.removeClasses([styles.picked]);
         wheel.spinWheel(Number(timeInput.getValue()));
-        setTimeout(() => {
+        this.spinTimeout = setTimeout(() => {
           this.enable();
           resultContainer.addClasses([styles.picked]);
           this.victorySound.play().catch((error) => {
@@ -87,6 +88,7 @@ export class WheelPage extends BaseElement<"main"> {
       },
       classNames: [styles.start],
     });
+
     const span = new BaseElement<"span">({
       tag: "span",
       text: "Time",
@@ -116,6 +118,13 @@ export class WheelPage extends BaseElement<"main"> {
       soundButton,
       container,
     ];
+  }
+
+  public override deleteElement(): void {
+    super.deleteElement();
+    clearTimeout(this.spinTimeout);
+    this.victorySound.pause();
+    this.victorySound.currentTime = 0;
   }
 
   private disable(): void {

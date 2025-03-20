@@ -26,15 +26,6 @@ export class OptionsPage extends BaseElement<"main"> {
     if (optionStore.value.length === 0 && !optionsCleared) {
       optionStore.addOption({ title: "" });
     }
-    this.sub(
-      optionStore.subscribe((items) => {
-        optionsList.deleteChildren();
-        items.forEach((item) => {
-          const option = new Option(item);
-          optionsList.appendChildren(option);
-        });
-      }),
-    );
 
     const storedOptions = optionStore.value;
     if (storedOptions.length > 0) {
