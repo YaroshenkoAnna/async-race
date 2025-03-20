@@ -6,8 +6,6 @@ import { optionStore } from "../../store/option-store";
 import type { OptionData } from "../../types";
 
 export class Option extends BaseElement<"li"> {
-  private timeoutId: ReturnType<typeof setTimeout> | null = null;
-  private lastValue: string | number = "";
   constructor(optionData: OptionData) {
     super({
       tag: "li",
@@ -33,18 +31,7 @@ export class Option extends BaseElement<"li"> {
 
     const handleInputChange = (field: keyof Omit<OptionData, "id">) => {
       return (newValue: string | number): void => {
-        if (newValue === this.lastValue) {
-          return;
-        }
-
-        if (this.timeoutId) {
-          clearTimeout(this.timeoutId);
-        }
-
-        this.timeoutId = setTimeout(() => {
-          optionStore.updateOption(optionData.id, { [field]: newValue });
-          this.lastValue = newValue;
-        }, 200);
+        optionStore.updateOption(optionData.id, { [field]: newValue });
       };
     };
 
@@ -65,7 +52,10 @@ export class Option extends BaseElement<"li"> {
     }
 
     weightInput.addListener("input", () => {
-      const newWeight = Number(weightInput.getValue());
+      const newWeight =
+        weightInput.getValue() === undefined || weightInput.getValue() === ""
+          ? ""
+          : Number(weightInput.getValue());
       if (optionData.weight !== newWeight) {
         handleInputChange("weight")(newWeight);
       }

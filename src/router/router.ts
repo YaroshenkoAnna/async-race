@@ -1,3 +1,5 @@
+import { guard } from "../pages/options/guard";
+import { optionStore } from "../store/option-store";
 import type { Route } from "../types/route";
 import type { BaseElement } from "../utils/base-element";
 
@@ -26,7 +28,8 @@ export class Router {
   private loadRoute(): void {
     const path = globalThis.location.hash.slice(1);
 
-    if (!path) {
+    const isValid = (): boolean => guard(optionStore.value);
+    if (!path || (path === "/wheel" && !isValid())) {
       this.navigate(this.defaultRoute);
       return;
     }

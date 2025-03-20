@@ -52,6 +52,7 @@ export default tseslint.config(
       "unicorn/no-array-reduce": "off",
       "unicorn/prefer-dom-node-remove": "off",
       "unicorn/no-null": "off",
+      "unicorn/consistent-function-scoping": "off",
       "max-lines-per-function": "off",
     },
   },
