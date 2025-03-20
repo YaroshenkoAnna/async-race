@@ -10,18 +10,13 @@ class OptionStore extends Observable<OptionData[]> {
 
   constructor() {
     super(Storage.load("options") ?? []);
-
-    const maxId =
-      this.value.length > 0
-        ? this.value.reduce((max, item) => Math.max(max, item.id), DEFAULT_ID)
-        : DEFAULT_ID - 1;
-    this.idCounter = maxId + 1;
-
+    this.countId();
     this.subscribe((options) => Storage.save(STORAGE_KEY, options));
   }
 
   public addOption(option: Omit<OptionData, "id">): void {
-    const newOption: OptionData = { id: this.idCounter++, ...option };
+    const newOption: OptionData = { id: this.countId(), ...option };
+    this.idCounter++;
     this.update((options) => [...options, newOption]);
   }
 
@@ -47,6 +42,15 @@ class OptionStore extends Observable<OptionData[]> {
   public reset(): void {
     this.idCounter = DEFAULT_ID;
     this.set([]);
+  }
+
+  public countId(): number {
+    const maxId =
+      this.value.length > 0
+        ? this.value.reduce((max, item) => Math.max(max, item.id), DEFAULT_ID)
+        : DEFAULT_ID - 1;
+    this.idCounter = maxId + 1;
+    return this.idCounter;
   }
 }
 
