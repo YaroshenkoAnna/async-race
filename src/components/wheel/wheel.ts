@@ -12,6 +12,7 @@ export class Wheel extends BaseElement<"canvas"> {
   private segmentColors: string[];
   private onSegmentChange?: (segmentTitle: string) => void;
   private lastSegmentIndex: number | null = null;
+  private animationId: number | null = null;
 
   constructor(
     options: OptionData[],
@@ -58,20 +59,25 @@ export class Wheel extends BaseElement<"canvas"> {
     const animate = (currentTime: number): void => {
       const elapsedTime = (currentTime - startTime) / 1000;
       const progress = Math.min(elapsedTime / duration, 1);
-
       this.rotationAngle =
         startRotation +
         (targetRotation - startRotation) * easeInOutExpo(progress);
 
       this.render();
+
       if (progress < 1) {
-        setTimeout(() => requestAnimationFrame(animate), 1000 / 35);
-      } else {
-        this.isSpinning = false;
+        this.animationId = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
+    this.animationId = requestAnimationFrame(animate);
+  }
+
+  public override deleteElement(): void {
+    super.deleteElement();
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+    }
   }
 
   public render(): void {
