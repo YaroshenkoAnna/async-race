@@ -1,6 +1,6 @@
 import styles from "./wheel-page.module.scss";
 import { BaseElement } from "../../utils/base-element";
-import { title } from "../../components/title/title";
+import { Title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { DEFAULT_TIME, MIN_TIME } from "../../constants/numbers";
@@ -103,7 +103,7 @@ export class WheelPage extends BaseElement<"main"> {
     container.appendChildren(span, timeInput);
 
     this.appendChildren(
-      title,
+      new Title(),
       backButton,
       soundButton,
       container,

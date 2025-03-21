@@ -17,6 +17,11 @@ export class Modal extends BaseElement<"dialog"> {
         this.close();
       }
     });
+    this.addListener("keydown", (event) => {
+      if ((event as KeyboardEvent).key === "Escape") {
+        this.close();
+      }
+    });
   }
 
   public open(): void {

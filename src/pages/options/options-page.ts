@@ -1,7 +1,7 @@
 import styles from "./options-page.module.scss";
 import buttonStyles from "../../components/button/button.module.scss";
 import { BaseElement } from "../../utils/base-element";
-import { title } from "../../components/title/title";
+import { Title } from "../../components/title/title";
 import { Button } from "../../components/button/button";
 import { Option } from "../../components/option/option";
 import { ValidationErrorModal } from "../../components/modal/validation-error-modal";
@@ -106,7 +106,7 @@ export class OptionsPage extends BaseElement<"main"> {
     });
 
     this.appendChildren(
-      title,
+      new Title(),
       optionsList,
       addOptionButton,
       pasteListButton,
