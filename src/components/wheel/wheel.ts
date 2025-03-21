@@ -89,7 +89,7 @@ export class Wheel extends BaseElement<"canvas"> {
     this.context.translate(250, 250);
     this.context.rotate(this.rotationAngle);
     this.context.translate(-250, -250);
-
+    this.drawMainCircle();
     this.drawSegments();
     this.drawCenter();
     this.context.restore();
@@ -97,7 +97,6 @@ export class Wheel extends BaseElement<"canvas"> {
     this.drawArrow();
 
     const segmentIndex = this.getSegmentIndexByArrow();
-    console.log(segmentIndex, this.lastSegmentIndex);
 
     if (segmentIndex !== null && segmentIndex !== this.lastSegmentIndex) {
       const segmentTitle = this.options[segmentIndex].title;
@@ -106,6 +105,23 @@ export class Wheel extends BaseElement<"canvas"> {
       }
       this.lastSegmentIndex = segmentIndex;
     }
+  }
+
+  private drawMainCircle(): void {
+    this.context.beginPath();
+    this.context.arc(250, 250, 201, 0, 2 * Math.PI);
+    this.context.lineWidth = 29;
+    this.context.strokeStyle = "rgb(186, 186, 186)";
+    this.context.stroke();
+    this.context.arc(250, 250, 216, 0, 2 * Math.PI);
+    this.context.lineWidth = 1;
+    this.context.strokeStyle = "rgb(0, 0, 0)";
+    this.context.stroke();
+    this.context.stroke();
+    this.context.arc(250, 250, 220, 0, 2 * Math.PI);
+    this.context.lineWidth = 5;
+    this.context.strokeStyle = "rgba(0, 0, 0, 0.2)";
+    this.context.stroke();
   }
 
   private drawSegments(): void {
@@ -144,10 +160,16 @@ export class Wheel extends BaseElement<"canvas"> {
     this.context.lineWidth = 1;
     this.context.strokeStyle = "rgb(0, 0, 0)";
     this.context.stroke();
-    this.context.beginPath();
+
     this.context.arc(250, 250, 23, 0, 2 * Math.PI);
     this.context.lineWidth = 3;
     this.context.strokeStyle = "rgb(241, 212, 212)";
+
+    this.context.stroke();
+
+    this.context.arc(250, 250, 26, 0, 2 * Math.PI);
+    this.context.lineWidth = 4;
+    this.context.strokeStyle = "rgba(0, 0, 0, 0.5)";
     this.context.stroke();
   }
 
