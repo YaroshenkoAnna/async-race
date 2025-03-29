@@ -34,6 +34,20 @@ export default tseslint.config(
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/member-ordering": "error",
       "unicorn/better-regex": "warn",
+      "unicorn/no-array-for-each": "off",
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          allowList: {
+            acc: true,
+            env: true,
+            i: true,
+            j: true,
+            props: true,
+            Props: true,
+          },
+        },
+      ],
     },
   },
   eslintConfigPrettier,
