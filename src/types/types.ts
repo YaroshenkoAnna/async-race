@@ -4,6 +4,10 @@ export interface Car {
   color: string;
 }
 
+export type Id = {
+  id: number;
+};
+
 export function isCar(detail: unknown): detail is Car {
   return (
     typeof detail === "object" &&
@@ -14,5 +18,14 @@ export function isCar(detail: unknown): detail is Car {
     typeof detail.name === "string" &&
     "color" in detail &&
     typeof detail.color === "string"
+  );
+}
+
+export function isId(detail: unknown): detail is Id {
+  return (
+    typeof detail === "object" &&
+    detail !== null &&
+    "id" in detail &&
+    typeof detail.id === "number"
   );
 }

@@ -4,7 +4,7 @@ import { Form } from "../components/form/form";
 import { Button } from "../components/button/button";
 import { CarCard } from "../components/car-card/car-card";
 import { GarageStore } from "../store/garage-store";
-import { isCar, type Car } from "../types/types";
+import { isCar, type Car, isId } from "../types/types";
 
 export class GaragePage {
   private selectedCarId: number | null = null;
@@ -101,7 +101,11 @@ export class GaragePage {
     });
     const generateButton = new Button({
       text: "Generate cars",
-      callback: () => console.log("generate"),
+      callback: () => {
+        this.garageStore.generateRandomCars().catch((error) => {
+          console.error("Error generating cars:", error);
+        });
+      },
     });
     controls.appendChildren(raceButton, resetButton, generateButton);
     return controls;
@@ -152,6 +156,20 @@ export class GaragePage {
           this.handleSelectCar(selectedId, car.name, car.color);
         }
       });
+
+      carCard.addListener("carRemoved", (event: Event) => {
+        void (async () => {
+          if (event instanceof CustomEvent && isId(event.detail)) {
+            const carId = event.detail.id;
+            try {
+              await this.garageStore.removeCar(carId);
+            } catch (error) {
+              console.error("Error while removing car:", error);
+            }
+          }
+        })();
+      });
+
       this.carListContainer.appendChildren(carCard);
     });
 

@@ -1,4 +1,4 @@
-import type { Car } from "../../types/types";
+import type { Car, Id } from "../../types/types";
 import { BaseElement } from "../../utils/base-element";
 import { BaseSVGElement } from "../../utils/base-svg-element";
 import { Button } from "../button/button";
@@ -49,9 +49,15 @@ export class CarCard extends BaseElement<"div"> {
     const removeButton = new Button({
       text: "Remove",
       callback: () => {
-        console.log("Remove");
+        const carRemovedEvent = new CustomEvent<Id>("carRemoved", {
+          detail: { id: this.id },
+          bubbles: true,
+        });
+
+        this.node.dispatchEvent(carRemovedEvent);
       },
     });
+
     const moveButton = new Button({
       text: "A",
       callback: () => {
