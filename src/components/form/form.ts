@@ -4,25 +4,35 @@ import { Input } from "../input/input";
 
 type FormOptions = {
   buttonText: string;
-  callback: () => void;
+  callback: (name: string, color: string) => Promise<void>;
 };
 
 export class Form extends BaseElement<"form"> {
   private options: FormOptions;
+  private textInput: Input;
+  private colorInput: Input;
+
   constructor(options: FormOptions) {
     super({ tag: "form" });
     this.options = options;
+    this.textInput = new Input({ type: "text" });
+    this.colorInput = new Input({ type: "color" });
     this.render();
   }
 
   private render() {
-    const textInput = new Input({ type: "text" });
-    const colorInput = new Input({ type: "color" });
     const button = new Button({
       text: this.options.buttonText,
-      callback: this.options.callback,
+      callback: (event: Event) => {
+        event.preventDefault();
+        this.options
+          .callback(this.textInput.value, this.colorInput.value)
+          .catch((error) => {
+            console.error("Error in callback:", error);
+          });
+      },
     });
 
-    this.appendChildren(textInput, colorInput, button);
+    this.appendChildren(this.textInput, this.colorInput, button);
   }
 }

@@ -3,7 +3,7 @@ import { BaseElement } from "../../utils/base-element";
 import type { BaseElementOptions } from "../../utils/base-element";
 
 export type ButtonOptions = {
-  callback: () => void;
+  callback: (event: Event) => void;
 };
 
 export class Button extends BaseElement<"button"> {

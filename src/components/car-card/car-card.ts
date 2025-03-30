@@ -1,14 +1,17 @@
+import type { Car } from "../../types/types";
 import { BaseElement } from "../../utils/base-element";
 import { BaseSVGElement } from "../../utils/base-svg-element";
 import { Button } from "../button/button";
 
 export class CarCard extends BaseElement<"div"> {
+  private id: number;
   private name: string;
   private color: string;
   private carImage: BaseSVGElement;
 
-  constructor(name = "", color: string) {
+  constructor(id: number, name: string, color: string) {
     super({ tag: "div" });
+    this.id = id;
     this.name = name;
     this.color = color;
     this.carImage = new BaseSVGElement({
@@ -34,9 +37,15 @@ export class CarCard extends BaseElement<"div"> {
     const selectButton = new Button({
       text: "Select",
       callback: () => {
-        console.log("Select");
+        const carSelectedEvent = new CustomEvent<Car>("carSelected", {
+          detail: { id: this.id, name: this.name, color: this.color },
+          bubbles: true,
+        });
+
+        this.node.dispatchEvent(carSelectedEvent);
       },
     });
+
     const removeButton = new Button({
       text: "Remove",
       callback: () => {

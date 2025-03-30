@@ -109,4 +109,9 @@ export abstract class BaseElementCommon {
   ): void {
     this._element.removeEventListener(event, listener, options);
   }
+
+  public dispatchEvent<T>(eventName: string, detail?: T): void {
+    const event = new CustomEvent(eventName, { detail });
+    this._element.dispatchEvent(event);
+  }
 }

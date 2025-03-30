@@ -12,11 +12,11 @@ export class Input extends BaseElement<"input"> {
     this.setType(options.type);
   }
 
-  public getValue(): string {
+  public get value(): string {
     return this._element.value;
   }
 
-  public setValue(value: string): void {
+  public set value(value: string) {
     this._element.value = value;
   }
 
