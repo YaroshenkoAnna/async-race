@@ -1,4 +1,3 @@
-import { Navigation } from "../components/navigation/navigation";
 import { BaseElement } from "../utils/base-element";
 import { Form } from "../components/form/form";
 import { Button } from "../components/button/button";
@@ -6,18 +5,17 @@ import { CarCard } from "../components/car-card/car-card";
 import { GarageStore } from "../store/garage-store";
 import { isCar, type Car, isId } from "../types/types";
 
-export class GaragePage {
+export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
   private selectedCarName: string = "";
   private selectedCarColor: string = "";
-  private outlet: BaseElement<"div">;
   private title: BaseElement<"h1">;
   private pageNumber: BaseElement<"h2">;
   private garageStore: GarageStore;
   private carListContainer: BaseElement<"div">;
 
-  constructor(outlet: BaseElement<"div">) {
-    this.outlet = outlet;
+  constructor() {
+    super({ tag: "div" });
     this.garageStore = new GarageStore();
     this.title = new BaseElement<"h1">({ tag: "h1", text: `Garage (0)` });
     this.pageNumber = new BaseElement<"h2">({ tag: "h2", text: "Page #1" });
@@ -37,14 +35,12 @@ export class GaragePage {
   }
 
   private render() {
-    const navigation = new Navigation();
     const createForm = this.createForm();
     const updateForm = this.updateForm();
     const controls = this.renderControls();
     const pagination = this.renderPagination();
 
-    this.outlet.appendChildren(
-      navigation,
+    this.appendChildren(
       createForm,
       updateForm,
       controls,
@@ -172,7 +168,5 @@ export class GaragePage {
 
       this.carListContainer.appendChildren(carCard);
     });
-
-    this.outlet.appendChildren(this.carListContainer);
   }
 }
