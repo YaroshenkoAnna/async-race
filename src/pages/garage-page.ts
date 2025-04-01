@@ -2,7 +2,7 @@ import { BaseElement } from "../utils/base-element";
 import { Form } from "../components/form/form";
 import { Button } from "../components/button/button";
 import { CarCard } from "../components/car-card/car-card";
-import { GarageStore } from "../store/garage-store";
+import type { GarageStore } from "../store/garage-store";
 import { isCar, type Car, isId } from "../types/types";
 
 export class GaragePage extends BaseElement<"div"> {
@@ -11,16 +11,16 @@ export class GaragePage extends BaseElement<"div"> {
   private selectedCarColor: string = "";
   private title: BaseElement<"h1">;
   private pageNumber: BaseElement<"h2">;
-  private garageStore: GarageStore;
+  private store: GarageStore;
   private carListContainer: BaseElement<"div">;
 
-  constructor() {
+  constructor(store: GarageStore) {
     super({ tag: "div" });
-    this.garageStore = new GarageStore();
+    this.store = store;
     this.title = new BaseElement<"h1">({ tag: "h1", text: `Garage (0)` });
     this.pageNumber = new BaseElement<"h2">({ tag: "h2", text: "Page #1" });
     this.carListContainer = new BaseElement({ tag: "div" });
-    this.garageStore.total$.subscribe((total) => {
+    this.store.total$.subscribe((total) => {
       this.title.setText(`Garage (${total})`);
     });
 
@@ -56,7 +56,7 @@ export class GaragePage extends BaseElement<"div"> {
       buttonText: "Create",
       callback: async (name, color) => {
         try {
-          await this.garageStore.addCar(name, color);
+          await this.store.addCar(name, color);
         } catch (error) {
           console.error("Error while adding car:", error);
         }
@@ -73,7 +73,7 @@ export class GaragePage extends BaseElement<"div"> {
           return;
         }
         try {
-          await this.garageStore.updateCar({
+          await this.store.updateCar({
             id: this.selectedCarId,
             name,
             color,
@@ -98,7 +98,7 @@ export class GaragePage extends BaseElement<"div"> {
     const generateButton = new Button({
       text: "Generate cars",
       callback: () => {
-        this.garageStore.generateRandomCars().catch((error) => {
+        this.store.generateRandomCars().catch((error) => {
           console.error("Error generating cars:", error);
         });
       },
@@ -112,7 +112,7 @@ export class GaragePage extends BaseElement<"div"> {
     const previousButton = new Button({
       text: "Prev",
       callback: () => {
-        this.garageStore.goToPreviousPage().catch((error) => {
+        this.store.goToPreviousPage().catch((error) => {
           console.error("Error going to the previous page:", error);
         });
       },
@@ -120,7 +120,7 @@ export class GaragePage extends BaseElement<"div"> {
     const nextButton = new Button({
       text: "Next",
       callback: () => {
-        this.garageStore.goToNextPage().catch((error) => {
+        this.store.goToNextPage().catch((error) => {
           console.error("Error going to the next page:", error);
         });
       },
@@ -130,13 +130,13 @@ export class GaragePage extends BaseElement<"div"> {
   }
 
   private bindStore() {
-    this.garageStore.cars$.subscribe((cars) => this.renderCarList(cars));
-    this.garageStore.total$.subscribe((total) => {
+    this.store.cars$.subscribe((cars) => this.renderCarList(cars));
+    this.store.total$.subscribe((total) => {
       this.pageNumber.setText(
-        `Page #${this.garageStore.currentPage} / Total cars: ${total}`,
+        `Page #${this.store.currentPage} / Total cars: ${total}`,
       );
     });
-    this.garageStore.loadCars(1).catch((error) => {
+    this.store.loadCars(1).catch((error) => {
       console.error("Error loading cars:", error);
     });
   }
@@ -158,7 +158,7 @@ export class GaragePage extends BaseElement<"div"> {
           if (event instanceof CustomEvent && isId(event.detail)) {
             const carId = event.detail.id;
             try {
-              await this.garageStore.removeCar(carId);
+              await this.store.removeCar(carId);
             } catch (error) {
               console.error("Error while removing car:", error);
             }

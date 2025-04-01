@@ -1,12 +1,13 @@
 import { Observable } from "../utils/observable";
 import { CarService } from "../api/car-service";
-import type { Car } from "../types/types";
+import type { Car, Winner } from "../types/types";
 import { getRandomColor } from "../utils/get-random-color";
 import { getRandomElement } from "../utils/get-random-element";
 
 export class GarageStore {
   public cars$ = new Observable<Car[]>([]);
   public total$ = new Observable<number>(0);
+  public winners$ = new Observable<Winner[]>([]);
   public currentPage = 1;
 
   constructor() {}
@@ -21,15 +22,40 @@ export class GarageStore {
   }
 
   public async removeCar(id: number) {
-    await CarService.deleteCar(id).catch((error) => {
-      console.error("Error adding car", error);
-    });
-    await this.loadCars(this.currentPage);
+    try {
+      await CarService.deleteCar(id);
+      await CarService.deleteWinner(id);
+      await this.loadCars(this.currentPage);
+      await this.loadWinners();
+    } catch (error) {
+      console.error("Error deleting car:", error);
+    }
   }
 
   public async updateCar(carOptions: Car) {
-    await CarService.updateCar(carOptions);
-    await this.loadCars(this.currentPage);
+    try {
+      await CarService.updateCar(carOptions);
+      await this.loadCars(this.currentPage);
+      const winner = await CarService.getWinner(carOptions.id);
+      if (winner) {
+        await CarService.updateWinner(carOptions.id, {
+          wins: winner.wins,
+          time: winner.time,
+        });
+        await this.loadWinners();
+      }
+    } catch (error) {
+      console.error("Error updating car:", error);
+    }
+  }
+
+  public async loadWinners() {
+    try {
+      const winners = await CarService.getWinners();
+      this.winners$.set(winners);
+    } catch (error) {
+      console.error("Error loading winners:", error);
+    }
   }
 
   public async goToNextPage() {

@@ -4,6 +4,12 @@ export interface Car {
   color: string;
 }
 
+export type Winner = {
+  id: number;
+  wins: number;
+  time: number;
+};
+
 export type Id = {
   id: number;
 };
