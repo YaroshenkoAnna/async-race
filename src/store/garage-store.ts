@@ -16,8 +16,12 @@ export class GarageStore {
     try {
       await CarService.createCar(name, color);
       await this.loadCars(this.currentPage);
-    } catch (error) {
-      console.error("Failed to add car:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Failed to add car:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 
@@ -27,8 +31,12 @@ export class GarageStore {
       await CarService.deleteWinner(id);
       await this.loadCars(this.currentPage);
       await this.loadWinners();
-    } catch (error) {
-      console.error("Error deleting car:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error deleting car:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 
@@ -44,8 +52,12 @@ export class GarageStore {
         });
         await this.loadWinners();
       }
-    } catch (error) {
-      console.error("Error updating car:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error updating car:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 
@@ -53,8 +65,12 @@ export class GarageStore {
     try {
       const winners = await CarService.getWinners();
       this.winners$.set(winners);
-    } catch (error) {
-      console.error("Error loading winners:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error loading winners:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 
@@ -69,10 +85,33 @@ export class GarageStore {
   }
 
   public async loadCars(page: number): Promise<void> {
-    const { cars, total } = await CarService.getCars(page);
-    this.cars$.set(cars);
-    this.total$.set(total);
-    this.currentPage = page;
+    try {
+      const { cars, total } = await CarService.getCars(page);
+      this.cars$.set(cars);
+      this.total$.set(total);
+      this.currentPage = page;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error loading cars:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
+    }
+  }
+
+  public addWinner(id: number, time: number) {
+    const currentWinner = this.winners$.value.find(
+      (winner) => winner.id === id,
+    );
+    if (currentWinner) {
+      currentWinner.time = Math.min(currentWinner.time, time);
+    } else {
+      this.winners$.set([...this.winners$.value, { id, time, wins: 1 }]);
+    }
+  }
+
+  public getWinners() {
+    return [...this.winners$.value];
   }
 
   public async generateRandomCars() {
@@ -106,7 +145,7 @@ export class GarageStore {
       "Macan",
     ];
 
-    const carPromises = Array.from({ length: 100 }, async () => {
+    const carPromises = Array.from({ length: 100 }, () => {
       const name = `${getRandomElement(carBrands)} ${getRandomElement(carModels)}`;
       const color = getRandomColor();
       return CarService.createCar(name, color);
@@ -115,8 +154,12 @@ export class GarageStore {
     try {
       await Promise.all(carPromises);
       await this.loadCars(this.currentPage);
-    } catch (error) {
-      console.error("Error generating cars:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error generating cars:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 }

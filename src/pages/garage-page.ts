@@ -3,20 +3,23 @@ import { Form } from "../components/form/form";
 import { Button } from "../components/button/button";
 import { CarCard } from "../components/car-card/car-card";
 import type { GarageStore } from "../store/garage-store";
-import { isCar, type Car, isId } from "../types/types";
+import { RaceManager } from "../store/race-manager";
+import { isCar, type Car, isId, isCarEngineOptions } from "../types/types";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
   private selectedCarName: string = "";
   private selectedCarColor: string = "";
+  private outlet: BaseElement<"div">;
   private title: BaseElement<"h1">;
   private pageNumber: BaseElement<"h2">;
   private store: GarageStore;
   private carListContainer: BaseElement<"div">;
 
-  constructor(store: GarageStore) {
+  constructor(store: GarageStore, outlet: BaseElement<"div">) {
     super({ tag: "div" });
     this.store = store;
+    this.outlet = outlet;
     this.title = new BaseElement<"h1">({ tag: "h1", text: `Garage (0)` });
     this.pageNumber = new BaseElement<"h2">({ tag: "h2", text: "Page #1" });
     this.carListContainer = new BaseElement({ tag: "div" });
@@ -148,8 +151,7 @@ export class GaragePage extends BaseElement<"div"> {
       const carCard = new CarCard(car.id, car.name, car.color);
       carCard.addListener("carSelected", (event: Event) => {
         if (event instanceof CustomEvent && isCar(event.detail)) {
-          const selectedId = event.detail.id;
-          this.handleSelectCar(selectedId, car.name, car.color);
+          this.handleSelectCar(event.detail.id, car.name, car.color);
         }
       });
 
@@ -161,6 +163,35 @@ export class GaragePage extends BaseElement<"div"> {
               await this.store.removeCar(carId);
             } catch (error) {
               console.error("Error while removing car:", error);
+            }
+          }
+        })();
+      });
+
+      carCard.addListener("carMoveStarted", (event: Event) => {
+        void (async () => {
+          if (
+            event instanceof CustomEvent &&
+            isCarEngineOptions(event.detail)
+          ) {
+            const carId = event.detail.id;
+            try {
+              const carElement = carCard.car.node;
+              if (carElement instanceof HTMLElement) {
+                console.log(carElement.offsetWidth);
+              } else {
+                console.error("Car element is not a valid HTMLElement.");
+              }
+              if (carElement instanceof HTMLElement) {
+                await RaceManager.moveCar(
+                  { id: carId, element: carElement },
+                  this.outlet.node.clientWidth - carElement.offsetWidth,
+                );
+              } else {
+                console.error("Car element is not a valid HTMLElement.");
+              }
+            } catch (error) {
+              console.error("Error while starting car:", error);
             }
           }
         })();

@@ -8,7 +8,7 @@ import { GarageStore } from "./store/garage-store";
 const container = new BaseElement({ tag: "div" });
 document.body.append(container.node);
 const garageStore = new GarageStore();
-const garage = new GaragePage(garageStore);
+const garage = new GaragePage(garageStore, container);
 const winners = new Winners(garageStore);
 const navigation = new Navigation(container, garage, winners);
 

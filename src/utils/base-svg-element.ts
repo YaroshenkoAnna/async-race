@@ -14,6 +14,9 @@ export class BaseSVGElement extends BaseElementCommon {
       "http://www.w3.org/2000/svg",
       "svg",
     );
+    if (options.classNames) {
+      this.addClasses(options.classNames);
+    }
     this.setAttributes(options.attributes);
     const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
     use.setAttribute("href", options.href);

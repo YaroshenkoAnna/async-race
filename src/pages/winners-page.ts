@@ -49,8 +49,6 @@ export class Winners extends BaseElement<"div"> {
   }
 
   private async renderWinners(winners: Winner[]) {
-    console.log("Rendering winners...");
-
     this.tableBody.deleteChildren();
 
     for (const winner of winners) {

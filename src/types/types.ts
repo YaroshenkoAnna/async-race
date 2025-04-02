@@ -14,6 +14,11 @@ export type Id = {
   id: number;
 };
 
+export type CarEngineOptions = {
+  id: number;
+  status: "started" | "stopped";
+};
+
 export function isCar(detail: unknown): detail is Car {
   return (
     typeof detail === "object" &&
@@ -33,5 +38,18 @@ export function isId(detail: unknown): detail is Id {
     detail !== null &&
     "id" in detail &&
     typeof detail.id === "number"
+  );
+}
+
+export function isCarEngineOptions(
+  detail: unknown,
+): detail is CarEngineOptions {
+  return (
+    typeof detail === "object" &&
+    detail !== null &&
+    "id" in detail &&
+    typeof detail.id === "number" &&
+    "status" in detail &&
+    (detail.status === "started" || detail.status === "stopped")
   );
 }

@@ -1,0 +1,44 @@
+.card {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-areas:
+    "select select select delete"
+    "start reset title title"
+    "car car _ _";
+
+  grid-template-columns: 2.9rem 2.9rem 1fr 1fr;
+  position: relative;
+  border-bottom: 3px dotted #ffffff;
+}
+
+.select {
+  grid-area: select;
+}
+
+.delete {
+  grid-area: delete;
+}
+
+.title {
+  grid-area: title;
+  text-align: center;
+}
+
+.start {
+  grid-area: start;
+}
+
+.reset {
+  grid-area: reset;
+}
+
+.car {
+  display: inline;
+  grid-area: car;
+}
+
+.flag {
+  position: absolute;
+  right: 100px;
+  bottom: 5px;
+}
