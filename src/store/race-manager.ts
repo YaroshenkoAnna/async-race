@@ -1,11 +1,12 @@
 import { EngineService } from "../api/engine-service";
 
 export class RaceManager {
+  private static animationFrameIds: Map<number, number> = new Map();
+  private static isAnimating: Map<number, boolean> = new Map();
+  private static isEngineRunning: Map<number, boolean> = new Map();
+
   static async moveCar(
-    car: {
-      id: number;
-      element: HTMLElement;
-    },
+    car: { id: number; element: HTMLElement },
     distance: number,
   ): Promise<number> {
     const response = await EngineService.startEngine(car.id);
@@ -19,52 +20,81 @@ export class RaceManager {
     ) {
       throw new Error("Invalid response from engine service");
     }
+
     const time = distance / response.velocity;
-    await this.animateCar(car.element, time, distance);
+    this.isAnimating.set(car.id, true);
+    this.isEngineRunning.set(car.id, true);
+
+    await Promise.all([
+      this.animateCar(car.id, car.element, time, distance),
+      this.monitorDriveStatus(car.id),
+    ]);
+
     return time;
   }
 
-  /*  static async startRace(cars: { id: number; element: HTMLElement }[]) {
-    const results = await Promise.allSettled(
-      cars.map(async (car) => {
-        const time = await this.moveCar(car);
-        await EngineService.drive(car.id);
-        return { id: car.id, time };
-      })
-    );
+  private static async monitorDriveStatus(carId: number) {
+    try {
+      try {
+        await EngineService.drive(carId);
+      } catch (error: unknown) {
+        while (this.isAnimating.get(carId)) {
+          if (error instanceof Error && error.message === "Engine failure") {
+            this.stopAnimation(carId);
+            await EngineService.stopEngine(carId);
+            break;
+          }
+          if (
+            error instanceof Error &&
+            error.message.includes("Failed to drive")
+          ) {
+            break;
+          }
+        }
 
-    const winners = results
-      .filter(
-        (
-          resource
-        ): resource is PromiseFulfilledResult<{ id: number; time: number }> =>
-          resource.status === "fulfilled"
-      )
-      .sort((a, b) => a.value.time - b.value.time);
-
-    return winners.length > 0 ? winners[0].value : null;
-  } */
-
-  static async resetRace(cars: { id: number; element: HTMLElement }[]) {
-    await Promise.all(cars.map(({ id }) => EngineService.stopEngine(id)));
-    cars.forEach(({ element }) => (element.style.transform = "translateX(0)"));
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    } catch (error) {
+      console.error(` Unexpected error for car ${carId}:`, error);
+    }
   }
 
   private static async animateCar(
+    carId: number,
     car: HTMLElement,
     time: number,
     distance: number,
   ) {
     const startTime = performance.now();
+
     return new Promise<void>((resolve) => {
       const animate = (currentTime: number) => {
+        if (!this.isAnimating.get(carId)) return;
+
         const elapsedTime = (currentTime - startTime) / 1000;
         const progress = Math.min(elapsedTime / time, 1);
         car.style.transform = `translateX(${progress * distance}px)`;
-        if (progress < 1) requestAnimationFrame(animate);
-        else resolve();
+
+        if (progress < 1) {
+          const frameId = requestAnimationFrame(animate);
+          this.animationFrameIds.set(carId, frameId);
+        } else {
+          this.isAnimating.set(carId, false);
+          this.isEngineRunning.set(carId, false);
+          resolve();
+        }
       };
-      requestAnimationFrame(animate);
+
+      const frameId = requestAnimationFrame(animate);
+      this.animationFrameIds.set(carId, frameId);
     });
+  }
+
+  private static stopAnimation(carId: number) {
+    this.isAnimating.set(carId, false);
+    if (this.animationFrameIds.has(carId)) {
+      cancelAnimationFrame(this.animationFrameIds.get(carId)!);
+      this.animationFrameIds.delete(carId);
+    }
   }
 }

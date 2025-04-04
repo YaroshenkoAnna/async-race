@@ -178,11 +178,6 @@ export class GaragePage extends BaseElement<"div"> {
             try {
               const carElement = carCard.car.node;
               if (carElement instanceof HTMLElement) {
-                console.log(carElement.offsetWidth);
-              } else {
-                console.error("Car element is not a valid HTMLElement.");
-              }
-              if (carElement instanceof HTMLElement) {
                 await RaceManager.moveCar(
                   { id: carId, element: carElement },
                   this.outlet.node.clientWidth - carElement.offsetWidth,
