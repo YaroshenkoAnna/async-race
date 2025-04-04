@@ -4,7 +4,7 @@ import { Button } from "../components/button/button";
 import { CarCard } from "../components/car-card/car-card";
 import type { GarageStore } from "../store/garage-store";
 import { RaceManager } from "../store/race-manager";
-import { isCar, type Car, isId, isCarEngineOptions } from "../types/types";
+import { isCar, type Car, isId } from "../types/types";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
@@ -92,11 +92,13 @@ export class GaragePage extends BaseElement<"div"> {
     const controls = new BaseElement<"div">({ tag: "div" });
     const raceButton = new Button({
       text: "Race",
-      callback: () => console.log("race"),
+      callback: () => {
+        void this.startRace();
+      },
     });
     const resetButton = new Button({
       text: "Reset",
-      callback: () => console.log("reset"),
+      callback: () => this.resetAll(),
     });
     const generateButton = new Button({
       text: "Generate cars",
@@ -108,6 +110,43 @@ export class GaragePage extends BaseElement<"div"> {
     });
     controls.appendChildren(raceButton, resetButton, generateButton);
     return controls;
+  }
+
+  private async startRace() {
+    const cars: { id: number; element: HTMLElement }[] = [];
+
+    for (const carCard of this.carListContainer.children) {
+      if (
+        carCard instanceof CarCard &&
+        carCard.car.node instanceof HTMLElement
+      ) {
+        cars.push({ id: carCard.id, element: carCard.car.node });
+      }
+    }
+
+    try {
+      const winnerId = await RaceManager.startRace(cars);
+      console.log(`🏁 Winner is car #${winnerId}`);
+
+      // this.store.addWinner(winnerId, 0);
+    } catch (error) {
+      console.error("Race error:", error);
+    }
+  }
+
+  private resetAll() {
+    const cars: { id: number; element: HTMLElement }[] = [];
+
+    for (const carCard of this.carListContainer.children) {
+      if (
+        carCard instanceof CarCard &&
+        carCard.car.node instanceof HTMLElement
+      ) {
+        cars.push({ id: carCard.id, element: carCard.car.node });
+      }
+    }
+
+    RaceManager.resetAll(cars);
   }
 
   private renderPagination() {
@@ -170,10 +209,7 @@ export class GaragePage extends BaseElement<"div"> {
 
       carCard.addListener("carMoveStarted", (event: Event) => {
         void (async () => {
-          if (
-            event instanceof CustomEvent &&
-            isCarEngineOptions(event.detail)
-          ) {
+          if (event instanceof CustomEvent && isId(event.detail)) {
             const carId = event.detail.id;
             try {
               const carElement = carCard.car.node;
@@ -187,6 +223,17 @@ export class GaragePage extends BaseElement<"div"> {
               }
             } catch (error) {
               console.error("Error while starting car:", error);
+            }
+          }
+        })();
+      });
+
+      carCard.addListener("carMoveReset", (event: Event) => {
+        (() => {
+          if (event instanceof CustomEvent && isId(event.detail)) {
+            const carId = event.detail.id;
+            if (carCard.car.node instanceof HTMLElement) {
+              RaceManager.resetCarPosition(carId, carCard.car.node);
             }
           }
         })();

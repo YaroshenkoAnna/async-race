@@ -5,6 +5,20 @@ export class RaceManager {
   private static isAnimating: Map<number, boolean> = new Map();
   private static isEngineRunning: Map<number, boolean> = new Map();
 
+  static stopAnimation(carId: number) {
+    this.isAnimating.set(carId, false);
+    if (this.animationFrameIds.has(carId)) {
+      cancelAnimationFrame(this.animationFrameIds.get(carId)!);
+      this.animationFrameIds.delete(carId);
+    }
+  }
+
+  static resetCarPosition(carId: number, carElement: HTMLElement) {
+    this.isAnimating.set(carId, false);
+    this.isEngineRunning.set(carId, false);
+    carElement.style.transform = `translateX(0px)`;
+  }
+
   static async moveCar(
     car: { id: number; element: HTMLElement },
     distance: number,
@@ -31,6 +45,28 @@ export class RaceManager {
     ]);
 
     return time;
+  }
+
+  static async startRace(
+    cars: { id: number; element: HTMLElement }[],
+  ): Promise<number> {
+    const raceResults = cars.map(({ id, element }) =>
+      this.moveCar(
+        { id, element },
+        element.parentElement!.clientWidth - element.offsetWidth,
+      )
+        .then(() => id)
+        .catch(() => null),
+    );
+
+    const winnerId = await Promise.race(raceResults.filter(Boolean));
+    return winnerId!;
+  }
+
+  static resetAll(cars: { id: number; element: HTMLElement }[]): void {
+    cars.forEach(({ id, element }) => {
+      this.resetCarPosition(id, element);
+    });
   }
 
   private static async monitorDriveStatus(carId: number) {
@@ -88,13 +124,5 @@ export class RaceManager {
       const frameId = requestAnimationFrame(animate);
       this.animationFrameIds.set(carId, frameId);
     });
-  }
-
-  private static stopAnimation(carId: number) {
-    this.isAnimating.set(carId, false);
-    if (this.animationFrameIds.has(carId)) {
-      cancelAnimationFrame(this.animationFrameIds.get(carId)!);
-      this.animationFrameIds.delete(carId);
-    }
   }
 }

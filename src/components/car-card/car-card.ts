@@ -1,4 +1,4 @@
-import type { Car, Id, CarEngineOptions } from "../../types/types";
+import type { Car, Id } from "../../types/types";
 import { BaseElement } from "../../utils/base-element";
 import { BaseSVGElement } from "../../utils/base-svg-element";
 import { Button } from "../button/button";
@@ -6,7 +6,7 @@ import styles from "./car-card.module.scss";
 
 export class CarCard extends BaseElement<"div"> {
   public car: BaseElement<"div">;
-  private id: number;
+  public id: number;
   private name: string;
   private color: string;
   private carImage: BaseSVGElement;
@@ -72,13 +72,10 @@ export class CarCard extends BaseElement<"div"> {
       classNames: [styles.start],
       text: "Start",
       callback: () => {
-        const carMoveStartedEvent = new CustomEvent<CarEngineOptions>(
-          "carMoveStarted",
-          {
-            detail: { id: this.id, status: "started" },
-            bubbles: true,
-          },
-        );
+        const carMoveStartedEvent = new CustomEvent<Id>("carMoveStarted", {
+          detail: { id: this.id },
+          bubbles: true,
+        });
         this.node.dispatchEvent(carMoveStartedEvent);
       },
     });
@@ -86,7 +83,11 @@ export class CarCard extends BaseElement<"div"> {
       classNames: [styles.reset],
       text: "B",
       callback: () => {
-        console.log("Remove");
+        const carMoveResetEvent = new CustomEvent<Id>("carMoveReset", {
+          detail: { id: this.id },
+          bubbles: true,
+        });
+        this.node.dispatchEvent(carMoveResetEvent);
       },
     });
 
