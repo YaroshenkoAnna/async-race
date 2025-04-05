@@ -49,18 +49,18 @@ export class RaceManager {
 
   static async startRace(
     cars: { id: number; element: HTMLElement }[],
-  ): Promise<number> {
-    const raceResults = cars.map(({ id, element }) =>
-      this.moveCar(
-        { id, element },
-        element.parentElement!.clientWidth - element.offsetWidth,
-      )
-        .then(() => id)
-        .catch(() => null),
-    );
+  ): Promise<{ id: number; time: number } | null> {
+    const racePromises = cars.map(({ id, element }) => {
+      const distance = element.parentElement!.clientWidth - element.offsetWidth;
 
-    const winnerId = await Promise.race(raceResults.filter(Boolean));
-    return winnerId!;
+      return this.moveCar({ id, element }, distance)
+        .then((time) => ({ id, time }))
+        .catch(() => null);
+    });
+
+    const winner = await Promise.race(racePromises);
+
+    return winner;
   }
 
   static resetAll(cars: { id: number; element: HTMLElement }[]): void {

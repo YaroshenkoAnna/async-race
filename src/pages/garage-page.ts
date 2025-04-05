@@ -5,6 +5,8 @@ import { CarCard } from "../components/car-card/car-card";
 import type { GarageStore } from "../store/garage-store";
 import { RaceManager } from "../store/race-manager";
 import { isCar, type Car, isId } from "../types/types";
+import { Modal } from "../components/modal/modal";
+import { CarService } from "../api/car-service";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
@@ -125,10 +127,13 @@ export class GaragePage extends BaseElement<"div"> {
     }
 
     try {
-      const winnerId = await RaceManager.startRace(cars);
-      console.log(`🏁 Winner is car #${winnerId}`);
-
-      // this.store.addWinner(winnerId, 0);
+      const winner = await RaceManager.startRace(cars);
+      if (winner) {
+        const winningCar = await CarService.getCar(winner.id);
+        if (winningCar) {
+          this.outlet.appendChildren(new Modal(winningCar.name, winner.time));
+        }
+      }
     } catch (error) {
       console.error("Race error:", error);
     }

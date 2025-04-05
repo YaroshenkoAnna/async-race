@@ -35,6 +35,7 @@ export default tseslint.config(
       "@typescript-eslint/member-ordering": "error",
       "unicorn/better-regex": "warn",
       "unicorn/no-array-for-each": "off",
+      "unicorn/no-array-reduce": "off",
       "unicorn/no-null": "off",
       "unicorn/prefer-event-target": "off",
       "unicorn/prevent-abbreviations": [
