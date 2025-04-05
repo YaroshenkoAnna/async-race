@@ -30,7 +30,7 @@ export class GarageStore {
       await CarService.deleteCar(id);
       await CarService.deleteWinner(id);
       await this.loadCars(this.currentPage);
-      await this.loadWinners();
+      await this.loadWinners(this.currentPage, 10);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error deleting car:", error.message);
@@ -50,7 +50,7 @@ export class GarageStore {
           wins: winner.wins,
           time: winner.time,
         });
-        await this.loadWinners();
+        await this.loadWinners(this.currentPage, 10);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -61,10 +61,11 @@ export class GarageStore {
     }
   }
 
-  public async loadWinners() {
+  public async loadWinners(page: number, limit: number) {
     try {
-      const winners = await CarService.getWinners();
+      const winners = await CarService.getWinners(page, limit);
       this.winners$.set(winners);
+      this.currentPage = page;
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error loading winners:", error.message);
@@ -76,11 +77,13 @@ export class GarageStore {
 
   public async goToNextPage() {
     const nextPage = this.currentPage + 1;
+    this.currentPage = nextPage;
     await this.loadCars(nextPage);
   }
 
   public async goToPreviousPage() {
     const previousPage = Math.max(1, this.currentPage - 1);
+    this.currentPage = previousPage;
     await this.loadCars(previousPage);
   }
 
@@ -110,7 +113,7 @@ export class GarageStore {
           })
         : CarService.createWinner({ id, wins: 1, time }));
 
-      await this.loadWinners();
+      await this.loadWinners(this.currentPage, 10);
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error adding/updating winner:", error.message);

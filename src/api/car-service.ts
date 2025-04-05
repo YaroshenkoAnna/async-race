@@ -47,8 +47,10 @@ export class CarService {
     });
   }
 
-  public static async getWinners(): Promise<Winner[]> {
-    const response = await fetch(`${this.BASE_URL}/winners`);
+  public static async getWinners(page: number, limit = 10): Promise<Winner[]> {
+    const response = await fetch(
+      `${this.BASE_URL}/winners?_page=${page}&_limit=${limit}`,
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch winners");
     }

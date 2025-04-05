@@ -34,10 +34,11 @@ export class Winners extends BaseElement<"div"> {
       void this.renderWinners();
     });
 
-    void this.store.loadWinners();
+    void this.store.loadWinners(this.store.currentPage, 10);
     this.sortKey = "time";
     this.sortOrder = "asc";
     this.updateHeaders();
+    this.renderControls();
   }
 
   private render() {
@@ -51,10 +52,14 @@ export class Winners extends BaseElement<"div"> {
     const headerName = new BaseElement<"th">({ tag: "th", text: "Name" });
 
     this.headerWins.node.style.cursor = "pointer";
-    this.headerWins.addListener("click", () => this.toggleSort("wins"));
+    this.headerWins.addListener("click", () => {
+      void (async () => await this.toggleSort("wins"))();
+    });
 
     this.headerBestTime.node.style.cursor = "pointer";
-    this.headerBestTime.addListener("click", () => this.toggleSort("time"));
+    this.headerBestTime.addListener("click", () => {
+      void (async () => await this.toggleSort("time"))();
+    });
 
     headerRow.appendChildren(
       headerIndex,
@@ -72,7 +77,7 @@ export class Winners extends BaseElement<"div"> {
     this.updateHeaders();
   }
 
-  private toggleSort(key: SortKey) {
+  private async toggleSort(key: SortKey) {
     if (this.sortKey === key) {
       this.sortOrder = this.sortOrder === "desc" ? "asc" : "desc";
     } else {
@@ -81,7 +86,7 @@ export class Winners extends BaseElement<"div"> {
     }
 
     this.updateHeaders();
-    void this.renderWinners();
+    await this.renderWinners();
   }
 
   private async renderWinners() {
@@ -177,5 +182,37 @@ export class Winners extends BaseElement<"div"> {
     this.headerBestTime.setText(
       this.getHeaderText("time", "Best Time (seconds)"),
     );
+  }
+
+  private renderControls() {
+    const previousButton = new BaseElement<"button">({
+      tag: "button",
+      text: "Prev",
+    });
+    const nextButton = new BaseElement<"button">({
+      tag: "button",
+      text: "Next",
+    });
+
+    previousButton.addListener("click", () => {
+      void this.handlePreviousPage();
+    });
+    nextButton.addListener("click", () => {
+      void this.handleNextPage();
+    });
+
+    this.appendChildren(previousButton, nextButton);
+  }
+
+  private async handleNextPage() {
+    const nextPage = this.store.currentPage + 1;
+    await this.store.loadWinners(nextPage, 10);
+    this.pageNumber.setText(`Page #${nextPage}`);
+  }
+
+  private async handlePreviousPage() {
+    const previousPage = Math.max(1, this.store.currentPage - 1);
+    await this.store.loadWinners(previousPage, 10);
+    this.pageNumber.setText(`Page #${previousPage}`);
   }
 }

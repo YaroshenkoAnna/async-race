@@ -125,7 +125,6 @@ export class GaragePage extends BaseElement<"div"> {
         cars.push({ id: carCard.id, element: carCard.car.node });
       }
     }
-
     try {
       const winner = await RaceManager.startRace(cars);
       if (winner) {
