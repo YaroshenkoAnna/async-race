@@ -99,14 +99,24 @@ export class GarageStore {
     }
   }
 
-  public addWinner(id: number, time: number) {
-    const currentWinner = this.winners$.value.find(
-      (winner) => winner.id === id,
-    );
-    if (currentWinner) {
-      currentWinner.time = Math.min(currentWinner.time, time);
-    } else {
-      this.winners$.set([...this.winners$.value, { id, time, wins: 1 }]);
+  public async addWinner(id: number, time: number) {
+    try {
+      const existingWinner = await CarService.getWinner(id);
+
+      await (existingWinner
+        ? CarService.updateWinner(id, {
+            time: Math.min(existingWinner.time, time),
+            wins: existingWinner.wins + 1,
+          })
+        : CarService.createWinner({ id, wins: 1, time }));
+
+      await this.loadWinners();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error adding/updating winner:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 

@@ -131,6 +131,7 @@ export class GaragePage extends BaseElement<"div"> {
       if (winner) {
         const winningCar = await CarService.getCar(winner.id);
         if (winningCar) {
+          await this.store.addWinner(winner.id, winner.time);
           this.outlet.appendChildren(new Modal(winningCar.name, winner.time));
         }
       }
