@@ -112,12 +112,13 @@ export class Winners extends BaseElement<"div"> {
 
     this.title.setText(`Winners (${sorted.length})`);
 
-    for (const [index, winner] of sorted.entries()) {
+    let globalIndex = (this.store.currentPage - 1) * 10 + 1;
+    for (const winner of sorted) {
       const row = new BaseElement<"tr">({ tag: "tr" });
 
       const indexCell = new BaseElement<"td">({
         tag: "td",
-        text: (index + 1).toString(),
+        text: (globalIndex++).toString(),
       });
 
       const numberCell = new BaseElement<"td">({
@@ -206,12 +207,14 @@ export class Winners extends BaseElement<"div"> {
 
   private async handleNextPage() {
     const nextPage = this.store.currentPage + 1;
+    this.store.currentPage = nextPage;
     await this.store.loadWinners(nextPage, 10);
     this.pageNumber.setText(`Page #${nextPage}`);
   }
 
   private async handlePreviousPage() {
     const previousPage = Math.max(1, this.store.currentPage - 1);
+    this.store.currentPage = previousPage;
     await this.store.loadWinners(previousPage, 10);
     this.pageNumber.setText(`Page #${previousPage}`);
   }

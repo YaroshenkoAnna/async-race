@@ -15,4 +15,12 @@ export class Button extends BaseElement<"button"> {
     });
     this.addListener("click", options.callback);
   }
+
+  public disable(): void {
+    this.setAttributes({ disabled: "true" });
+  }
+
+  public enable(): void {
+    this.removeAttribute("disabled");
+  }
 }

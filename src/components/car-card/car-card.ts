@@ -7,6 +7,9 @@ import styles from "./car-card.module.scss";
 export class CarCard extends BaseElement<"div"> {
   public car: BaseElement<"div">;
   public id: number;
+  public buttons: Button[];
+  public startButton: Button;
+  public backButton: Button;
   private name: string;
   private color: string;
   private carImage: BaseSVGElement;
@@ -24,6 +27,38 @@ export class CarCard extends BaseElement<"div"> {
       href: "/sprite.svg#auto",
       attributes: { width: "100", height: "50" },
     });
+    this.buttons = [];
+
+    this.startButton = new Button({
+      classNames: [styles.start],
+      text: "Start",
+      callback: () => {
+        const event = new CustomEvent<Id>("carMoveStarted", {
+          detail: { id: this.id },
+          bubbles: true,
+        });
+        this.backButton.enable();
+        this.startButton.disable();
+        this.node.dispatchEvent(event);
+      },
+    });
+
+    this.backButton = new Button({
+      classNames: [styles.reset],
+      text: "B",
+      callback: () => {
+        const event = new CustomEvent<Id>("carMoveReset", {
+          detail: { id: this.id },
+          bubbles: true,
+        });
+        this.startButton.enable();
+        this.backButton.disable();
+        this.node.dispatchEvent(event);
+      },
+    });
+
+    this.backButton.disable();
+
     this.render();
   }
 
@@ -68,41 +103,25 @@ export class CarCard extends BaseElement<"div"> {
       },
     });
 
-    const moveButton = new Button({
-      classNames: [styles.start],
-      text: "Start",
-      callback: () => {
-        const carMoveStartedEvent = new CustomEvent<Id>("carMoveStarted", {
-          detail: { id: this.id },
-          bubbles: true,
-        });
-        this.node.dispatchEvent(carMoveStartedEvent);
-      },
-    });
-    const backButton = new Button({
-      classNames: [styles.reset],
-      text: "B",
-      callback: () => {
-        const carMoveResetEvent = new CustomEvent<Id>("carMoveReset", {
-          detail: { id: this.id },
-          bubbles: true,
-        });
-        this.node.dispatchEvent(carMoveResetEvent);
-      },
-    });
-
     const flag = new BaseSVGElement({
       classNames: [styles.flag],
       href: "/sprite.svg#flag",
       attributes: { width: "40", height: "40" },
     });
 
+    this.buttons.push(
+      selectButton,
+      removeButton,
+      this.startButton,
+      this.backButton,
+    );
+
     this.appendChildren(
       selectButton,
       removeButton,
       carName,
-      moveButton,
-      backButton,
+      this.startButton,
+      this.backButton,
       this.car,
       flag,
     );

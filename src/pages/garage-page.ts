@@ -7,6 +7,7 @@ import { RaceManager } from "../store/race-manager";
 import { isCar, type Car, isId } from "../types/types";
 import { Modal } from "../components/modal/modal";
 import { CarService } from "../api/car-service";
+import { Controls } from "../components/controls/controls";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
@@ -17,6 +18,10 @@ export class GaragePage extends BaseElement<"div"> {
   private pageNumber: BaseElement<"h2">;
   private store: GarageStore;
   private carListContainer: BaseElement<"div">;
+  private createForm: Form;
+  private updateForm: Form;
+  private controls: Controls;
+  private activeCars: Set<number> = new Set();
 
   constructor(store: GarageStore, outlet: BaseElement<"div">) {
     super({ tag: "div" });
@@ -28,7 +33,17 @@ export class GaragePage extends BaseElement<"div"> {
     this.store.total$.subscribe((total) => {
       this.title.setText(`Garage (${total})`);
     });
-
+    this.controls = new Controls({
+      onRace: () => {
+        void this.startRace();
+      },
+      onReset: () => this.resetAll(),
+      onGenerate: () => {
+        void this.store.generateRandomCars();
+      },
+    });
+    this.createForm = this.renderCreateForm();
+    this.updateForm = this.renderUpdateForm();
     this.render();
     this.bindStore();
   }
@@ -37,18 +52,17 @@ export class GaragePage extends BaseElement<"div"> {
     this.selectedCarId = id;
     this.selectedCarName = name;
     this.selectedCarColor = color;
+    this.controls.disable();
   }
 
   private render() {
-    const createForm = this.createForm();
-    const updateForm = this.updateForm();
-    const controls = this.renderControls();
+    this.updateForm.disable();
     const pagination = this.renderPagination();
 
     this.appendChildren(
-      createForm,
-      updateForm,
-      controls,
+      this.createForm,
+      this.updateForm,
+      this.controls,
       this.title,
       this.pageNumber,
       this.carListContainer,
@@ -56,7 +70,7 @@ export class GaragePage extends BaseElement<"div"> {
     );
   }
 
-  private createForm() {
+  private renderCreateForm() {
     return new Form({
       buttonText: "Create",
       callback: async (name, color) => {
@@ -69,7 +83,7 @@ export class GaragePage extends BaseElement<"div"> {
     });
   }
 
-  private updateForm() {
+  private renderUpdateForm() {
     return new Form({
       buttonText: "Update",
       callback: async (name, color) => {
@@ -83,6 +97,10 @@ export class GaragePage extends BaseElement<"div"> {
             name,
             color,
           });
+          this.updateForm.disable();
+          this.createForm.enable();
+          this.selectedCarId = null;
+          this.controls.enable();
         } catch (error) {
           console.error("Error while updating car:", error);
         }
@@ -90,31 +108,12 @@ export class GaragePage extends BaseElement<"div"> {
     });
   }
 
-  private renderControls() {
-    const controls = new BaseElement<"div">({ tag: "div" });
-    const raceButton = new Button({
-      text: "Race",
-      callback: () => {
-        void this.startRace();
-      },
-    });
-    const resetButton = new Button({
-      text: "Reset",
-      callback: () => this.resetAll(),
-    });
-    const generateButton = new Button({
-      text: "Generate cars",
-      callback: () => {
-        this.store.generateRandomCars().catch((error) => {
-          console.error("Error generating cars:", error);
-        });
-      },
-    });
-    controls.appendChildren(raceButton, resetButton, generateButton);
-    return controls;
-  }
-
   private async startRace() {
+    this.updateForm.disable();
+    this.createForm.disable();
+    this.controls.disable();
+    this.controls.setResetEnabled(true);
+
     const cars: { id: number; element: HTMLElement }[] = [];
 
     for (const carCard of this.carListContainer.children) {
@@ -122,9 +121,11 @@ export class GaragePage extends BaseElement<"div"> {
         carCard instanceof CarCard &&
         carCard.car.node instanceof HTMLElement
       ) {
+        carCard.buttons.forEach((button) => button.disable());
         cars.push({ id: carCard.id, element: carCard.car.node });
       }
     }
+
     try {
       const winner = await RaceManager.startRace(cars);
       if (winner) {
@@ -140,6 +141,8 @@ export class GaragePage extends BaseElement<"div"> {
   }
 
   private resetAll() {
+    this.controls.enable();
+    this.controls.setResetEnabled(true);
     const cars: { id: number; element: HTMLElement }[] = [];
 
     for (const carCard of this.carListContainer.children) {
@@ -147,11 +150,16 @@ export class GaragePage extends BaseElement<"div"> {
         carCard instanceof CarCard &&
         carCard.car.node instanceof HTMLElement
       ) {
+        carCard.startButton.enable();
+        carCard.backButton.disable();
+
         cars.push({ id: carCard.id, element: carCard.car.node });
       }
     }
 
     RaceManager.resetAll(cars);
+    this.activeCars.clear();
+    this.controls.setResetEnabled(false);
   }
 
   private renderPagination() {
@@ -195,6 +203,8 @@ export class GaragePage extends BaseElement<"div"> {
       const carCard = new CarCard(car.id, car.name, car.color);
       carCard.addListener("carSelected", (event: Event) => {
         if (event instanceof CustomEvent && isCar(event.detail)) {
+          this.createForm.disable();
+          this.updateForm.enable();
           this.handleSelectCar(event.detail.id, car.name, car.color);
         }
       });
@@ -216,6 +226,8 @@ export class GaragePage extends BaseElement<"div"> {
         void (async () => {
           if (event instanceof CustomEvent && isId(event.detail)) {
             const carId = event.detail.id;
+            this.activeCars.add(carId);
+            this.controls.setResetEnabled(true);
             try {
               const carElement = carCard.car.node;
               if (carElement instanceof HTMLElement) {
@@ -239,6 +251,10 @@ export class GaragePage extends BaseElement<"div"> {
             const carId = event.detail.id;
             if (carCard.car.node instanceof HTMLElement) {
               RaceManager.resetCarPosition(carId, carCard.car.node);
+            }
+            this.activeCars.delete(carId);
+            if (this.activeCars.size === 0) {
+              this.controls.setResetEnabled(false);
             }
           }
         })();

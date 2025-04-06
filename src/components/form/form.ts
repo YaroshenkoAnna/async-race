@@ -20,6 +20,18 @@ export class Form extends BaseElement<"form"> {
     this.render();
   }
 
+  public disable(): void {
+    this.children.forEach((child) => {
+      if (child instanceof Button || child instanceof Input) child.disable();
+    });
+  }
+
+  public enable(): void {
+    this.children.forEach((child) => {
+      if (child instanceof Button || child instanceof Input) child.enable();
+    });
+  }
+
   private render() {
     const button = new Button({
       text: this.options.buttonText,
