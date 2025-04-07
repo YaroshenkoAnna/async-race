@@ -5,7 +5,7 @@ import type { Winner } from "../types/types";
 import { CarService } from "../api/car-service";
 import { Button } from "../components/button/button";
 
-type SortKey = "wins" | "time" | null;
+type SortKey = "wins" | "time";
 type SortOrder = "asc" | "desc" | null;
 
 export class Winners extends BaseElement<"div"> {
@@ -14,22 +14,19 @@ export class Winners extends BaseElement<"div"> {
   private tableBody = new BaseElement<"tbody">({ tag: "tbody" });
   private headerWins = new BaseElement<"th">({ tag: "th" });
   private headerBestTime = new BaseElement<"th">({ tag: "th" });
+  private sortAllWinners = true;
+  private sortKey: SortKey = "time";
+  private sortOrder: SortOrder = "asc";
 
   private previousButton = new Button({
     text: "Prev",
-    callback: () => {
-      void this.handlePageChange(-1);
-    },
-  });
-  private nextButton = new Button({
-    text: "Next",
-    callback: () => {
-      void this.handlePageChange(1);
-    },
+    callback: () => void this.store.previous("winners"),
   });
 
-  private sortKey: SortKey = "time";
-  private sortOrder: SortOrder = "asc";
+  private nextButton = new Button({
+    text: "Next",
+    callback: () => void this.store.next("winners"),
+  });
 
   constructor(private store: GarageStore) {
     super({ tag: "div" });
@@ -40,14 +37,40 @@ export class Winners extends BaseElement<"div"> {
     });
 
     this.store.winnersCount$.subscribe(() => {
+      void this.ensureValidPage();
       this.updateButtons();
+      this.updatePageNumber();
     });
 
-    void this.store.loadWinners(
-      this.store.getCurrentPage("winners"),
-      this.store.pageLimits.winners,
+    void this.loadCurrentWinners();
+  }
+
+  private async ensureValidPage() {
+    const limit = this.store.pageLimits.winners;
+    const total = this.store.winnersCount$.value;
+    const maxPage = Math.max(1, Math.ceil(total / limit));
+    const currentPage = this.store.getCurrentPage("winners");
+
+    if (currentPage > maxPage) {
+      await this.store.loadWinners(
+        maxPage,
+        this.store.pageLimits.winners,
+        this.sortKey,
+        (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
+        this.sortKey === "wins" && this.sortAllWinners,
+      );
+    }
+  }
+
+  private async loadCurrentWinners() {
+    const page = this.store.getCurrentPage("winners");
+    const limit = this.store.pageLimits.winners;
+    await this.store.loadWinners(
+      page,
+      limit,
       this.sortKey ?? "time",
       (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
+      this.sortKey === "wins" && this.sortAllWinners,
     );
   }
 
@@ -55,11 +78,15 @@ export class Winners extends BaseElement<"div"> {
     const currentPage = this.store.getCurrentPage("winners");
     const limit = this.store.pageLimits.winners;
     const total = this.store.winnersCount$.value;
-
     const maxPage = Math.ceil(total / limit);
 
     this.previousButton.setDisabled(currentPage === 1);
     this.nextButton.setDisabled(currentPage >= maxPage);
+  }
+
+  private updatePageNumber() {
+    const currentPage = this.store.getCurrentPage("winners");
+    this.pageNumber.setText(`Page #${currentPage}`);
   }
 
   private render() {
@@ -107,26 +134,19 @@ export class Winners extends BaseElement<"div"> {
     }
 
     this.updateHeaders();
-    await this.store.loadWinners(
-      this.store.getCurrentPage("winners"),
-      this.store.pageLimits.winners,
-      this.sortKey ?? "time",
-      (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
-    );
+    await this.loadCurrentWinners();
   }
 
   private async renderWinners(winners: Winner[]) {
     this.tableBody.deleteChildren();
-
-    const sorted = [...winners];
-
-    this.title.setText(`Winners (${sorted.length})`);
+    this.title.setText(`Winners (${this.store.winnersCount$.value})`);
 
     let globalIndex =
       (this.store.getCurrentPage("winners") - 1) *
         this.store.pageLimits.winners +
       1;
-    for (const winner of sorted) {
+
+    for (const winner of winners) {
       const row = new BaseElement<"tr">({ tag: "tr" });
       row.appendChildren(
         new BaseElement<"td">({ tag: "td", text: (globalIndex++).toString() }),
@@ -176,14 +196,5 @@ export class Winners extends BaseElement<"div"> {
   private renderControls() {
     this.appendChildren(this.previousButton, this.nextButton);
     this.updateButtons();
-  }
-
-  private async handlePageChange(direction: number) {
-    const currentPage = this.store.getCurrentPage("winners");
-    const newPage = currentPage + direction;
-    if (newPage >= 1) {
-      await this.store[direction > 0 ? "next" : "previous"]("winners");
-      this.pageNumber.setText(`Page #${newPage}`);
-    }
   }
 }

@@ -89,16 +89,26 @@ export class GarageStore {
     limit: number,
     sort: "id" | "wins" | "time" = "time",
     order: "ASC" | "DESC" = "ASC",
+    all = false,
   ) {
     try {
-      const { items, total } = await CarService.getWinners(
-        page,
-        limit,
-        sort,
-        order,
-      );
-      this.winners$.set(items);
-      this.winnersCount$.set(total);
+      if (all) {
+        const items = await CarService.getAllWinners(sort, order);
+        this.winnersCount$.set(items.length);
+
+        const paginatedItems = items.slice((page - 1) * limit, page * limit);
+        this.winners$.set(paginatedItems);
+      } else {
+        const { items, total } = await CarService.getWinners(
+          page,
+          limit,
+          sort,
+          order,
+        );
+        this.winners$.set(items);
+        this.winnersCount$.set(total);
+      }
+
       this.currentPage.winners = page;
     } catch (error: unknown) {
       this.handleError(error, "Error loading winners");

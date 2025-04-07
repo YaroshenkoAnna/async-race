@@ -20,6 +20,7 @@ export class GaragePage extends BaseElement<"div"> {
   private updateForm: Form;
   private controls: Controls;
   private activeCars: Set<number> = new Set();
+  private pagination: BaseElement<"div">;
 
   constructor(store: GarageStore, outlet: BaseElement<"div">) {
     super({ tag: "div" });
@@ -42,6 +43,7 @@ export class GaragePage extends BaseElement<"div"> {
     });
     this.createForm = this.renderCreateForm();
     this.updateForm = this.renderUpdateForm();
+    this.pagination = this.renderPagination();
     this.render();
     this.bindStore();
   }
@@ -53,7 +55,6 @@ export class GaragePage extends BaseElement<"div"> {
 
   private render() {
     this.updateForm.disable();
-    const pagination = this.renderPagination();
 
     this.appendChildren(
       this.createForm,
@@ -62,7 +63,7 @@ export class GaragePage extends BaseElement<"div"> {
       this.title,
       this.pageNumber,
       this.carListContainer,
-      pagination,
+      this.pagination,
     );
   }
 
@@ -105,6 +106,9 @@ export class GaragePage extends BaseElement<"div"> {
   }
 
   private async startRace() {
+    this.pagination.children.forEach((child) => {
+      if (child instanceof Button) child.disable();
+    });
     this.updateForm.disable();
     this.createForm.disable();
     this.controls.disable();
@@ -138,6 +142,9 @@ export class GaragePage extends BaseElement<"div"> {
 
   private resetAll() {
     this.controls.enable();
+    this.pagination.children.forEach((child) => {
+      if (child instanceof Button) child.enable();
+    });
     this.controls.setResetEnabled(true);
     const cars: { id: number; element: HTMLElement }[] = [];
 

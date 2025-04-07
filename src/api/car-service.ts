@@ -103,4 +103,21 @@ export class CarService {
   public static async deleteWinner(id: number): Promise<void> {
     await fetch(`${this.BASE_URL}/winners/${id}`, { method: "DELETE" });
   }
+
+  public static async getAllWinners(
+    sort?: "id" | "wins" | "time",
+    order?: "ASC" | "DESC",
+  ): Promise<Winner[]> {
+    const parameters = new URLSearchParams();
+    if (sort) parameters.set("_sort", sort);
+    if (order) parameters.set("_order", order);
+
+    const response = await fetch(
+      `${this.BASE_URL}/winners?${parameters.toString()}`,
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch all winners");
+    }
+    return await response.json<Winner[]>();
+  }
 }
