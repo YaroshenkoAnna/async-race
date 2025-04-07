@@ -23,4 +23,12 @@ export class Button extends BaseElement<"button"> {
   public enable(): void {
     this.removeAttribute("disabled");
   }
+
+  public setDisabled(state: boolean): void {
+    if (state) {
+      this.disable();
+    } else {
+      this.enable();
+    }
+  }
 }

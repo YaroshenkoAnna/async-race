@@ -150,8 +150,11 @@ export class GaragePage extends BaseElement<"div"> {
         carCard instanceof CarCard &&
         carCard.car.node instanceof HTMLElement
       ) {
-        carCard.startButton.enable();
-        carCard.backButton.disable();
+        carCard.buttons.forEach((button) => {
+          if (button !== carCard.backButton) {
+            button.enable();
+          }
+        });
 
         cars.push({ id: carCard.id, element: carCard.car.node });
       }
@@ -167,7 +170,7 @@ export class GaragePage extends BaseElement<"div"> {
     const previousButton = new Button({
       text: "Prev",
       callback: () => {
-        this.store.goToPreviousPage().catch((error) => {
+        this.store.previous("garage").catch((error) => {
           console.error("Error going to the previous page:", error);
         });
       },
@@ -175,11 +178,30 @@ export class GaragePage extends BaseElement<"div"> {
     const nextButton = new Button({
       text: "Next",
       callback: () => {
-        this.store.goToNextPage().catch((error) => {
+        this.store.next("garage").catch((error) => {
           console.error("Error going to the next page:", error);
         });
       },
     });
+
+    this.store.cars$.subscribe(() => {
+      const currentPage = this.store.getCurrentPage("garage");
+      const total = this.store.total$.value;
+      const totalPages = Math.ceil(total / this.store.pageLimits.garage);
+
+      if (currentPage === 1) {
+        previousButton.disable();
+      } else {
+        previousButton.enable();
+      }
+
+      if (currentPage === totalPages) {
+        nextButton.disable();
+      } else {
+        nextButton.enable();
+      }
+    });
+
     pagination.appendChildren(previousButton, nextButton);
     return pagination;
   }
@@ -188,10 +210,10 @@ export class GaragePage extends BaseElement<"div"> {
     this.store.cars$.subscribe((cars) => this.renderCarList(cars));
     this.store.total$.subscribe((total) => {
       this.pageNumber.setText(
-        `Page #${this.store.currentPage} / Total cars: ${total}`,
+        `Page #${this.store.getCurrentPage("garage")} / Total cars: ${total}`,
       );
     });
-    this.store.loadCars(1).catch((error) => {
+    this.store.loadCars(this.store.getCurrentPage("garage")).catch((error) => {
       console.error("Error loading cars:", error);
     });
   }

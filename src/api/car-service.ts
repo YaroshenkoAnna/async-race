@@ -47,14 +47,33 @@ export class CarService {
     });
   }
 
-  public static async getWinners(page: number, limit = 10): Promise<Winner[]> {
+  public static async getWinners(
+    page: number,
+    limit = 10,
+    sort?: "id" | "wins" | "time",
+    order?: "ASC" | "DESC",
+  ): Promise<{ items: Winner[]; total: number }> {
+    const parameters = new URLSearchParams({
+      _page: String(page),
+      _limit: String(limit),
+    });
+
+    if (sort) parameters.set("_sort", sort);
+    if (order) parameters.set("_order", order);
+
     const response = await fetch(
-      `${this.BASE_URL}/winners?_page=${page}&_limit=${limit}`,
+      `${this.BASE_URL}/winners?${parameters.toString()}`,
     );
     if (!response.ok) {
       throw new Error("Failed to fetch winners");
     }
-    return response.json();
+
+    const items = await response.json<Winner[]>();
+    const total = Math.max(
+      Number(response.headers.get("X-Total-Count")) || 0,
+      items.length,
+    );
+    return { items, total };
   }
 
   public static async getWinner(id: number): Promise<Winner | null> {

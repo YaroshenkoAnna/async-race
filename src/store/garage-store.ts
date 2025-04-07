@@ -3,25 +3,53 @@ import { CarService } from "../api/car-service";
 import type { Car, Winner } from "../types/types";
 import { getRandomColor } from "../utils/get-random-color";
 import { getRandomElement } from "../utils/get-random-element";
-
+import type { PageType } from "./page-type";
 export class GarageStore {
   public cars$ = new Observable<Car[]>([]);
   public total$ = new Observable<number>(0);
   public winners$ = new Observable<Winner[]>([]);
-  public currentPage = 1;
+  public winnersCount$ = new Observable<number>(0);
 
-  constructor() {}
+  public pageLimits: Record<PageType, number> = {
+    garage: 7,
+    winners: 10,
+  };
+
+  private currentPage: Record<PageType, number> = {
+    garage: 1,
+    winners: 1,
+  };
+
+  private readonly pageLoaders: Record<
+    PageType,
+    (page: number, limit: number) => Promise<void>
+  > = {
+    garage: this.loadCars.bind(this),
+    winners: this.loadWinners.bind(this),
+  };
+
+  public async next(type: PageType) {
+    const nextPage = this.currentPage[type] + 1;
+    this.currentPage[type] = nextPage;
+    await this.pageLoaders[type](nextPage, this.pageLimits[type]);
+  }
+
+  public async previous(type: PageType) {
+    const previousPage = Math.max(1, this.currentPage[type] - 1);
+    this.currentPage[type] = previousPage;
+    await this.pageLoaders[type](previousPage, this.pageLimits[type]);
+  }
+
+  public getCurrentPage(type: PageType): number {
+    return this.currentPage[type];
+  }
 
   public async addCar(name: string, color: string) {
     try {
       await CarService.createCar(name, color);
-      await this.loadCars(this.currentPage);
+      await this.loadCars(this.currentPage.garage);
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Failed to add car:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Failed to add car");
     }
   }
 
@@ -29,62 +57,42 @@ export class GarageStore {
     try {
       await CarService.deleteCar(id);
       await CarService.deleteWinner(id);
-      await this.loadCars(this.currentPage);
-      await this.loadWinners(this.currentPage, 10);
+      await this.loadCars(this.currentPage.garage);
+      await this.loadWinners(this.currentPage.winners, this.pageLimits.winners);
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Error deleting car:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Error deleting car");
     }
   }
 
   public async updateCar(carOptions: Car) {
     try {
       await CarService.updateCar(carOptions);
-      await this.loadCars(this.currentPage);
+      await this.loadCars(this.currentPage.garage);
       const winner = await CarService.getWinner(carOptions.id);
       if (winner) {
         await CarService.updateWinner(carOptions.id, {
           wins: winner.wins,
           time: winner.time,
         });
-        await this.loadWinners(this.currentPage, 10);
+        await this.loadWinners(
+          this.currentPage.winners,
+          this.pageLimits.winners,
+        );
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Error updating car:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Error updating car");
     }
   }
 
   public async loadWinners(page: number, limit: number) {
     try {
-      const winners = await CarService.getWinners(page, limit);
-      this.winners$.set(winners);
-      this.currentPage = page;
+      const { items, total } = await CarService.getWinners(page, limit); // <== добавлен `total`
+      this.winners$.set(items);
+      this.winnersCount$.set(total);
+      this.currentPage.winners = page;
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Error loading winners:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Error loading winners");
     }
-  }
-
-  public async goToNextPage() {
-    const nextPage = this.currentPage + 1;
-    this.currentPage = nextPage;
-    await this.loadCars(nextPage);
-  }
-
-  public async goToPreviousPage() {
-    const previousPage = Math.max(1, this.currentPage - 1);
-    this.currentPage = previousPage;
-    await this.loadCars(previousPage);
   }
 
   public async loadCars(page: number): Promise<void> {
@@ -92,13 +100,9 @@ export class GarageStore {
       const { cars, total } = await CarService.getCars(page);
       this.cars$.set(cars);
       this.total$.set(total);
-      this.currentPage = page;
+      this.currentPage.garage = page;
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Error loading cars:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Error loading cars");
     }
   }
 
@@ -113,13 +117,9 @@ export class GarageStore {
           })
         : CarService.createWinner({ id, wins: 1, time }));
 
-      await this.loadWinners(this.currentPage, 10);
+      await this.loadWinners(this.currentPage.winners, this.pageLimits.winners);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error adding/updating winner:", error.message);
-      } else {
-        console.error("Unknown error:", error);
-      }
+      this.handleError(error, "Error adding/updating winner");
     }
   }
 
@@ -166,13 +166,21 @@ export class GarageStore {
 
     try {
       await Promise.all(carPromises);
-      await this.loadCars(this.currentPage);
+      await this.loadCars(this.currentPage.garage);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error generating cars:", error.message);
       } else {
         console.error("Unknown error:", error);
       }
+    }
+  }
+
+  private handleError(error: unknown, message: string) {
+    if (error instanceof Error) {
+      console.error(`${message}:`, error.message);
+    } else {
+      console.error(`${message}: Unknown error`, error);
     }
   }
 }
