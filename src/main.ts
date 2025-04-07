@@ -4,11 +4,17 @@ import { Winners } from "./pages/winners-page";
 import "./style.scss";
 import { BaseElement } from "./utils/base-element";
 import { GarageStore } from "./store/garage-store";
+import { Router } from "./router/router";
+import { APP_ROUTES } from "./router/routes";
 
-const container = new BaseElement({ tag: "div" });
-document.body.append(container.node);
-const garage = new GaragePage(new GarageStore(), container);
-const winners = new Winners(new GarageStore());
-const navigation = new Navigation(container, garage, winners);
+const root = new BaseElement({ tag: "div" });
+const content = new BaseElement({ tag: "div" });
 
-container.appendChildren(navigation, garage);
+document.body.append(root.node);
+
+export const garage = new GaragePage(new GarageStore(), content);
+export const winners = new Winners(new GarageStore());
+const navigation = new Navigation(content, garage, winners);
+root.appendChildren(navigation, content);
+
+new Router(APP_ROUTES, content);

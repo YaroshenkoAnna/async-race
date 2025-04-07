@@ -2,6 +2,8 @@ import { BaseElement } from "../../utils/base-element";
 import { Button } from "../button/button";
 
 export class Navigation extends BaseElement<"nav"> {
+  private garageButton: Button;
+  private winnersButton: Button;
   private outlet: BaseElement<"div">;
   private garage: BaseElement<"div">;
   private winners: BaseElement<"div">;
@@ -12,33 +14,41 @@ export class Navigation extends BaseElement<"nav"> {
     winners: BaseElement<"div">,
   ) {
     super({ tag: "nav" });
+
     this.outlet = outlet;
-    this.garage = garage;
     this.winners = winners;
-    this.renderButtons();
-  }
-  private renderButtons() {
-    const garageButton = new Button({
+    this.garage = garage;
+
+    this.garageButton = new Button({
       text: "Garage",
       callback: () => {
-        this.outlet.node.replaceChild(this.garage.node, this.winners.node);
-        garageButton.setAttributes({ disabled: "true" });
-        winnersButton.removeAttribute("disabled");
+        globalThis.location.hash = "/garage";
       },
     });
-    garageButton.setAttributes({
-      disabled: "true",
-    });
 
-    const winnersButton = new Button({
+    this.winnersButton = new Button({
       text: "Winners",
       callback: () => {
-        this.outlet.node.replaceChild(this.winners.node, this.garage.node);
-        winnersButton.setAttributes({ disabled: "true" });
-        garageButton.removeAttribute("disabled");
+        globalThis.location.hash = "/winners";
       },
     });
 
-    this.appendChildren(garageButton, winnersButton);
+    this.garageButton.setAttributes({ disabled: "true" });
+
+    this.appendChildren(this.garageButton, this.winnersButton);
+
+    globalThis.addEventListener("hashchange", () => this.updateButtonState());
+  }
+
+  private updateButtonState() {
+    const currentHash = globalThis.location.hash;
+
+    if (currentHash === "#/garage") {
+      this.garageButton.setAttributes({ disabled: "true" });
+      this.winnersButton.removeAttribute("disabled");
+    } else if (currentHash === "#/winners") {
+      this.winnersButton.setAttributes({ disabled: "true" });
+      this.garageButton.removeAttribute("disabled");
+    }
   }
 }
