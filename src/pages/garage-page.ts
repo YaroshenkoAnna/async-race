@@ -11,8 +11,6 @@ import { Controls } from "../components/controls/controls";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
-  private selectedCarName: string = "";
-  private selectedCarColor: string = "";
   private outlet: BaseElement<"div">;
   private title: BaseElement<"h1">;
   private pageNumber: BaseElement<"h2">;
@@ -48,10 +46,8 @@ export class GaragePage extends BaseElement<"div"> {
     this.bindStore();
   }
 
-  private handleSelectCar(id: number, name: string, color: string) {
+  private handleSelectCar(id: number) {
     this.selectedCarId = id;
-    this.selectedCarName = name;
-    this.selectedCarColor = color;
     this.controls.disable();
   }
 
@@ -227,7 +223,7 @@ export class GaragePage extends BaseElement<"div"> {
         if (event instanceof CustomEvent && isCar(event.detail)) {
           this.createForm.disable();
           this.updateForm.enable();
-          this.handleSelectCar(event.detail.id, car.name, car.color);
+          this.handleSelectCar(event.detail.id);
         }
       });
 

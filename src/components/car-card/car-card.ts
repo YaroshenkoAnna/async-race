@@ -24,7 +24,7 @@ export class CarCard extends BaseElement<"div"> {
       classNames: [styles["car"]],
     });
     this.carImage = new BaseSVGElement({
-      href: "/sprite.svg#auto",
+      href: "./sprite.svg#auto",
       attributes: { width: "100", height: "50" },
     });
     this.buttons = [];
@@ -105,7 +105,7 @@ export class CarCard extends BaseElement<"div"> {
 
     const flag = new BaseSVGElement({
       classNames: [styles.flag],
-      href: "/sprite.svg#flag",
+      href: "./sprite.svg#flag",
       attributes: { width: "40", height: "40" },
     });
 

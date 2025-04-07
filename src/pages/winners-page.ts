@@ -46,6 +46,8 @@ export class Winners extends BaseElement<"div"> {
     void this.store.loadWinners(
       this.store.getCurrentPage("winners"),
       this.store.pageLimits.winners,
+      this.sortKey ?? "time",
+      (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
     );
   }
 
@@ -105,28 +107,18 @@ export class Winners extends BaseElement<"div"> {
     }
 
     this.updateHeaders();
-    await this.renderWinners(this.store.getWinners());
+    await this.store.loadWinners(
+      this.store.getCurrentPage("winners"),
+      this.store.pageLimits.winners,
+      this.sortKey ?? "time",
+      (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
+    );
   }
 
   private async renderWinners(winners: Winner[]) {
     this.tableBody.deleteChildren();
 
     const sorted = [...winners];
-    if (this.sortKey && this.sortOrder) {
-      const primary = this.sortKey;
-      const secondary = primary === "wins" ? "time" : "wins";
-      sorted.sort((a, b) => {
-        const primaryDiff = a[primary] - b[primary];
-        const secondaryDiff = a[secondary] - b[secondary];
-        return primaryDiff === 0
-          ? this.sortOrder === "asc"
-            ? secondaryDiff
-            : -secondaryDiff
-          : this.sortOrder === "asc"
-            ? primaryDiff
-            : -primaryDiff;
-      });
-    }
 
     this.title.setText(`Winners (${sorted.length})`);
 
@@ -145,7 +137,7 @@ export class Winners extends BaseElement<"div"> {
         const car = await CarService.getCar(winner.id);
         row.appendChildren(
           new BaseSVGElement({
-            href: "/sprite.svg#auto",
+            href: "./sprite.svg#auto",
             attributes: {
               width: "40",
               height: "40",

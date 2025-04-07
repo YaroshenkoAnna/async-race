@@ -84,9 +84,19 @@ export class GarageStore {
     }
   }
 
-  public async loadWinners(page: number, limit: number) {
+  public async loadWinners(
+    page: number,
+    limit: number,
+    sort: "id" | "wins" | "time" = "time",
+    order: "ASC" | "DESC" = "ASC",
+  ) {
     try {
-      const { items, total } = await CarService.getWinners(page, limit); // <== добавлен `total`
+      const { items, total } = await CarService.getWinners(
+        page,
+        limit,
+        sort,
+        order,
+      );
       this.winners$.set(items);
       this.winnersCount$.set(total);
       this.currentPage.winners = page;
