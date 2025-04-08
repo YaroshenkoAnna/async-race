@@ -9,6 +9,9 @@ export class GarageStore {
   public total$ = new Observable<number>(0);
   public winners$ = new Observable<Winner[]>([]);
   public winnersCount$ = new Observable<number>(0);
+  public winnersSortKey: "id" | "wins" | "time" = "time";
+  public winnersSortOrder: "ASC" | "DESC" = "ASC";
+  public sortAllWinners = false;
 
   public pageLimits: Record<PageType, number> = {
     garage: 7,
@@ -58,7 +61,7 @@ export class GarageStore {
       await CarService.deleteCar(id);
       await CarService.deleteWinner(id);
       await this.loadCars(this.currentPage.garage);
-      await this.loadWinners(this.currentPage.winners, this.pageLimits.winners);
+      await this.reloadCurrentWinnersPage();
     } catch (error: unknown) {
       this.handleError(error, "Error deleting car");
     }
@@ -78,6 +81,7 @@ export class GarageStore {
           this.currentPage.winners,
           this.pageLimits.winners,
         );
+        await this.reloadCurrentWinnersPage();
       }
     } catch (error: unknown) {
       this.handleError(error, "Error updating car");
@@ -87,28 +91,28 @@ export class GarageStore {
   public async loadWinners(
     page: number,
     limit: number,
-    sort: "id" | "wins" | "time" = "time",
-    order: "ASC" | "DESC" = "ASC",
-    all = false,
+    sort: "id" | "wins" | "time" = this.winnersSortKey,
+    order: "ASC" | "DESC" = this.winnersSortOrder,
+    all: boolean = this.sortAllWinners,
   ) {
+    this.winnersSortKey = sort;
+    this.winnersSortOrder = order;
+    this.sortAllWinners = all;
     try {
+      let items: Winner[] = [];
+      let total: number;
+
       if (all) {
-        const items = await CarService.getAllWinners(sort, order);
-        this.winnersCount$.set(items.length);
-
-        const paginatedItems = items.slice((page - 1) * limit, page * limit);
-        this.winners$.set(paginatedItems);
+        const allItems = await CarService.getAllWinners(sort, order);
+        total = allItems.length;
+        items = allItems.slice((page - 1) * limit, page * limit);
       } else {
-        const { items, total } = await CarService.getWinners(
-          page,
-          limit,
-          sort,
-          order,
-        );
-        this.winners$.set(items);
-        this.winnersCount$.set(total);
+        const result = await CarService.getWinners(page, limit, sort, order);
+        items = result.items;
+        total = result.total;
       }
-
+      this.winners$.set([...items]);
+      this.winnersCount$.set(total);
       this.currentPage.winners = page;
     } catch (error: unknown) {
       this.handleError(error, "Error loading winners");
@@ -127,6 +131,7 @@ export class GarageStore {
   }
 
   public async addWinner(id: number, time: number) {
+    await this.reloadCurrentWinnersPage();
     try {
       const existingWinner = await CarService.getWinner(id);
 
@@ -141,6 +146,18 @@ export class GarageStore {
     } catch (error) {
       this.handleError(error, "Error adding/updating winner");
     }
+  }
+
+  public async reloadCurrentWinnersPage() {
+    const page = this.getCurrentPage("winners");
+    const limit = this.pageLimits.winners;
+    await this.loadWinners(
+      page,
+      limit,
+      this.winnersSortKey,
+      this.winnersSortOrder,
+      this.sortAllWinners,
+    );
   }
 
   public getWinners() {

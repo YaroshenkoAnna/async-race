@@ -4,20 +4,9 @@ import { Button } from "../button/button";
 export class Navigation extends BaseElement<"nav"> {
   private garageButton: Button;
   private winnersButton: Button;
-  private outlet: BaseElement<"div">;
-  private garage: BaseElement<"div">;
-  private winners: BaseElement<"div">;
 
-  constructor(
-    outlet: BaseElement<"div">,
-    garage: BaseElement<"div">,
-    winners: BaseElement<"div">,
-  ) {
+  constructor() {
     super({ tag: "nav" });
-
-    this.outlet = outlet;
-    this.winners = winners;
-    this.garage = garage;
 
     this.garageButton = new Button({
       text: "Garage",

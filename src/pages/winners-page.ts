@@ -5,8 +5,8 @@ import type { Winner } from "../types/types";
 import { CarService } from "../api/car-service";
 import { Button } from "../components/button/button";
 
-type SortKey = "wins" | "time";
-type SortOrder = "asc" | "desc" | null;
+type SortKey = "wins" | "time" | "id";
+type SortOrder = "asc" | "desc";
 
 export class Winners extends BaseElement<"div"> {
   private title = new BaseElement<"h1">({ tag: "h1", text: `Winners (0)` });
@@ -32,17 +32,18 @@ export class Winners extends BaseElement<"div"> {
     super({ tag: "div" });
     this.render();
 
-    this.store.winners$.subscribe((winners) => {
-      void this.renderWinners(winners);
-    });
-
     this.store.winnersCount$.subscribe(() => {
-      void this.ensureValidPage();
       this.updateButtons();
       this.updatePageNumber();
     });
 
+    void this.ensureValidPage();
     void this.loadCurrentWinners();
+
+    this.store.winners$.subscribe((winners) => {
+      void this.renderWinners(winners);
+      void this.ensureValidPage();
+    });
   }
 
   private async ensureValidPage() {
@@ -56,7 +57,7 @@ export class Winners extends BaseElement<"div"> {
         maxPage,
         this.store.pageLimits.winners,
         this.sortKey,
-        (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
+        this.sortOrder.toUpperCase() as "ASC" | "DESC",
         this.sortKey === "wins" && this.sortAllWinners,
       );
     }
@@ -68,8 +69,8 @@ export class Winners extends BaseElement<"div"> {
     await this.store.loadWinners(
       page,
       limit,
-      this.sortKey ?? "time",
-      (this.sortOrder?.toUpperCase() as "ASC" | "DESC") ?? "ASC",
+      this.sortKey,
+      this.sortOrder.toUpperCase() as "ASC" | "DESC",
       this.sortKey === "wins" && this.sortAllWinners,
     );
   }
@@ -132,6 +133,12 @@ export class Winners extends BaseElement<"div"> {
       this.sortKey = key;
       this.sortOrder = "desc";
     }
+
+    this.store.winnersSortKey = this.sortKey;
+    this.store.winnersSortOrder = this.sortOrder.toUpperCase() as
+      | "ASC"
+      | "DESC";
+    this.store.sortAllWinners = this.sortKey === "wins" && this.sortAllWinners;
 
     this.updateHeaders();
     await this.loadCurrentWinners();
