@@ -32,6 +32,11 @@ export class Form extends BaseElement<"form"> {
     });
   }
 
+  public clear(): void {
+    this.textInput.value = "";
+    this.colorInput.value = "#000000";
+  }
+
   private render() {
     const button = new Button({
       text: this.options.buttonText,

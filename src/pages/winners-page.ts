@@ -4,16 +4,31 @@ import { BaseSVGElement } from "../utils/base-svg-element";
 import type { Winner } from "../types/types";
 import { CarService } from "../api/car-service";
 import { Button } from "../components/button/button";
+import styles from "./winners-page.module.scss";
 
 type SortKey = "wins" | "time" | "id";
 type SortOrder = "asc" | "desc";
 
 export class Winners extends BaseElement<"div"> {
-  private title = new BaseElement<"h1">({ tag: "h1", text: `Winners (0)` });
-  private pageNumber = new BaseElement<"h2">({ tag: "h2", text: "Page #1" });
+  private title = new BaseElement<"h1">({
+    tag: "h1",
+    text: `Winners (0)`,
+    classNames: [styles.title],
+  });
+  private pageNumber = new BaseElement<"h2">({
+    tag: "h2",
+    text: "Page #1",
+    classNames: [styles["page-number"]],
+  });
   private tableBody = new BaseElement<"tbody">({ tag: "tbody" });
-  private headerWins = new BaseElement<"th">({ tag: "th" });
-  private headerBestTime = new BaseElement<"th">({ tag: "th" });
+  private headerWins = new BaseElement<"th">({
+    tag: "th",
+    classNames: [styles.sortable],
+  });
+  private headerBestTime = new BaseElement<"th">({
+    tag: "th",
+    classNames: [styles.sortable],
+  });
   private sortAllWinners = true;
   private sortKey: SortKey = "time";
   private sortOrder: SortOrder = "asc";
@@ -91,7 +106,10 @@ export class Winners extends BaseElement<"div"> {
   }
 
   private render() {
-    const table = new BaseElement<"table">({ tag: "table" });
+    const table = new BaseElement<"table">({
+      tag: "table",
+      classNames: [styles.table],
+    });
     const tableHeader = new BaseElement<"thead">({ tag: "thead" });
     const headerRow = new BaseElement<"tr">({ tag: "tr" });
 
@@ -145,6 +163,7 @@ export class Winners extends BaseElement<"div"> {
   }
 
   private async renderWinners(winners: Winner[]) {
+    console.log("Winners", winners);
     this.tableBody.deleteChildren();
     this.title.setText(`Winners (${this.store.winnersCount$.value})`);
 
@@ -155,6 +174,7 @@ export class Winners extends BaseElement<"div"> {
 
     for (const winner of winners) {
       const row = new BaseElement<"tr">({ tag: "tr" });
+
       row.appendChildren(
         new BaseElement<"td">({ tag: "td", text: (globalIndex++).toString() }),
         new BaseElement<"td">({ tag: "td", text: `${winner.id}` }),
@@ -162,15 +182,20 @@ export class Winners extends BaseElement<"div"> {
 
       try {
         const car = await CarService.getCar(winner.id);
+        const carTd = new BaseElement<"td">({ tag: "td" });
+        const carSvg = new BaseSVGElement({
+          href: "./sprite.svg#auto",
+          classNames: [styles["car-svg"]],
+          attributes: {
+            width: "40",
+            height: "40",
+            fill: car?.color || "#000000",
+          },
+        });
+        carTd.appendChildren(carSvg);
+
         row.appendChildren(
-          new BaseSVGElement({
-            href: "./sprite.svg#auto",
-            attributes: {
-              width: "40",
-              height: "40",
-              fill: car?.color || "#000000",
-            },
-          }),
+          carTd,
           new BaseElement<"td">({ tag: "td", text: car?.name || "Unknown" }),
           new BaseElement<"td">({ tag: "td", text: `${winner.wins}` }),
           new BaseElement<"td">({
@@ -202,6 +227,8 @@ export class Winners extends BaseElement<"div"> {
 
   private renderControls() {
     this.appendChildren(this.previousButton, this.nextButton);
+    this.previousButton.addClasses([styles.button]);
+    this.nextButton.addClasses([styles.button]);
     this.updateButtons();
   }
 }

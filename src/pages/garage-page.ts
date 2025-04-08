@@ -94,6 +94,7 @@ export class GaragePage extends BaseElement<"div"> {
             name,
             color,
           });
+          this.updateForm.clear();
           this.updateForm.disable();
           this.createForm.enable();
           this.selectedCarId = null;
@@ -106,6 +107,7 @@ export class GaragePage extends BaseElement<"div"> {
   }
 
   private async startRace() {
+    this.resetAll();
     this.pagination.children.forEach((child) => {
       if (child instanceof Button) child.disable();
     });
@@ -187,7 +189,7 @@ export class GaragePage extends BaseElement<"div"> {
       },
     });
 
-    this.store.cars$.subscribe(() => {
+    this.store.total$.subscribe(() => {
       const currentPage = this.store.getCurrentPage("garage");
       const total = this.store.total$.value;
       const totalPages = Math.ceil(total / this.store.pageLimits.garage);
@@ -211,9 +213,25 @@ export class GaragePage extends BaseElement<"div"> {
 
   private bindStore() {
     this.store.cars$.subscribe((cars) => this.renderCarList(cars));
+
     this.store.total$.subscribe((total) => {
+      const currentPage = this.store.getCurrentPage("garage");
+      const lastPage = Math.ceil(total / this.store.pageLimits.garage);
+      if (currentPage > lastPage) {
+        this.store.previous("garage").catch((error) => {
+          console.error("Error going to the previous page:", error);
+        });
+      }
+      const rangeStart = (currentPage - 1) * this.store.pageLimits.garage + 1;
+      const rangeEnd = Math.min(
+        currentPage * this.store.pageLimits.garage,
+        total,
+      );
+      const range =
+        rangeStart === rangeEnd ? rangeStart : `${rangeStart}-${rangeEnd}`;
+
       this.pageNumber.setText(
-        `Page #${this.store.getCurrentPage("garage")} / Total cars: ${total}`,
+        `Page #${this.store.getCurrentPage("garage")} / cars: ${range}`,
       );
     });
     this.store.loadCars(this.store.getCurrentPage("garage")).catch((error) => {
@@ -253,6 +271,7 @@ export class GaragePage extends BaseElement<"div"> {
             const carId = event.detail.id;
             this.activeCars.add(carId);
             this.controls.setResetEnabled(true);
+
             try {
               const carElement = carCard.car.node;
               if (carElement instanceof HTMLElement) {

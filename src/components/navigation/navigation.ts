@@ -27,6 +27,8 @@ export class Navigation extends BaseElement<"nav"> {
     this.appendChildren(this.garageButton, this.winnersButton);
 
     globalThis.addEventListener("hashchange", () => this.updateButtonState());
+
+    this.updateButtonState();
   }
 
   private updateButtonState() {
