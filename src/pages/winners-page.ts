@@ -48,6 +48,7 @@ export class Winners extends BaseElement<"div"> {
     this.render();
 
     this.store.winnersCount$.subscribe(() => {
+      this.title.setText(`Winners (${this.store.winnersCount$.value})`);
       this.updateButtons();
       this.updatePageNumber();
     });
@@ -56,8 +57,8 @@ export class Winners extends BaseElement<"div"> {
     void this.loadCurrentWinners();
 
     this.store.winners$.subscribe((winners) => {
-      void this.renderWinners(winners);
       void this.ensureValidPage();
+      void this.renderWinners(winners);
     });
   }
 
@@ -163,9 +164,7 @@ export class Winners extends BaseElement<"div"> {
   }
 
   private async renderWinners(winners: Winner[]) {
-    console.log("Winners", winners);
     this.tableBody.deleteChildren();
-    this.title.setText(`Winners (${this.store.winnersCount$.value})`);
 
     let globalIndex =
       (this.store.getCurrentPage("winners") - 1) *

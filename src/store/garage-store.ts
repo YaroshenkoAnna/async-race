@@ -95,6 +95,7 @@ export class GarageStore {
     order: "ASC" | "DESC" = this.winnersSortOrder,
     all: boolean = this.sortAllWinners,
   ) {
+    console.log("loadWinners");
     this.winnersSortKey = sort;
     this.winnersSortOrder = order;
     this.sortAllWinners = all;
@@ -131,7 +132,6 @@ export class GarageStore {
   }
 
   public async addWinner(id: number, time: number) {
-    await this.reloadCurrentWinnersPage();
     try {
       const existingWinner = await CarService.getWinner(id);
 
@@ -141,8 +141,8 @@ export class GarageStore {
             wins: existingWinner.wins + 1,
           })
         : CarService.createWinner({ id, wins: 1, time }));
-
-      await this.loadWinners(this.currentPage.winners, this.pageLimits.winners);
+      await this.reloadCurrentWinnersPage();
+      //  await this.loadWinners(this.currentPage.winners, this.pageLimits.winners);
     } catch (error) {
       this.handleError(error, "Error adding/updating winner");
     }

@@ -144,6 +144,7 @@ export class GaragePage extends BaseElement<"div"> {
 
   private resetAll() {
     this.controls.enable();
+    this.createForm.enable();
     this.pagination.children.forEach((child) => {
       if (child instanceof Button) child.enable();
     });
