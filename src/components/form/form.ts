@@ -9,9 +9,9 @@ type FormOptions = {
 };
 
 export class Form extends BaseElement<"form"> {
+  public textInput: Input;
+  public colorInput: Input;
   private options: FormOptions;
-  private textInput: Input;
-  private colorInput: Input;
 
   constructor(options: FormOptions) {
     super({ tag: "form", classNames: [styles.form] });

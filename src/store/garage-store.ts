@@ -77,10 +77,6 @@ export class GarageStore {
           wins: winner.wins,
           time: winner.time,
         });
-        await this.loadWinners(
-          this.currentPage.winners,
-          this.pageLimits.winners,
-        );
         await this.reloadCurrentWinnersPage();
       }
     } catch (error: unknown) {
@@ -95,7 +91,6 @@ export class GarageStore {
     order: "ASC" | "DESC" = this.winnersSortOrder,
     all: boolean = this.sortAllWinners,
   ) {
-    console.log("loadWinners");
     this.winnersSortKey = sort;
     this.winnersSortOrder = order;
     this.sortAllWinners = all;

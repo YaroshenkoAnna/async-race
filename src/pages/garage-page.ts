@@ -264,6 +264,8 @@ export class GaragePage extends BaseElement<"div"> {
       const carCard = new CarCard(car.id, car.name, car.color);
       carCard.addListener("carSelected", (event: Event) => {
         if (event instanceof CustomEvent && isCar(event.detail)) {
+          this.updateForm.textInput.value = event.detail.name;
+          this.updateForm.colorInput.value = event.detail.color;
           this.createForm.disable();
           this.updateForm.enable();
           this.handleSelectCar(event.detail.id);
