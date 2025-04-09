@@ -1,6 +1,7 @@
 import { BaseElement } from "../../utils/base-element";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
+import styles from "./form.module.scss";
 
 type FormOptions = {
   buttonText: string;
@@ -13,7 +14,7 @@ export class Form extends BaseElement<"form"> {
   private colorInput: Input;
 
   constructor(options: FormOptions) {
-    super({ tag: "form" });
+    super({ tag: "form", classNames: [styles.form] });
     this.options = options;
     this.textInput = new Input({ type: "text" });
     this.colorInput = new Input({ type: "color" });
@@ -40,6 +41,7 @@ export class Form extends BaseElement<"form"> {
   private render() {
     const button = new Button({
       text: this.options.buttonText,
+      classNames: [styles.button],
       callback: (event: Event) => {
         event.preventDefault();
         this.options

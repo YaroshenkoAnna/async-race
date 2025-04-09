@@ -1,12 +1,13 @@
 import { BaseElement } from "../../utils/base-element";
 import { Button } from "../button/button";
+import styles from "./navigation.module.scss";
 
 export class Navigation extends BaseElement<"nav"> {
   private garageButton: Button;
   private winnersButton: Button;
 
   constructor() {
-    super({ tag: "nav" });
+    super({ tag: "nav", classNames: [styles.navigation] });
 
     this.garageButton = new Button({
       text: "Garage",

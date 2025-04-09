@@ -31,7 +31,7 @@ export class CarCard extends BaseElement<"div"> {
 
     this.startButton = new Button({
       classNames: [styles.start],
-      text: "Start",
+      text: "A",
       callback: () => {
         const event = new CustomEvent<Id>("carMoveStarted", {
           detail: { id: this.id },

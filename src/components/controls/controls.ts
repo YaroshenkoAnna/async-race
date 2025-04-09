@@ -1,5 +1,6 @@
 import { BaseElement } from "../../utils/base-element";
 import { Button } from "../button/button";
+import styles from "./controls.module.scss";
 
 export class Controls extends BaseElement<"div"> {
   private raceButton: Button;
@@ -11,7 +12,7 @@ export class Controls extends BaseElement<"div"> {
     onReset: () => void;
     onGenerate: () => void;
   }) {
-    super({ tag: "div" });
+    super({ tag: "div", classNames: [styles.controls] });
 
     this.raceButton = new Button({ text: "Race", callback: options.onRace });
     this.resetButton = new Button({ text: "Reset", callback: options.onReset });

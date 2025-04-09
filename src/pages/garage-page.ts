@@ -8,6 +8,7 @@ import { isCar, type Car, isId } from "../types/types";
 import { Modal } from "../components/modal/modal";
 import { CarService } from "../api/car-service";
 import { Controls } from "../components/controls/controls";
+import styles from "./garage-page.module.scss";
 
 export class GaragePage extends BaseElement<"div"> {
   private selectedCarId: number | null = null;
@@ -23,12 +24,23 @@ export class GaragePage extends BaseElement<"div"> {
   private pagination: BaseElement<"div">;
 
   constructor(store: GarageStore, outlet: BaseElement<"div">) {
-    super({ tag: "div" });
+    super({ tag: "div", classNames: [styles.container] });
     this.store = store;
     this.outlet = outlet;
-    this.title = new BaseElement<"h1">({ tag: "h1", text: `Garage (0)` });
-    this.pageNumber = new BaseElement<"h2">({ tag: "h2", text: "Page #1" });
-    this.carListContainer = new BaseElement({ tag: "div" });
+    this.title = new BaseElement<"h1">({
+      tag: "h1",
+      text: `Garage (0)`,
+      classNames: [styles.title],
+    });
+    this.pageNumber = new BaseElement<"h2">({
+      tag: "h2",
+      text: "Page #1",
+      classNames: [styles["page-number"]],
+    });
+    this.carListContainer = new BaseElement({
+      tag: "div",
+      classNames: [styles["car-list"]],
+    });
     this.store.total$.subscribe((total) => {
       this.title.setText(`Garage (${total})`);
     });
@@ -172,9 +184,13 @@ export class GaragePage extends BaseElement<"div"> {
   }
 
   private renderPagination() {
-    const pagination = new BaseElement<"div">({ tag: "div" });
+    const pagination = new BaseElement<"div">({
+      tag: "div",
+      classNames: [styles.pagination],
+    });
     const previousButton = new Button({
       text: "Prev",
+      classNames: [styles.button],
       callback: () => {
         this.store.previous("garage").catch((error) => {
           console.error("Error going to the previous page:", error);
@@ -183,6 +199,7 @@ export class GaragePage extends BaseElement<"div"> {
     });
     const nextButton = new Button({
       text: "Next",
+      classNames: [styles.button],
       callback: () => {
         this.store.next("garage").catch((error) => {
           console.error("Error going to the next page:", error);
