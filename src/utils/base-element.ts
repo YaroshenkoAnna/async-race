@@ -1,25 +1,24 @@
 import { BaseElementCommon } from "./base-element-common";
 
-export interface BaseElementOptions  {
+export interface BaseElementOptions {
   classNames?: string[];
   text?: string;
   attributes?: Record<string, string | undefined>;
-};
+}
 
 export type Tags = keyof HTMLElementTagNameMap;
 
-export type TagOption<T extends Tags> = {
-  tag?: T;
-};
+export interface TagOption<T extends Tags> extends BaseElementOptions {
+  tag: T;
+}
 
 export class BaseElement<T extends Tags> extends BaseElementCommon {
   protected override _element: HTMLElementTagNameMap[T];
 
-  constructor(options: BaseElementOptions & TagOption<T>) {
+  constructor(options: TagOption<T>) {
     super();
 
-    const tag = options.tag ?? "div";
-    this._element = document.createElement(tag) as HTMLElementTagNameMap[T];
+    this._element = document.createElement(options.tag);
 
     if (options) {
       this.addClasses(options.classNames);

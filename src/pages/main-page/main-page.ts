@@ -1,6 +1,6 @@
 import { BaseElement } from "../../utils/base-element";
 
-class MainPage extends BaseElement<"main"> {
+export class MainPage extends BaseElement<"main"> {
   constructor() {
     super({
       tag: "main",
@@ -10,4 +10,4 @@ class MainPage extends BaseElement<"main"> {
   }
 }
 
-export const mainPage = new MainPage();
+

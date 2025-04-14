@@ -7,7 +7,12 @@ interface InputOptions extends BaseElementOptions {
 
 export class Input extends BaseElement<"input"> {
   constructor(options: InputOptions) {
-    super({ tag: "input" });
+    super({
+      tag: "input",
+      classNames: options.classNames,
+      text: options.text,
+      attributes: options.attributes,
+    });
 
     this.setType(options.type);
   }

@@ -1,13 +1,23 @@
 import { BaseElement } from "../../utils/base-element";
+import styles from "./error-page.module.scss";
 
-class ErrorPage extends BaseElement<"main"> {
+export class ErrorPage extends BaseElement<"main"> {
   constructor() {
     super({
       tag: "main",
     });
-
-    this.setText("Error 404");
+    this.render();
+  }
+  private render(): void {
+    const image = new BaseElement({
+      tag: "img",
+      classNames: [styles.image],
+      attributes: {
+        src: "./error.png",
+        alt: "error image",
+      },
+    });
+    this.appendChildren(image);
   }
 }
 
-export const errorPage = new ErrorPage();
