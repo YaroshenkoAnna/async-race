@@ -5,12 +5,14 @@ import { Router } from "./router/router";
 import { BaseElement } from "./utils/base-element";
 import { ConnectionOverlay } from "./components/connection-overlay/connection-overlay";
 import { DEFAULT_ROUTE, ERROR_ROUTE } from "./router/constants";
+import { Footer } from "./components/footer/footer";
 
 const container = new BaseElement({
   tag: "div",
   classNames: [styles.container],
 });
-document.body.appendChild(container.node);
+const footer = new Footer();
+document.body.append(container.node, footer.node);
 
 const factory = new PageFactory();
 
