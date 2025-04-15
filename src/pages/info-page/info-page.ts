@@ -34,7 +34,7 @@ export class InfoPage extends BaseElement<"main"> {
       attributes: { href: "https://github.com/YaroshenkoAnna" },
     });
     const button = new Button({
-      text: "Back to main page",
+      text: "Return",
       classNames: [styles.button],
       callback: () => {
         globalThis.location.hash = this.defaultRoute;

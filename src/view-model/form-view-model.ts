@@ -32,7 +32,6 @@ export class FormViewModel {
   }
 
   private validate() {
-    console.log("Validating form...");
     const isValid = this.validator.validateForm(
       this.login$.value,
       this.password$.value

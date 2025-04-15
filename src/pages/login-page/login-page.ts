@@ -2,10 +2,12 @@ import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { BaseElement } from "../../utils/base-element";
 import { FormViewModel } from "../../view-model/form-view-model";
+//import { LoginViewModel } from "../../view-model/login-view-model";
 import styles from "./login-page.module.scss";
 
 export class LoginPage extends BaseElement<"main"> {
   private vm = new FormViewModel();
+  //private loginVm = new LoginViewModel();
   private form = new BaseElement({ tag: "form", classNames: [styles.form] });
   private fieldset = new BaseElement({
     tag: "fieldset",
@@ -45,7 +47,12 @@ export class LoginPage extends BaseElement<"main"> {
   public submitButton = new Button({
     text: "Submit",
     attributes: { type: "submit" },
-    callback: () => {},
+    callback: () => {
+
+
+      const wb = new WebSocket("ws://localhost:4000");
+    
+    },
   });
   public infoButton = new Button({
     text: "Info",

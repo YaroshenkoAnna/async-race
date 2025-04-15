@@ -1,0 +1,1 @@
+export const DEFAULT_SERVER_URL = "ws://localhost:4000";

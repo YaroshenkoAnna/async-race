@@ -6,6 +6,8 @@ import { InfoPage } from "./pages/info-page/info-page";
 import { ErrorPage } from "./pages/error-page/error-page";
 import { MainPage } from "./pages/main-page/main-page";
 import { LoginPage } from "./pages/login-page/login-page";
+import { SocketClient } from "./network/socket-client";
+import { ConnectionOverlay } from "./components/connection-overlay/connection-overlay";
 
 const container = new BaseElement({
   tag: "div",
@@ -22,3 +24,20 @@ export const mainPage = new MainPage();
 export const loginPage = new LoginPage();
 
 const router = new Router(APP_ROUTES, container, defaultRoute, errorRoute);
+
+const client = new SocketClient();
+
+let overlay: ConnectionOverlay | null = null;
+
+client.isConnected$.subscribeAndGet((isConnected) => {
+  if (!isConnected && !overlay) {
+    console.log("Creating overlay");
+    overlay = new ConnectionOverlay();
+    document.body.appendChild(overlay.node);
+  }
+
+  if (isConnected && overlay) {
+    overlay.deleteElement();
+    overlay = null;
+  }
+});
