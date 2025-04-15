@@ -1,0 +1,20 @@
+.error {
+  border: 1px solid var(--error-color);
+
+  &:focus {
+    outline: 2px solid var(--error-color);
+  }
+}
+
+.error-message {
+  grid-area: error;
+  color: var(--error-color);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+}
+
+input:focus {
+  outline: 2px solid blue;
+  border-radius: 5px;
+}

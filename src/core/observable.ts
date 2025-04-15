@@ -19,8 +19,8 @@ export class Observable<T> extends EventEmitter<T> {
     this.emit(this._value);
   }
 
-  public silentUpdate(callback: (value: T) => T): void {
-    this._value = callback(this._value);
+  public subscribeAndGet(listener: (value: T) => void): () => void {
+    listener(this._value);
+    return this.subscribe(listener);
   }
 }
-
