@@ -8,7 +8,7 @@ export class FormValidator {
 
   public validatePassword(password: string): boolean {
     this.passwordErrors = [];
-    const minPasswordLength = 8;
+    const minPasswordLength = 6;
     const maxPasswordLength = 20;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);

@@ -1,0 +1,25 @@
+import { AuthService } from "../services/auth-service";
+import { Router } from "../router/router";
+import { userStore } from "../stores/user-store";
+
+export class LoginViewModel {
+  private router: Router | null = null;
+  constructor(private authService: AuthService) {}
+
+  public async submit(login: string, password: string): Promise<string | null> {
+    try {
+      const user = await this.authService.login(login, password);
+      if (user.isLogined && this.router) {
+        userStore.setUser(user);
+        this.router.navigate("/main");
+        return null;
+      }
+      return "Error";
+    } catch (err) {
+      return typeof err === "string" ? err : "Server error";
+    }
+  }
+  public setRouter(router: Router): void {
+    this.router = router;
+  }
+}

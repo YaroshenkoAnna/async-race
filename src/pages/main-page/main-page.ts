@@ -6,6 +6,7 @@ export class MainPage extends BaseElement<"main"> {
       tag: "main",
     });
 
+    
     this.setText("Main page");
   }
 }

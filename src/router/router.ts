@@ -1,4 +1,4 @@
-import type { Route } from "./routes";
+import type { Route } from "./types";
 import type { BaseElement } from "../utils/base-element";
 
 export class Router {
@@ -30,7 +30,8 @@ export class Router {
   }
 
   private async loadRoute(): Promise<void> {
-    const path = globalThis.location.hash.slice(1);
+    const rawPath = globalThis.location.hash;
+    const path = rawPath.replace(/^#\/?/, "/");
 
     const route =
       this.routes.find((route) => route.path === path) ||
@@ -45,7 +46,12 @@ export class Router {
     }
   }
 
-  private navigate(path: string): void {
-    globalThis.location.hash = path;
+  public navigate(path: string, replace = false): void {
+    const newUrl = `#/${path.replace(/^\/+/, "")}`;
+    if (replace) {
+      globalThis.history.replaceState(null, "", newUrl);
+    } else {
+      globalThis.location.hash = newUrl;
+    }
   }
 }

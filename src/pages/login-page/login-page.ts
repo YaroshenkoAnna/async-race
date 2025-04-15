@@ -2,12 +2,12 @@ import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { BaseElement } from "../../utils/base-element";
 import { FormViewModel } from "../../view-model/form-view-model";
-//import { LoginViewModel } from "../../view-model/login-view-model";
+import { LoginViewModel } from "../../view-model/login-view-model";
 import styles from "./login-page.module.scss";
 
 export class LoginPage extends BaseElement<"main"> {
-  private vm = new FormViewModel();
-  //private loginVm = new LoginViewModel();
+  private formVM: FormViewModel;
+  private loginVM: LoginViewModel;
   private form = new BaseElement({ tag: "form", classNames: [styles.form] });
   private fieldset = new BaseElement({
     tag: "fieldset",
@@ -47,12 +47,7 @@ export class LoginPage extends BaseElement<"main"> {
   public submitButton = new Button({
     text: "Submit",
     attributes: { type: "submit" },
-    callback: () => {
-
-
-      const wb = new WebSocket("ws://localhost:4000");
-    
-    },
+    callback: () => this.onSubmit(),
   });
   public infoButton = new Button({
     text: "Info",
@@ -61,11 +56,14 @@ export class LoginPage extends BaseElement<"main"> {
     },
   });
 
-  constructor() {
+  constructor(loginVM: LoginViewModel, formVM: FormViewModel) {
     super({
       tag: "main",
       classNames: [styles.main],
     });
+
+    this.formVM = formVM;
+    this.loginVM = loginVM;
 
     this.render();
     this.bind();
@@ -87,18 +85,26 @@ export class LoginPage extends BaseElement<"main"> {
   }
 
   private bind() {
-    this.vm.isFormValid$.subscribe((isValid) => {
+    this.formVM.isFormValid$.subscribe((isValid) => {
       this.submitButton.setDisabled?.(!isValid);
     });
 
     this.loginInput.observe((value) => {
-      this.vm.setLogin(value);
-      this.loginInput.showErrors(this.vm.getLoginErrors());
+      this.formVM.setLogin(value);
+      this.loginInput.showErrors(this.formVM.getLoginErrors());
     });
 
     this.passwordInput.observe((value) => {
-      this.vm.setPassword(value);
-      this.passwordInput.showErrors(this.vm.getPasswordErrors());
+      this.formVM.setPassword(value);
+      this.passwordInput.showErrors(this.formVM.getPasswordErrors());
     });
+  }
+
+  private async onSubmit() {
+    const error = await this.loginVM.submit(
+      this.loginInput.value,
+      this.passwordInput.value
+    );
+    if (error) console.log(error);
   }
 }
