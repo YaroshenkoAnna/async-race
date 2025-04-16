@@ -1,0 +1,77 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background: var(--background-gradient);
+  box-shadow: var(--container-shadow);
+  border-radius: var(--border-radius);
+}
+
+.contacts,
+.dialog {
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+  background: var(--background-gradient);
+  box-shadow: var(--container-shadow);
+  border-radius: var(--border-radius);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dialog {
+  flex: 2;
+  justify-content: space-between;
+}
+
+.contacts {
+  max-width: 300px;
+  flex: 1;
+}
+
+.dialog-input {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: stretch;
+}
+
+.message-input {
+  display: flex;
+  flex: 1;
+}
+
+.dialog-header {
+  padding-bottom: 1rem;
+  margin: 0 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.dialog-body {
+  border-radius: var(--border-radius);
+  width: 100%;
+  flex: 1;
+  box-shadow: var(--container-shadow);
+  background: rgba(0, 0, 0, 0.05);
+}

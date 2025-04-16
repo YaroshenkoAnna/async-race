@@ -3,7 +3,7 @@
   --primary-color: #000000;
   --background-gradient: linear-gradient(
     180deg,
-    rgba(183, 195, 199, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
     rgba(213, 245, 243, 1) 52%,
     rgba(255, 255, 255, 1) 100%
   );
@@ -17,18 +17,20 @@
 }
 
 .container {
+  margin: 0 auto;
   flex: 1;
   display: flex;
-
+  max-width: 1200px;
+  width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 body {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-
+  gap: 2rem;
   min-height: 100vh;
   background: var(--background-gradient);
 }

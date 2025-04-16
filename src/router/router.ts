@@ -55,3 +55,22 @@ export class Router {
     }
   }
 }
+
+let routerInstance: Router | null = null;
+
+export function getRouter(): Router {
+  if (!routerInstance) {
+    throw new Error("Router has not been initialized yet.");
+  }
+  return routerInstance;
+}
+
+export function initRouter(
+  routes: Route[],
+  outlet: BaseElement<"div">,
+  defaultRoute: string,
+  errorRoute: string
+): Router {
+  routerInstance = new Router(routes, outlet, defaultRoute, errorRoute);
+  return routerInstance;
+}

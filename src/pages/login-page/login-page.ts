@@ -4,6 +4,7 @@ import { BaseElement } from "../../utils/base-element";
 import { FormViewModel } from "../../view-model/form-view-model";
 import { LoginViewModel } from "../../view-model/login-view-model";
 import styles from "./login-page.module.scss";
+import { getRouter } from "../../router/router";
 
 export class LoginPage extends BaseElement<"main"> {
   private formVM: FormViewModel;
@@ -52,7 +53,7 @@ export class LoginPage extends BaseElement<"main"> {
   public infoButton = new Button({
     text: "Info",
     callback: () => {
-      globalThis.location.hash = "/info";
+      getRouter().navigate("/info");
     },
   });
 
@@ -101,10 +102,6 @@ export class LoginPage extends BaseElement<"main"> {
   }
 
   private async onSubmit() {
-    const error = await this.loginVM.submit(
-      this.loginInput.value,
-      this.passwordInput.value
-    );
-    if (error) console.log(error);
+    await this.loginVM.submit(this.loginInput.value, this.passwordInput.value);
   }
 }

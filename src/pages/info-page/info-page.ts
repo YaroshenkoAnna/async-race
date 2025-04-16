@@ -1,6 +1,7 @@
 import { Button } from "../../components/button/button";
 import { BaseElement } from "../../utils/base-element";
 import styles from "./info-page.module.scss";
+import { getRouter } from "../../router/router";
 
 export class InfoPage extends BaseElement<"main"> {
   private defaultRoute: string;
@@ -37,7 +38,7 @@ export class InfoPage extends BaseElement<"main"> {
       text: "Return",
       classNames: [styles.button],
       callback: () => {
-        globalThis.location.hash = this.defaultRoute;
+        getRouter().navigate(this.defaultRoute);
       },
     });
 
