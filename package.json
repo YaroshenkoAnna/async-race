@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "deploy": "npm run build && gh-pages -d dist -e async-race",
+    "deploy": "npm run build && gh-pages -d dist -e fun-chat",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write .",

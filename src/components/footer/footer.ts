@@ -1,10 +1,12 @@
 import { BaseElement } from "../../utils/base-element";
 import { BaseSVGElement } from "../../utils/base-svg-element";
+import styles from "./footer.module.scss";
 
 export class Footer extends BaseElement<"footer"> {
   constructor() {
     super({
       tag: "footer",
+      classNames: [styles.footer],
     });
     this.render();
   }
@@ -15,7 +17,7 @@ export class Footer extends BaseElement<"footer"> {
       attributes: { href: "https://rs.school/" },
     });
     const logo = new BaseSVGElement({
-      href: "./sprite.svg#rss",
+      href: "./rss.svg#rss",
       attributes: { width: "100", height: "36", fill: "black" },
     });
     logoLink.appendChildren(logo);
@@ -34,6 +36,6 @@ export class Footer extends BaseElement<"footer"> {
       tag: "p",
       text: `2025 © Anna Yaroshenko`,
     });
-    this.appendChildren(logoLink, githubLink, year);
+    this.appendChildren(logoLink, year, githubLink);
   }
 }

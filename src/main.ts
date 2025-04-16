@@ -16,12 +16,7 @@ document.body.append(container.node, footer.node);
 
 const factory = new PageFactory();
 
-const router = new Router(
-  createAppRoutes(factory),
-  container,
-  DEFAULT_ROUTE,
-  ERROR_ROUTE
-);
+new Router(createAppRoutes(factory), container, DEFAULT_ROUTE, ERROR_ROUTE);
 
 const client = factory.getSocket();
 let overlay: ConnectionOverlay | null = null;
