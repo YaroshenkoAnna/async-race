@@ -109,7 +109,6 @@ export class MainPage extends BaseElement<"main"> {
     attributes: { type: "submit" },
     callback: (event) => {
       event.preventDefault();
-
     },
   });
 
@@ -125,6 +124,7 @@ export class MainPage extends BaseElement<"main"> {
 
     this.userStore.activeUsers$.subscribe((active) => {
       const offline = this.userStore.inactiveUsers$.value;
+      console.log("active", active);
       this.renderContacts(active, offline);
     });
 
@@ -136,7 +136,11 @@ export class MainPage extends BaseElement<"main"> {
     this.currentUser.setText(
       `User: ${this.userStore?.currentUser$?.value?.login}`
     ),
-      this.render();
+      this.renderContacts(
+        this.userStore.activeUsers$.value,
+        this.userStore.inactiveUsers$.value
+      );
+    this.render();
   }
 
   private render(): void {

@@ -70,7 +70,6 @@ socket.isConnected$.subscribeAndGet((isConnected) => {
   } else if (isConnected && overlay) {
     overlay.deleteElement();
     overlay = null;
+    const userService = new UserService(socket);
   }
 });
-
-const userService = new UserService(socket);

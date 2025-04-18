@@ -21,6 +21,13 @@ export class UserStore {
   public setUser(user: User) {
     this.currentUser$.set(user);
     this.storage.set(USER_KEY, user);
+    if (user.isLogined) {
+      console.log(this.activeUsers$.value);
+      const current = this.activeUsers$.value;
+      const updated = current.filter((u) => u.login !== user.login);
+      this.activeUsers$.set([...updated, user]);
+      console.log(this.activeUsers$.value);
+    }
   }
 
   public clear() {
@@ -47,5 +54,4 @@ export class UserStore {
 }
 
 const storage = new StorageService(sessionStorage);
-export const  userStore = new UserStore(storage);
-
+export const userStore = new UserStore(storage);

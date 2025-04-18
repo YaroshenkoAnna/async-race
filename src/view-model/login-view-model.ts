@@ -2,6 +2,8 @@ import { AuthService } from "../services/auth-service";
 import { Router } from "../router/router";
 import { userStore } from "../stores/user-store";
 
+
+
 export class LoginViewModel {
   private router: Router | null = null;
   constructor(private authService: AuthService) {}
@@ -12,6 +14,7 @@ export class LoginViewModel {
       if (user.isLogined && this.router) {
         userStore.setUser(user);
         this.router.navigate("/main");
+
         return null;
       }
       return "Error";

@@ -21,7 +21,6 @@ export class SocketClient {
     });
 
     this.socket.addEventListener("close", () => {
-
       this.isConnected$.set(false);
       setTimeout(() => this.connect(), 5000);
     });
