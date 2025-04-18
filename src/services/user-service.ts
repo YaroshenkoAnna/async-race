@@ -9,6 +9,7 @@ interface User {
 
 export class UserService {
   constructor(private client: SocketClient) {
+    this.subscribeToExternalChanges();
     this.fetchAll();
   }
 
@@ -23,6 +24,7 @@ export class UserService {
   }
 
   public fetchActiveUsers(): Promise<User[]> {
+    
     return this.fetchUsers("USER_ACTIVE");
   }
 
@@ -53,6 +55,27 @@ export class UserService {
         type,
         payload: null,
       });
+    });
+  }
+
+  private subscribeToExternalChanges() {
+    this.client.on("USER_EXTERNAL_LOGIN", (res) => {
+      const user = res.payload.user;
+      if (user.isLogined) {
+        const current = userStore.activeUsers$.value;
+        const exists = current.some((u) => u.login === user.login);
+        if (!exists) {
+          userStore.setActive([...current, user]);
+        }
+      }
+    });
+
+    this.client.on("USER_EXTERNAL_LOGOUT", (res) => {
+      const user = res.payload.user;
+      const updated = userStore.activeUsers$.value.filter(
+        (u) => u.login !== user.login
+      );
+      userStore.setActive(updated);
     });
   }
 }

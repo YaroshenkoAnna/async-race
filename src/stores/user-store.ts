@@ -23,11 +23,6 @@ export class UserStore {
     this.currentUser$.set(user);
     this.storage.set(USER_KEY, user);
     this.storage.set(USER_MAP_KEY, password);
-    if (user.isLogined) {
-      const current = this.activeUsers$.value;
-      const updated = current.filter((u) => u.login !== user.login);
-      this.activeUsers$.set([...updated, user]);
-    }
   }
 
   public clear() {
@@ -40,16 +35,21 @@ export class UserStore {
   }
 
   public setActive(users: User[]) {
-    this.activeUsers$.set(users);
+    this.activeUsers$.set(this.excludeCurrentUser(users));
   }
 
   public setInactive(users: User[]) {
-    this.inactiveUsers$.set(users);
+    this.inactiveUsers$.set(this.excludeCurrentUser(users));
   }
 
   public clearAll() {
     this.activeUsers$.set([]);
     this.inactiveUsers$.set([]);
+  }
+
+  private excludeCurrentUser(users: User[]): User[] {
+    const current = this.currentUser$.value;
+    return current ? users.filter((u) => u.login !== current.login) : users;
   }
 }
 
