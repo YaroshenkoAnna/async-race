@@ -9,12 +9,10 @@ interface User {
 
 export class UserService {
   constructor(private client: SocketClient) {
-
     this.fetchAll();
   }
 
   public async fetchAll(): Promise<void> {
-    console.log("Fetching all users...");
     const [active, inactive] = await Promise.all([
       this.fetchUsers("USER_ACTIVE"),
       this.fetchUsers("USER_INACTIVE"),

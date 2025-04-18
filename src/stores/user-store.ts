@@ -1,9 +1,10 @@
 import { Observable } from "../core/observable";
 import { StorageService } from "./storage-service";
 import { User } from "./types";
-import { USER_KEY } from "./constants";
+import { USER_KEY, USER_MAP_KEY } from "./constants";
 
 export class UserStore {
+  public password: string | null = null;
   public currentUser$ = new Observable<User | null>(null);
   public activeUsers$ = new Observable<User[]>([]);
   public inactiveUsers$ = new Observable<User[]>([]);
@@ -11,22 +12,21 @@ export class UserStore {
 
   constructor(storage: StorageService) {
     this.storage = storage;
-
     const user = this.storage.get<User>(USER_KEY);
+    this.password = this.storage.get(USER_MAP_KEY) ?? null;
     if (user?.isLogined) {
       this.currentUser$.set(user);
     }
   }
 
-  public setUser(user: User) {
+  public setUser(user: User, password: string) {
     this.currentUser$.set(user);
     this.storage.set(USER_KEY, user);
+    this.storage.set(USER_MAP_KEY, password);
     if (user.isLogined) {
-      console.log(this.activeUsers$.value);
       const current = this.activeUsers$.value;
       const updated = current.filter((u) => u.login !== user.login);
       this.activeUsers$.set([...updated, user]);
-      console.log(this.activeUsers$.value);
     }
   }
 

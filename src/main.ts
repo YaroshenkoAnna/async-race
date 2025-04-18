@@ -64,6 +64,7 @@ initRouter(routes, container, DEFAULT_ROUTE, ERROR_ROUTE);
 let overlay: ConnectionOverlay | null = null;
 
 socket.isConnected$.subscribeAndGet((isConnected) => {
+  console.log("isConnected", isConnected);
   if (!isConnected && !overlay) {
     overlay = new ConnectionOverlay();
     document.body.append(overlay.node);
@@ -71,5 +72,11 @@ socket.isConnected$.subscribeAndGet((isConnected) => {
     overlay.deleteElement();
     overlay = null;
     const userService = new UserService(socket);
+    console.log(userStore.isAuthenticated, userStore.password);
+    if (userStore.isAuthenticated && userStore.password) {
+      authService
+        .login(userStore.currentUser$.value!.login, userStore.password)
+        .catch(console.error);
+    }
   }
 });

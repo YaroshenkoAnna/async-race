@@ -12,7 +12,7 @@ export class LoginViewModel {
     try {
       const user = await this.authService.login(login, password);
       if (user.isLogined && this.router) {
-        userStore.setUser(user);
+        userStore.setUser(user, password);
         this.router.navigate("/main");
 
         return null;

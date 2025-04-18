@@ -10,7 +10,7 @@ export class AuthService {
   ): Promise<{ login: string; isLogined: boolean }> {
     return new Promise((resolve, reject) => {
       const id = createUniqueId();
-
+      console.log("login");
       const unsub = this.client.on("USER_LOGIN", (res) => {
         if (res.id === id) {
           unsub();
