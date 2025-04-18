@@ -39,7 +39,6 @@ export class Router {
 
     if (route) {
       const page = await route.page(this);
-
       this.outlet.node.replaceChildren(page.node);
     } else {
       console.error(`Route for path ${path} not found.`);
@@ -47,11 +46,13 @@ export class Router {
   }
 
   public navigate(path: string, replace = false): void {
-    const newUrl = `#/${path.replace(/^\/+/, "")}`;
-    if (replace) {
-      globalThis.history.replaceState(null, "", newUrl);
+    const newHash = `#/${path.replace(/^\/+/, "")}`;
+    if (replace && globalThis.location.hash !== newHash) {
+      const url = new URL(globalThis.location.href);
+      url.hash = newHash;
+      globalThis.location.replace(url.toString());
     } else {
-      globalThis.location.hash = newUrl;
+      globalThis.location.hash = newHash;
     }
   }
 }

@@ -48,7 +48,10 @@ export class LoginPage extends BaseElement<"main"> {
   public submitButton = new Button({
     text: "Submit",
     attributes: { type: "submit" },
-    callback: () => this.onSubmit(),
+    callback: (event) => {
+      event.preventDefault();
+      this.onSubmit();
+    },
   });
   public infoButton = new Button({
     text: "Info",

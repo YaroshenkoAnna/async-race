@@ -1,0 +1,30 @@
+.contact {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.login {
+  font-size: 1.4rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+}
+
+.message {
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid;
+  color: var(--primary-color);
+}

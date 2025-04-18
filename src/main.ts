@@ -14,6 +14,7 @@ import { DEFAULT_ROUTE, ERROR_ROUTE } from "./router/constants";
 import type { Route } from "./router/types";
 import { userStore } from "./stores/user-store";
 import styles from "./styles.module.scss";
+import { UserService } from "./services/user-service";
 
 const container = new BaseElement({
   tag: "div",
@@ -32,7 +33,7 @@ const routes: Route[] = [
     page: async (router) => {
       if (userStore.isAuthenticated) {
         router.navigate("/main", true);
-        return new MainPage();
+        return new MainPage(userStore);
       }
       loginVM.setRouter(router);
       return new LoginPage(loginVM, formVM);
@@ -45,7 +46,7 @@ const routes: Route[] = [
         router.navigate("/login", true);
         return new LoginPage(loginVM, formVM);
       }
-      return await new MainPage();
+      return await new MainPage(userStore);
     },
   },
   {
@@ -71,3 +72,5 @@ socket.isConnected$.subscribeAndGet((isConnected) => {
     overlay = null;
   }
 });
+
+const userService = new UserService(socket);

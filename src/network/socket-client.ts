@@ -2,7 +2,6 @@ import { Observable } from "../core/observable";
 import { DEFAULT_SERVER_URL } from "./constants";
 import { WSMessage } from "./types";
 
-
 export class SocketClient {
   private socket: WebSocket | null = null;
   public isConnected$ = new Observable<boolean>(false);
@@ -17,12 +16,18 @@ export class SocketClient {
     this.socket = new WebSocket(this.url);
 
     this.socket.addEventListener("open", () => {
+      console.log("WebSocket opened", new Date());
       this.isConnected$.set(true);
     });
 
     this.socket.addEventListener("close", () => {
+
       this.isConnected$.set(false);
-      setTimeout(() => this.connect(), 5000); 
+      setTimeout(() => this.connect(), 5000);
+    });
+
+    this.socket.addEventListener("error", (event) => {
+      console.error("WebSocket error:", event);
     });
 
     this.socket.addEventListener("message", (event) => {

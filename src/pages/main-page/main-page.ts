@@ -3,6 +3,10 @@ import { Input } from "../../components/input/input";
 import { BaseElement } from "../../utils/base-element";
 import styles from "./main-page.module.scss";
 import { getRouter } from "../../router/router";
+import { User } from "../../stores/types";
+import { UserStore } from "../../stores/user-store";
+import { Contact } from "../../components/contact/contact";
+import { Status } from "../../components/contact/contact";
 
 export class MainPage extends BaseElement<"main"> {
   private header = new BaseElement({
@@ -25,7 +29,6 @@ export class MainPage extends BaseElement<"main"> {
 
   private currentUser = new BaseElement({
     tag: "label",
-    text: "User",
   });
 
   private title = new BaseElement({
@@ -104,16 +107,36 @@ export class MainPage extends BaseElement<"main"> {
   private sendButton = new Button({
     text: "Send",
     attributes: { type: "submit" },
-    callback: () => {},
+    callback: (event) => {
+      event.preventDefault();
+
+    },
   });
 
-  constructor() {
+  private userStore: UserStore;
+
+  constructor(userStore: UserStore) {
     super({
       tag: "main",
       classNames: [styles.main],
     });
 
-    this.render();
+    this.userStore = userStore;
+
+    this.userStore.activeUsers$.subscribe((active) => {
+      const offline = this.userStore.inactiveUsers$.value;
+      this.renderContacts(active, offline);
+    });
+
+    this.userStore.inactiveUsers$.subscribe((inactive) => {
+      const online = this.userStore.activeUsers$.value;
+      this.renderContacts(online, inactive);
+    });
+
+    this.currentUser.setText(
+      `User: ${this.userStore?.currentUser$?.value?.login}`
+    ),
+      this.render();
   }
 
   private render(): void {
@@ -134,5 +157,16 @@ export class MainPage extends BaseElement<"main"> {
     this.dialogHeader.appendChildren(this.selectedUser, this.status);
     this.dialogBody.appendChildren(this.info);
     this.dialogInput.appendChildren(this.messageInput, this.sendButton);
+  }
+
+  private renderContacts(online: User[], offline: User[]): void {
+    this.usersList.deleteChildren();
+    online.forEach((user) => {
+      this.usersList.appendChildren(new Contact(user.login, Status.Online));
+    });
+
+    offline.forEach((user) => {
+      this.usersList.appendChildren(new Contact(user.login, Status.Offline));
+    });
   }
 }

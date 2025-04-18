@@ -4,7 +4,10 @@ import { createUniqueId } from "../network/helpers/create-unique-id";
 export class AuthService {
   constructor(private client: SocketClient) {}
 
-  public login(login: string, password: string): Promise<{ login: string; isLogined: boolean }> {
+  public login(
+    login: string,
+    password: string
+  ): Promise<{ login: string; isLogined: boolean }> {
     return new Promise((resolve, reject) => {
       const id = createUniqueId();
 
