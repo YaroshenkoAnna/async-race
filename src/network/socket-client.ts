@@ -16,7 +16,6 @@ export class SocketClient {
     this.socket = new WebSocket(this.url);
 
     this.socket.addEventListener("open", () => {
-      console.log("WebSocket opened", new Date());
       this.isConnected$.set(true);
     });
 

@@ -33,7 +33,7 @@ const routes: Route[] = [
     page: async (router) => {
       if (userStore.isAuthenticated) {
         router.navigate("/main", true);
-        return new MainPage(userStore);
+        return new MainPage(userStore, loginVM);
       }
       loginVM.setRouter(router);
       return new LoginPage(loginVM, formVM);
@@ -46,7 +46,7 @@ const routes: Route[] = [
         router.navigate("/login", true);
         return new LoginPage(loginVM, formVM);
       }
-      return await new MainPage(userStore);
+      return await new MainPage(userStore, loginVM);
     },
   },
   {
@@ -64,7 +64,6 @@ initRouter(routes, container, DEFAULT_ROUTE, ERROR_ROUTE);
 let overlay: ConnectionOverlay | null = null;
 
 socket.isConnected$.subscribeAndGet((isConnected) => {
-  console.log("isConnected", isConnected);
   if (!isConnected && !overlay) {
     overlay = new ConnectionOverlay();
     document.body.append(overlay.node);
@@ -72,7 +71,6 @@ socket.isConnected$.subscribeAndGet((isConnected) => {
     overlay.deleteElement();
     overlay = null;
     const userService = new UserService(socket);
-    console.log(userStore.isAuthenticated, userStore.password);
     if (userStore.isAuthenticated && userStore.password) {
       authService
         .login(userStore.currentUser$.value!.login, userStore.password)

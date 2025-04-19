@@ -1,8 +1,6 @@
 import { AuthService } from "../services/auth-service";
-import { Router } from "../router/router";
+import { getRouter, Router } from "../router/router";
 import { userStore } from "../stores/user-store";
-
-
 
 export class LoginViewModel {
   private router: Router | null = null;
@@ -24,5 +22,18 @@ export class LoginViewModel {
   }
   public setRouter(router: Router): void {
     this.router = router;
+  }
+
+  public logout() {
+    const currentUser = userStore.currentUser$.value;
+    if (currentUser && userStore.password) {
+      this.authService
+        .logout(currentUser.login, userStore.password)
+        .then(() => {
+          userStore.clear();
+          getRouter().navigate("/login");
+        })
+        .catch(console.error);
+    }
   }
 }

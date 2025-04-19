@@ -7,6 +7,7 @@ import { User } from "../../stores/types";
 import { UserStore } from "../../stores/user-store";
 import { Contact } from "../../components/contact/contact";
 import { Status } from "../../components/contact/contact";
+import { LoginViewModel } from "../../view-model/login-view-model";
 
 export class MainPage extends BaseElement<"main"> {
   private header = new BaseElement({
@@ -48,13 +49,7 @@ export class MainPage extends BaseElement<"main"> {
       getRouter().navigate("/info");
     },
   });
-  private logoutButton = new Button({
-    text: "Logout",
-    classNames: [styles.button],
-    callback: () => {
-      getRouter().navigate("/login");
-    },
-  });
+  private logoutButton: Button;
 
   private search = new Input({
     type: "text",
@@ -114,17 +109,24 @@ export class MainPage extends BaseElement<"main"> {
 
   private userStore: UserStore;
 
-  constructor(userStore: UserStore) {
+  constructor(userStore: UserStore, loginVM: LoginViewModel) {
     super({
       tag: "main",
       classNames: [styles.main],
+    });
+
+    this.logoutButton = new Button({
+      text: "Logout",
+      classNames: [styles.button],
+      callback: () => {
+        loginVM.logout()
+      },
     });
 
     this.userStore = userStore;
 
     this.userStore.activeUsers$.subscribe((active) => {
       const offline = this.userStore.inactiveUsers$.value;
-      console.log("active", active);
       this.renderContacts(active, offline);
     });
 
