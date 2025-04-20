@@ -71,6 +71,7 @@ export class UserService {
     });
 
     this.client.on("USER_EXTERNAL_LOGOUT", (res) => {
+      
       const user = res.payload.user;
       const updated = userStore.activeUsers$.value.filter(
         (u) => u.login !== user.login

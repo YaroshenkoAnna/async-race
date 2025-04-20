@@ -173,11 +173,21 @@ export class MainPage extends BaseElement<"main"> {
   private renderContacts(online: User[], offline: User[]): void {
     this.usersList.deleteChildren();
     online.forEach((user) => {
-      this.usersList.appendChildren(new Contact(user.login, Status.Online));
+      this.usersList.appendChildren(
+        new Contact(user.login, Status.Online, () => {
+          this.selectedUser.setText(user.login);
+          this.status.setText(Status.Online);
+        })
+      );
     });
 
     offline.forEach((user) => {
-      this.usersList.appendChildren(new Contact(user.login, Status.Offline));
+      this.usersList.appendChildren(
+        new Contact(user.login, Status.Offline, () => {
+          this.selectedUser.setText(user.login);
+          this.status.setText(Status.Offline);
+        })
+      );
     });
   }
 }
