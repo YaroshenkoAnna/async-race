@@ -8,6 +8,9 @@ export class UserStore {
   public currentUser$ = new Observable<User | null>(null);
   public activeUsers$ = new Observable<User[]>([]);
   public inactiveUsers$ = new Observable<User[]>([]);
+  private allActiveUsers: User[] = [];
+  private allInactiveUsers: User[] = [];
+
   private storage: StorageService;
 
   constructor(storage: StorageService) {
@@ -36,16 +39,38 @@ export class UserStore {
   }
 
   public setActive(users: User[]) {
+    this.allActiveUsers = users;
     this.activeUsers$.set(this.excludeCurrentUser(users));
   }
 
   public setInactive(users: User[]) {
+    this.allInactiveUsers = users;
     this.inactiveUsers$.set(this.excludeCurrentUser(users));
   }
 
   public clearAll() {
     this.activeUsers$.set([]);
     this.inactiveUsers$.set([]);
+  }
+
+  public filter(input: string) {
+    this.activeUsers$.set(this.excludeCurrentUser(this.allActiveUsers));
+    this.inactiveUsers$.set(this.excludeCurrentUser(this.allInactiveUsers));
+
+    const active = this.excludeCurrentUser(
+      this.allActiveUsers.filter((user) =>
+        user.login.toLowerCase().includes(input.toLowerCase())
+      )
+    );
+
+    const inactive = this.excludeCurrentUser(
+      this.allInactiveUsers.filter((user) =>
+        user.login.toLowerCase().includes(input.toLowerCase())
+      )
+    );
+
+    this.activeUsers$.set(active);
+    this.inactiveUsers$.set(inactive);
   }
 
   private excludeCurrentUser(users: User[]): User[] {

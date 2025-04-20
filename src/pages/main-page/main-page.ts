@@ -119,7 +119,7 @@ export class MainPage extends BaseElement<"main"> {
       text: "Logout",
       classNames: [styles.button],
       callback: () => {
-        loginVM.logout()
+        loginVM.logout();
       },
     });
 
@@ -163,6 +163,11 @@ export class MainPage extends BaseElement<"main"> {
     this.dialogHeader.appendChildren(this.selectedUser, this.status);
     this.dialogBody.appendChildren(this.info);
     this.dialogInput.appendChildren(this.messageInput, this.sendButton);
+
+    this.search.addListener("input", (e: Event) => {
+      const input = (e.target as HTMLInputElement).value;
+      this.userStore.filter(input);
+    });
   }
 
   private renderContacts(online: User[], offline: User[]): void {

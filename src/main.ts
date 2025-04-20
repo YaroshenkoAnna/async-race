@@ -70,7 +70,7 @@ socket.isConnected$.subscribeAndGet((isConnected) => {
   } else if (isConnected && overlay) {
     overlay.deleteElement();
     overlay = null;
-    const userService = new UserService(socket);
+    new UserService(socket);
     if (userStore.isAuthenticated && userStore.password) {
       authService
         .login(userStore.currentUser$.value!.login, userStore.password)
