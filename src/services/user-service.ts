@@ -24,7 +24,6 @@ export class UserService {
   }
 
   public fetchActiveUsers(): Promise<User[]> {
-    
     return this.fetchUsers("USER_ACTIVE");
   }
 
@@ -62,21 +61,33 @@ export class UserService {
     this.client.on("USER_EXTERNAL_LOGIN", (res) => {
       const user = res.payload.user;
       if (user.isLogined) {
-        const current = userStore.activeUsers$.value;
-        const exists = current.some((u) => u.login === user.login);
-        if (!exists) {
-          userStore.setActive([...current, user]);
+        const active = userStore.activeUsers$.value;
+        const inactive = userStore.inactiveUsers$.value;
+
+        const isActive = active.some((u) => u.login === user.login);
+        if (!isActive) {
+          userStore.setActive([...active, user]);
+        }
+
+        const filteredInactive = inactive.filter((u) => u.login !== user.login);
+        if (filteredInactive.length !== inactive.length) {
+          userStore.setInactive(filteredInactive);
         }
       }
     });
 
     this.client.on("USER_EXTERNAL_LOGOUT", (res) => {
-      
       const user = res.payload.user;
-      const updated = userStore.activeUsers$.value.filter(
+      const updatedActive = userStore.activeUsers$.value.filter(
         (u) => u.login !== user.login
       );
-      userStore.setActive(updated);
+      userStore.setActive(updatedActive);
+
+      const inactive = userStore.inactiveUsers$.value;
+      const alreadyInInactive = inactive.some((u) => u.login === user.login);
+      if (!alreadyInInactive) {
+        userStore.setInactive([...inactive, user]);
+      }
     });
   }
 }

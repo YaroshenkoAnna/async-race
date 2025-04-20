@@ -107,6 +107,8 @@ export class MainPage extends BaseElement<"main"> {
     },
   });
 
+  private selectedLogin: string | null = null;
+
   private userStore: UserStore;
 
   constructor(userStore: UserStore, loginVM: LoginViewModel) {
@@ -172,22 +174,34 @@ export class MainPage extends BaseElement<"main"> {
 
   private renderContacts(online: User[], offline: User[]): void {
     this.usersList.deleteChildren();
+
     online.forEach((user) => {
       this.usersList.appendChildren(
-        new Contact(user.login, Status.Online, () => {
-          this.selectedUser.setText(user.login);
-          this.status.setText(Status.Online);
-        })
+        new Contact(user.login, Status.Online, () =>
+          this.selectUser(user, Status.Online)
+        )
       );
     });
 
     offline.forEach((user) => {
       this.usersList.appendChildren(
-        new Contact(user.login, Status.Offline, () => {
-          this.selectedUser.setText(user.login);
-          this.status.setText(Status.Offline);
-        })
+        new Contact(user.login, Status.Offline, () =>
+          this.selectUser(user, Status.Offline)
+        )
       );
     });
+
+    const all = [...online, ...offline];
+    const found = all.find((u) => u.login === this.selectedLogin);
+    if (found) {
+      const newStatus = online.includes(found) ? Status.Online : Status.Offline;
+      this.status.setText(`Status: ${newStatus}`);
+    }
+  }
+
+  private selectUser(user: User, status: Status): void {
+    this.selectedLogin = user.login;
+    this.selectedUser.setText(`Selected: ${user.login}`);
+    this.status.setText(`Status: ${status}`);
   }
 }
