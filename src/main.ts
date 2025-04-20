@@ -15,6 +15,7 @@ import type { Route } from "./router/types";
 import { userStore } from "./stores/user-store";
 import styles from "./styles.module.scss";
 import { UserService } from "./services/user-service";
+import { MessageService } from "./services/message-service";
 
 const container = new BaseElement({
   tag: "div",
@@ -26,6 +27,7 @@ const socket = new SocketClient();
 const authService = new AuthService(socket);
 const formVM = new FormViewModel();
 const loginVM = new LoginViewModel(authService);
+const messageService = new MessageService(socket);
 
 const routes: Route[] = [
   {
@@ -33,7 +35,7 @@ const routes: Route[] = [
     page: async (router) => {
       if (userStore.isAuthenticated) {
         router.navigate("/main", true);
-        return new MainPage(userStore, loginVM);
+        return new MainPage(userStore, loginVM, messageService);
       }
       loginVM.setRouter(router);
       return new LoginPage(loginVM, formVM);
@@ -46,7 +48,7 @@ const routes: Route[] = [
         router.navigate("/login", true);
         return new LoginPage(loginVM, formVM);
       }
-      return await new MainPage(userStore, loginVM);
+      return await new MainPage(userStore, loginVM, messageService);
     },
   },
   {

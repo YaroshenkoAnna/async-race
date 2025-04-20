@@ -41,8 +41,6 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       const id = createUniqueId();
 
-      console.log("Logout request sent");
-
       const unsub = this.client.on("USER_LOGOUT", (res) => {
         if (res.id === id) {
           unsub();

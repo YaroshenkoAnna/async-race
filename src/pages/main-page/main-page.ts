@@ -3,11 +3,14 @@ import { Input } from "../../components/input/input";
 import { BaseElement } from "../../utils/base-element";
 import styles from "./main-page.module.scss";
 import { getRouter } from "../../router/router";
-import { User } from "../../stores/types";
+import { Message, User } from "../../stores/types";
 import { UserStore } from "../../stores/user-store";
 import { Contact } from "../../components/contact/contact";
 import { Status } from "../../components/contact/contact";
 import { LoginViewModel } from "../../view-model/login-view-model";
+import { MessageService } from "../../services/message-service";
+import { messageStore } from "../../stores/message-store";
+import { MessageList } from "../../components/message-list/message-list";
 
 export class MainPage extends BaseElement<"main"> {
   private header = new BaseElement({
@@ -104,6 +107,7 @@ export class MainPage extends BaseElement<"main"> {
     attributes: { type: "submit" },
     callback: (event) => {
       event.preventDefault();
+      this.sendMessage();
     },
   });
 
@@ -111,7 +115,16 @@ export class MainPage extends BaseElement<"main"> {
 
   private userStore: UserStore;
 
-  constructor(userStore: UserStore, loginVM: LoginViewModel) {
+  private messageService: MessageService;
+  private currentUserLogin: string;
+
+  private hideUnreadDivider = false;
+
+  constructor(
+    userStore: UserStore,
+    loginVM: LoginViewModel,
+    messageService: MessageService
+  ) {
     super({
       tag: "main",
       classNames: [styles.main],
@@ -140,10 +153,13 @@ export class MainPage extends BaseElement<"main"> {
     this.currentUser.setText(
       `User: ${this.userStore?.currentUser$?.value?.login}`
     ),
-      this.renderContacts(
-        this.userStore.activeUsers$.value,
-        this.userStore.inactiveUsers$.value
-      );
+      (this.messageService = messageService);
+    this.currentUserLogin = this.userStore.currentUser$.value?.login ?? "";
+
+    this.renderContacts(
+      this.userStore.activeUsers$.value,
+      this.userStore.inactiveUsers$.value
+    );
     this.render();
   }
 
@@ -165,6 +181,13 @@ export class MainPage extends BaseElement<"main"> {
     this.dialogHeader.appendChildren(this.selectedUser, this.status);
     this.dialogBody.appendChildren(this.info);
     this.dialogInput.appendChildren(this.messageInput, this.sendButton);
+
+    this.messageInput.addListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        this.sendMessage();
+      }
+    });
 
     this.search.addListener("input", (e: Event) => {
       const input = (e.target as HTMLInputElement).value;
@@ -203,5 +226,62 @@ export class MainPage extends BaseElement<"main"> {
     this.selectedLogin = user.login;
     this.selectedUser.setText(`Selected: ${user.login}`);
     this.status.setText(`Status: ${status}`);
+
+    this.messageService.fetchHistory(user.login).then(() => {
+      const messages$ = messageStore.getMessages$(user.login);
+      messages$.subscribe((messages) => {
+        this.updateMessages(messages);
+      });
+    });
+  }
+
+  private updateMessages(messages: Message[]) {
+    this.dialogBody.deleteChildren();
+
+    const unreadDividerIndex = messages.findIndex(
+      (m) => m.to === this.currentUserLogin && !m.status.isReaded
+    );
+
+    const list = new MessageList(
+      messages,
+      this.currentUserLogin,
+      unreadDividerIndex >= 0 ? unreadDividerIndex : null,
+      this.editMessage.bind(this),
+      this.deleteMessage.bind(this)
+    );
+
+    if (unreadDividerIndex >= 0) {
+      const unreadMessages = messages.slice(unreadDividerIndex);
+      unreadMessages.forEach((msg) => {
+        if (!msg.status.isReaded && msg.to === this.currentUserLogin) {
+          this.messageService.markAsRead(msg.id);
+        }
+      });
+    }
+
+    this.dialogBody.appendChildren(list);
+  }
+
+  private sendMessage(): void {
+    if (!this.selectedLogin) return;
+    const text = (this.messageInput.node as HTMLTextAreaElement).value.trim();
+    if (!text) return;
+
+    this.messageService.send(this.selectedLogin, text).then(() => {
+      (this.messageInput.node as HTMLTextAreaElement).value = "";
+    });
+  }
+
+  private editMessage(id: string, oldText: string): void {
+    const newText = prompt("Edit message:", oldText);
+    if (newText && newText.trim()) {
+      this.messageService.editMessage(id, newText.trim());
+    }
+  }
+
+  private deleteMessage(id: string): void {
+    if (confirm("Delete this message?")) {
+      this.messageService.deleteMessage(id);
+    }
   }
 }

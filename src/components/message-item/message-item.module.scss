@@ -1,0 +1,63 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  max-width: 80%;
+  position: relative;
+
+  &.own {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+  }
+}
+
+.text {
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.info {
+  font-size: 0.75rem;
+  color: gray;
+  margin-top: 4px;
+}
+
+.status {
+  font-size: 0.75rem;
+  color: #4caf50;
+  align-self: flex-end;
+  margin-top: 2px;
+}
+
+.controls {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #007aff;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #0051a8;
+  }
+}
+
+.own {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+}
+
+.foreign {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+}
