@@ -11,15 +11,25 @@ enum StatusColor {
 }
 
 export class Contact extends BaseElement<"li"> {
-  constructor(login: string, status: Status, onClick: () => void) {
+  constructor(
+    login: string,
+    status: Status,
+    unreadCount: number,
+    onClick: () => void
+  ) {
     super({
       tag: "li",
       classNames: [styles.contact],
     });
-    this.render(login, status, onClick);
+    this.render(login, status, unreadCount, onClick);
   }
 
-  private render(login: string, status: Status, onClick: () => void): void {
+  private render(
+    login: string,
+    status: Status,
+    unreadCount: number,
+    onClick: () => void
+  ): void {
     const loginElement = new BaseElement({
       tag: "label",
       classNames: [styles.login],
@@ -41,7 +51,7 @@ export class Contact extends BaseElement<"li"> {
     const messageIndicator = new BaseElement({
       tag: "span",
       classNames: [styles.message],
-      text: "1", //from server
+      text: unreadCount > 0 ? String(unreadCount) : "",
     });
     this.appendChildren(container, messageIndicator);
     container.appendChildren(statusIndicator, loginElement);

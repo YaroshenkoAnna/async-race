@@ -198,9 +198,17 @@ export class MainPage extends BaseElement<"main"> {
   private renderContacts(online: User[], offline: User[]): void {
     this.usersList.deleteChildren();
 
+    const getUnreadCount = (login: string) => {
+      return messageStore
+        .getMessages$(login)
+        .value.filter(
+          (m) => !m.status.isReaded && m.to === this.currentUserLogin
+        ).length;
+    };
+
     online.forEach((user) => {
       this.usersList.appendChildren(
-        new Contact(user.login, Status.Online, () =>
+        new Contact(user.login, Status.Online, getUnreadCount(user.login), () =>
           this.selectUser(user, Status.Online)
         )
       );
@@ -208,8 +216,11 @@ export class MainPage extends BaseElement<"main"> {
 
     offline.forEach((user) => {
       this.usersList.appendChildren(
-        new Contact(user.login, Status.Offline, () =>
-          this.selectUser(user, Status.Offline)
+        new Contact(
+          user.login,
+          Status.Offline,
+          getUnreadCount(user.login),
+          () => this.selectUser(user, Status.Offline)
         )
       );
     });
@@ -222,17 +233,29 @@ export class MainPage extends BaseElement<"main"> {
     }
   }
 
+  private selectedMessagesSubscription: (() => void) | null = null;
+
   private selectUser(user: User, status: Status): void {
     this.selectedLogin = user.login;
     this.selectedUser.setText(`Selected: ${user.login}`);
     this.status.setText(`Status: ${status}`);
+    this.hideUnreadDivider = false;
 
-    this.messageService.fetchHistory(user.login).then(() => {
-      const messages$ = messageStore.getMessages$(user.login);
-      messages$.subscribe((messages) => {
-        this.updateMessages(messages);
-      });
+    if (this.selectedMessagesSubscription) {
+      this.selectedMessagesSubscription();
+    }
+
+    const messages$ = messageStore.getMessages$(user.login);
+
+    this.selectedMessagesSubscription = messages$.subscribe((messages) => {
+      this.updateMessages(messages);
     });
+
+    if (messages$.value.length === 0) {
+      this.messageService.fetchHistory(user.login);
+    } else {
+      this.updateMessages(messages$.value);
+    }
   }
 
   private updateMessages(messages: Message[]) {
@@ -266,6 +289,26 @@ export class MainPage extends BaseElement<"main"> {
     if (!this.selectedLogin) return;
     const text = (this.messageInput.node as HTMLTextAreaElement).value.trim();
     if (!text) return;
+
+    this.hideUnreadDivider = true;
+
+    const to = this.selectedLogin;
+    const from = this.currentUserLogin;
+    const message = {
+      id: `temp-${Date.now()}`,
+      from,
+      to,
+      text,
+      datetime: Date.now(),
+      status: {
+        isDelivered: false,
+        isReaded: false,
+        isEdited: false,
+        isDeleted: false,
+      },
+    };
+
+    messageStore.addMessage(to, message);
 
     this.messageService.send(this.selectedLogin, text).then(() => {
       (this.messageInput.node as HTMLTextAreaElement).value = "";
