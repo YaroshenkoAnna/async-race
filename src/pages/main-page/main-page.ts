@@ -117,6 +117,7 @@ export class MainPage extends BaseElement<"main"> {
 
   private messageService: MessageService;
   private currentUserLogin: string;
+  private unreadSubscriptions: Record<string, () => void> = {};
 
   private hideUnreadDivider = false;
 
@@ -140,6 +141,11 @@ export class MainPage extends BaseElement<"main"> {
 
     this.userStore = userStore;
 
+    const currentUser = this.userStore.currentUser$?.value;
+    if (currentUser?.login) {
+      messageStore.setCurrentUserLogin(currentUser.login);
+    }
+
     this.userStore.activeUsers$.subscribe((active) => {
       const offline = this.userStore.inactiveUsers$.value;
       this.renderContacts(active, offline);
@@ -154,7 +160,7 @@ export class MainPage extends BaseElement<"main"> {
       `User: ${this.userStore?.currentUser$?.value?.login}`
     ),
       (this.messageService = messageService);
-    this.currentUserLogin = this.userStore.currentUser$.value?.login ?? "";
+    this.currentUserLogin = currentUser?.login ?? "";
 
     this.renderContacts(
       this.userStore.activeUsers$.value,
@@ -196,34 +202,32 @@ export class MainPage extends BaseElement<"main"> {
   }
 
   private renderContacts(online: User[], offline: User[]): void {
+    for (const unsub of Object.values(this.unreadSubscriptions)) {
+      unsub();
+    }
+    this.unreadSubscriptions = {};
     this.usersList.deleteChildren();
 
-    const getUnreadCount = (login: string) => {
-      return messageStore
-        .getMessages$(login)
-        .value.filter(
-          (m) => !m.status.isReaded && m.to === this.currentUserLogin
-        ).length;
+    const renderContact = (user: User, status: Status) => {
+      const unread$ = messageStore.getUnreadCount$(user.login);
+      const container = new BaseElement({ tag: "li" });
+
+      const render = (count: number) => {
+        container.deleteChildren();
+        container.appendChildren(
+          new Contact(user.login, status, count, () =>
+            this.selectUser(user, status)
+          )
+        );
+      };
+
+      render(unread$.value);
+      this.unreadSubscriptions[user.login] = unread$.subscribe(render);
+      this.usersList.appendChildren(container);
     };
 
-    online.forEach((user) => {
-      this.usersList.appendChildren(
-        new Contact(user.login, Status.Online, getUnreadCount(user.login), () =>
-          this.selectUser(user, Status.Online)
-        )
-      );
-    });
-
-    offline.forEach((user) => {
-      this.usersList.appendChildren(
-        new Contact(
-          user.login,
-          Status.Offline,
-          getUnreadCount(user.login),
-          () => this.selectUser(user, Status.Offline)
-        )
-      );
-    });
+    online.forEach((user) => renderContact(user, Status.Online));
+    offline.forEach((user) => renderContact(user, Status.Offline));
 
     const all = [...online, ...offline];
     const found = all.find((u) => u.login === this.selectedLogin);
