@@ -1,0 +1,17 @@
+.confirmModal {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  right: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.confirmButton,
+.cancelButton {
+  margin: 4px;
+  cursor: pointer;
+}

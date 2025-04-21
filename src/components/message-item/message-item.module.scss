@@ -1,6 +1,5 @@
 .message {
-  display: flex;
-  flex-direction: column;
+  list-style: none;
   margin: 8px 0;
   padding: 8px;
   border-radius: 8px;
@@ -21,12 +20,14 @@
 }
 
 .info {
+  display: inline;
   font-size: 0.75rem;
   color: gray;
   margin-top: 4px;
 }
 
 .status {
+  padding-left: 1rem;
   font-size: 0.75rem;
   color: #4caf50;
   align-self: flex-end;

@@ -85,8 +85,22 @@ export class MessageStore {
       (m) =>
         !m.status.isReaded && m.from === user && m.to === this.currentUserLogin
     ).length;
-    console.log(`[updateUnreadCount] for ${user} → ${count}`);
     this.getUnreadCount$(user).set(count);
+  }
+
+  public removeMessage(id: string): void {
+    console.log("removeMessage", id);
+    for (const user in this.messages) {
+      const msgs = this.messages[user].value;
+      const index = msgs.findIndex((m) => m.id === id);
+      if (index !== -1) {
+        const updated = msgs.slice();
+        updated.splice(index, 1);
+        this.messages[user].set(updated);
+        this.updateUnreadCount(user);
+        return;
+      }
+    }
   }
 }
 

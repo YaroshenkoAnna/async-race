@@ -25,7 +25,10 @@ export class MessageList extends BaseElement<"ul"> {
   ) {
     if (!messages.length) {
       this.appendChildren(
-        new BaseElement({ tag: "div", text: "This is the beginning of your conversation." })
+        new BaseElement({
+          tag: "div",
+          text: "This is the beginning of your conversation.",
+        })
       );
       return;
     }

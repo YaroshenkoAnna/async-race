@@ -11,7 +11,7 @@ import { LoginViewModel } from "../../view-model/login-view-model";
 import { MessageService } from "../../services/message-service";
 import { messageStore } from "../../stores/message-store";
 import { MessageList } from "../../components/message-list/message-list";
-
+import { ConfirmationModal } from "../../components/confirmation-modal/confirmation-modal";
 export class MainPage extends BaseElement<"main"> {
   private header = new BaseElement({
     tag: "section",
@@ -119,6 +119,7 @@ export class MainPage extends BaseElement<"main"> {
   private currentUserLogin: string;
   private unreadSubscriptions: Record<string, () => void> = {};
 
+  private editingMessageId: string | null = null;
   private hideUnreadDivider = false;
 
   constructor(
@@ -210,20 +211,31 @@ export class MainPage extends BaseElement<"main"> {
 
     const renderContact = (user: User, status: Status) => {
       const unread$ = messageStore.getUnreadCount$(user.login);
-      const container = new BaseElement({ tag: "li" });
 
-      const render = (count: number) => {
-        container.deleteChildren();
-        container.appendChildren(
-          new Contact(user.login, status, count, () =>
-            this.selectUser(user, status)
-          )
+      let contact = new Contact(user.login, status, unread$.value, () =>
+        this.selectUser(user, status)
+      );
+      this.usersList.appendChildren(contact);
+
+      const unsub = unread$.subscribe((count) => {
+        const updated = new Contact(user.login, status, count, () =>
+          this.selectUser(user, status)
         );
-      };
 
-      render(unread$.value);
-      this.unreadSubscriptions[user.login] = unread$.subscribe(render);
-      this.usersList.appendChildren(container);
+        const index = Array.from(this.usersList.node.children).indexOf(
+          contact.node
+        );
+        if (index !== -1) {
+          this.usersList.node.children[index].replaceWith(updated.node);
+          contact = updated;
+        } else {
+          console.warn(
+            `[replaceWith] Contact node not found for ${user.login}`
+          );
+        }
+      });
+
+      this.unreadSubscriptions[user.login] = unsub;
     };
 
     online.forEach((user) => renderContact(user, Status.Online));
@@ -290,18 +302,24 @@ export class MainPage extends BaseElement<"main"> {
   }
 
   private sendMessage(): void {
-    if (!this.selectedLogin) return;
-    const text = (this.messageInput.node as HTMLTextAreaElement).value.trim();
-    if (!text) return;
+    const text = (this.messageInput.node as HTMLTextAreaElement).value;
+    if (!this.selectedLogin || !text) return;
 
     this.hideUnreadDivider = true;
 
-    const to = this.selectedLogin;
-    const from = this.currentUserLogin;
+    if (this.editingMessageId) {
+      this.messageService.editMessage(this.editingMessageId, text).then(() => {
+        this.editingMessageId = null;
+        this.sendButton.setText("Send");
+        (this.messageInput.node as HTMLTextAreaElement).value = "";
+      });
+      return;
+    }
+
     const message = {
       id: `temp-${Date.now()}`,
-      from,
-      to,
+      from: this.currentUserLogin,
+      to: this.selectedLogin,
       text,
       datetime: Date.now(),
       status: {
@@ -312,7 +330,7 @@ export class MainPage extends BaseElement<"main"> {
       },
     };
 
-    messageStore.addMessage(to, message);
+    messageStore.addMessage(this.selectedLogin, message);
 
     this.messageService.send(this.selectedLogin, text).then(() => {
       (this.messageInput.node as HTMLTextAreaElement).value = "";
@@ -320,15 +338,15 @@ export class MainPage extends BaseElement<"main"> {
   }
 
   private editMessage(id: string, oldText: string): void {
-    const newText = prompt("Edit message:", oldText);
-    if (newText && newText.trim()) {
-      this.messageService.editMessage(id, newText.trim());
-    }
+    this.messageInput.setText("");
+    this.editingMessageId = id;
+    (this.messageInput.node as HTMLTextAreaElement).value = oldText;
+    this.sendButton.setText("Edit");
   }
 
   private deleteMessage(id: string): void {
-    if (confirm("Delete this message?")) {
-      this.messageService.deleteMessage(id);
-    }
+    this.messageService.deleteMessage(id).then(() => {
+      messageStore.removeMessage(id);
+    });
   }
 }
